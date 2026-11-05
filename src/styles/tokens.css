@@ -1,0 +1,111 @@
+/*
+ * 【控制畫面】全站
+ * 【負責功能】設計變數（顏色、字型、字級、間距、毛玻璃、相簿尺寸）集中管理。
+ * 【資料來源】數值由兩張設計稿量測換算：首頁稿寬約 1086px、分頁稿寬約 887px。
+ *            「--u」是設計單位＝視窗寬度的 1%，最大 12.4px（約 1240px 寬以上不再放大）。
+ *            例如設計稿中 50px 的標語 ÷ 1086 ≈ 4.6% → 4.6 × var(--u)。
+ * 【常見修改】
+ *   - 全站顏色：--color-*
+ *   - 字型：--font-serif、--font-sans
+ *   - 字級：--fs-*
+ *   - 頁面左右留白、最大寬度：--gutter、--container-max
+ *   - 相簿每次顯示幾張、手機照片最高高度：--carousel-visible、--carousel-max-h（在本檔最下方的平板／手機區段）
+ * 【注意事項】改數值後請用 npm run dev 在桌面、平板、手機寬度各看一次。
+ */
+
+:root {
+  /* ── 設計單位 ── */
+  --u: min(1vw, 12.4px);
+
+  /* ── 顏色：深黑、暖炭灰、米白、柔和灰 ── */
+  --color-bg: #141312;            /* 頁面背景（深黑偏暖） */
+  --color-bg-raised: #1c1a19;     /* 稍亮的暖炭灰（卡片、相簿底） */
+  --color-img-bg: #221f1d;        /* 圖片載入前的底色 */
+  --color-text: #ece6dc;          /* 主文字：米白 */
+  --color-text-soft: #cfc8bd;     /* 次要標題 */
+  --color-muted: #a39d94;         /* 輔助文字：柔和灰 */
+  --color-line: rgba(236, 230, 220, 0.26);        /* 細分隔線 */
+  --color-line-strong: rgba(236, 230, 220, 0.55); /* 短線、底線 */
+  --color-focus: #e8dccb;         /* 鍵盤焦點外框 */
+
+  /* ── 毛玻璃（導覽列、資訊卡、小標籤） ── */
+  --glass-header-bg: linear-gradient(180deg, rgba(62, 59, 56, 0.78), rgba(44, 42, 40, 0.74));
+  --glass-card-bg: rgba(78, 74, 70, 0.38);
+  --glass-border: rgba(236, 230, 220, 0.32);
+  --glass-blur: blur(14px) saturate(115%);
+
+  /* ── 字型（替代字型：Source Serif 4、Inter；原稿字型未提供） ── */
+  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
+
+  /* ── 字級（桌面基準） ── */
+  --fs-brand: max(20px, calc(2.76 * var(--u)));
+  --fs-brand-sub: max(9px, calc(1.02 * var(--u)));
+  --fs-nav: max(15px, calc(1.75 * var(--u)));
+  --fs-display: max(32px, calc(4.6 * var(--u)));      /* 首頁標語、Selected works. */
+  --fs-feature-title: max(18px, calc(2.03 * var(--u))); /* 01 / Emotional */
+  --fs-body: max(14px, calc(1.48 * var(--u)));        /* 首頁短介紹 */
+  --fs-eyebrow: max(11px, calc(1.32 * var(--u)));     /* EXPLORE WORKS */
+  --fs-micro: max(9px, calc(1.02 * var(--u)));        /* 01 / EMOTIONAL */
+
+  /* 分頁（設計稿寬 887px 換算） */
+  --fs-breadcrumb: max(13px, calc(1.6 * var(--u)));
+  --fs-page-title: max(44px, calc(6.3 * var(--u)));
+  --fs-page-intro: max(15px, calc(1.9 * var(--u)));
+  --fs-chapter-num: max(14px, calc(1.9 * var(--u)));
+  --fs-chapter-title: max(30px, calc(4.3 * var(--u)));
+  --fs-chapter-text: max(14px, calc(1.75 * var(--u)));
+  --fs-pill: max(11px, calc(1.5 * var(--u)));
+  --fs-counter: max(14px, calc(1.9 * var(--u)));
+
+  /* ── 版面 ── */
+  --container-max: 1200px;
+  --gutter: max(16px, calc(4.1 * var(--u)));
+  --header-h: max(64px, calc(8 * var(--u)));
+  --radius-card: 10px;
+  --radius-pill: 8px;
+
+  /* ── 相簿（桌面：一次約 3 張 9:16） ── */
+  --carousel-visible: 3;
+  --carousel-gap: max(5px, calc(0.68 * var(--u)));
+  --carousel-max-h: 80vh;
+
+  /* ── 動態 ── */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 240ms;
+}
+
+/* ───────── 平板（768–1023px） ───────── */
+@media (max-width: 1023.98px) {
+  :root {
+    --u: 1.1vw;
+    --carousel-visible: 2;
+  }
+}
+
+/* ───────── 手機（< 768px） ───────── */
+@media (max-width: 767.98px) {
+  :root {
+    --u: 1vw;
+    --gutter: 16px;
+    --header-h: 64px;
+    --fs-display: clamp(30px, 8.6vw, 40px);
+    --fs-page-title: clamp(40px, 12vw, 56px);
+    --fs-chapter-title: clamp(28px, 8vw, 36px);
+    --fs-feature-title: 19px;
+    --fs-body: 15px;
+    --fs-chapter-text: 15px;
+    --fs-page-intro: 16px;
+    --fs-counter: 15px;
+    /* 手機相簿：主要顯示 1 張，露出下一張的一小部分 */
+    --carousel-visible: 1.22;
+    --carousel-gap: 6px;
+    --carousel-max-h: min(64svh, 560px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur: 0ms;
+  }
+}

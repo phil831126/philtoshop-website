@@ -1,0 +1,171 @@
+/**
+ * 【控制畫面】無（全站共用的資料型別）
+ * 【負責功能】定義照片、作品、分類、首頁精選、About 等資料的欄位格式。
+ *            TypeScript 會依此檢查 src/data 內的資料，欄位打錯或漏填時 npm run typecheck 會提示。
+ * 【資料來源】無。此檔只描述格式，實際內容在 src/data/。
+ * 【常見修改】一般更新照片、文字「不需要」改這裡。
+ * 【注意事項】若要新增欄位，需同步修改使用該欄位的元件；不熟悉時建議先不要動。
+ */
+
+/** 六個作品分類的固定 ID（網址與資料關聯都用這個，拼字不可變更） */
+export type CategoryId =
+  | 'emotional'
+  | 'style'
+  | 'monochrome'
+  | 'ordinary'
+  | 'shore'
+  | 'viscera'
+
+/** 一張照片 */
+export interface Photo {
+  /** 照片識別碼：同一組作品內不可重複，建議用「作品縮寫-序號」，例如 ql-01 */
+  id: string
+  /** 圖片路徑：放在 public 之下，以 / 開頭，例如 /images/works/emotional/quiet-light/01.jpg */
+  src: string
+  /** 替代文字：描述照片內容，給螢幕閱讀器與圖片載入失敗時使用 */
+  alt: string
+  /** 原始寬度（像素）：用來保留比例，避免載入時版面跳動 */
+  width: number
+  /** 原始高度（像素） */
+  height: number
+  /** 選填：照片說明，會顯示在大圖檢視下方 */
+  caption?: string
+  /**
+   * 選填：當照片被「裁切顯示」時（首頁主圖、首頁精選、Works 代表圖）的對焦位置。
+   * 寫法同 CSS object-position，例如 'center 30%'（水平置中、垂直偏上）。
+   * 分類分頁的相簿一律完整顯示照片，不使用這個欄位。
+   */
+  objectPosition?: string
+}
+
+/** 一組作品（分類分頁中的一個章節） */
+export interface Project {
+  /** 作品識別碼：全站唯一、穩定不變，用英文小寫與連字號，例如 quiet-light。也是網址錨點 #quiet-light */
+  id: string
+  /** 所屬分類 */
+  categoryId: CategoryId
+  /** 作品名稱（顯示用，可隨時修改，不影響程式關聯） */
+  title: string
+  /** 作品介紹（一到兩句） */
+  description: string
+  /** 選填：年份 */
+  year?: number
+  /** 封面照片：填 photos 中某一張的 id */
+  coverPhotoId: string
+  /** 排序：數字小的在前 */
+  order: number
+  /** 是否顯示在網站上（false＝隱藏；注意這不是隱私保護，照片檔案仍可能被直接存取） */
+  published: boolean
+  /** 照片清單：陣列順序就是相簿顯示順序；照片總數會自動計算 */
+  photos: Photo[]
+}
+
+/** 作品分類 */
+export interface Category {
+  id: CategoryId
+  /** 分類名稱（顯示用） */
+  name: string
+  /** 分類分頁標題下方的一句介紹 */
+  intro: string
+  /** Works 總覽頁的短介紹 */
+  summary: string
+  /** 排序：數字小的在前 */
+  order: number
+  /**
+   * 選填：Works 總覽代表圖。指定某組作品的某張照片。
+   * 未填時自動使用此分類第一組作品的封面。
+   */
+  cover?: PhotoRef
+}
+
+/** 指向某組作品中的某張照片 */
+export interface PhotoRef {
+  projectId: string
+  photoId: string
+}
+
+/**
+ * 首頁精選的版面位置代號。
+ * 首頁精選每 4 個為一組，依附圖的左右不對稱、上下交錯排列：
+ *  - 'wide-left'     ：左側大圖，文字在圖片右側（附圖 01 / Emotional）
+ *  - 'offset-right'  ：右側較低的圖，只顯示小型標籤（附圖海岸照片）
+ *  - 'inset-left'    ：文字在左、圖片內縮（附圖 02 / Monochrome）
+ *  - 'tall-right'    ：右側直式高圖，文字在圖片左下方（附圖 03 / Shore）
+ * 同一組 4 個請各用一次；第 5 個起會自動開始新的一組。
+ */
+export type FeaturedLayout = 'wide-left' | 'offset-right' | 'inset-left' | 'tall-right'
+
+/** 首頁精選作品（與一般作品分開設定，新增作品不會打亂首頁） */
+export interface FeaturedWork {
+  /** 精選項目識別碼（自訂、唯一即可） */
+  id: string
+  /** 連結到哪個分類 */
+  categoryId: CategoryId
+  /** 選填：連結到該分類中的哪組作品（會跳到該章節）；未填則只到分類頁頂端 */
+  projectId?: string
+  /**
+   * 首頁顯示用的照片（會依版面裁切）。
+   * 可以是專門為首頁準備的橫式檔案，也可以直接填某組作品中的照片路徑與尺寸。
+   */
+  image: Photo
+  /** 顯示的編號，例如 '01'；不想顯示可留空字串 */
+  number: string
+  /** 顯示的標題，例如 'Emotional' */
+  heading: string
+  /** 短介紹；可用 \n 指定換行 */
+  text: string
+  /** 版面位置代號（見 FeaturedLayout 說明） */
+  layout: FeaturedLayout
+  /** 排序：數字小的在前 */
+  order: number
+  /** 是否顯示 */
+  published: boolean
+}
+
+/** 首頁首屏 */
+export interface HomeHero {
+  /** 主照片（桌面版約 4:3 橫式裁切；裁切位置用 image.objectPosition 調整，例如 'center 35%'） */
+  image: Photo
+  /** 品牌標語；用 \n 控制桌面版換行位置 */
+  tagline: string
+  /** 「EXPLORE WORKS」連結文字與目的地 */
+  ctaLabel: string
+  ctaTo: string
+  /** 疊在主照片左下的毛玻璃資訊卡 */
+  card: {
+    /** 小字，例如 '01 / EMOTIONAL' */
+    label: string
+    /** 大字，例如 'Ordinary moments.' */
+    title: string
+    /** 點擊資訊卡前往的網址 */
+    to: string
+  }
+}
+
+/** 導覽項目 */
+export interface NavItem {
+  label: string
+  to: string
+}
+
+/** 聯絡方式（留空字串＝不顯示，不會產生假的連結） */
+export interface ContactLinks {
+  /** Instagram 個人頁完整網址，例如 https://www.instagram.com/your_account/ */
+  instagramUrl: string
+  /** Instagram 顯示文字，例如 @your_account */
+  instagramLabel: string
+  /** Email 地址 */
+  email: string
+}
+
+/** About 頁內容 */
+export interface AboutContent {
+  /** 攝影師照片 */
+  image: Photo
+  /** 大標題 */
+  heading: string
+  /** 品牌與攝影理念（每個字串一段） */
+  philosophy: string[]
+  /** 簡短自我介紹（每個字串一段） */
+  bio: string[]
+}

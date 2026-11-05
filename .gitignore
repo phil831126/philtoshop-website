@@ -1,0 +1,37 @@
+# 套件與建置輸出
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# 本機環境變數與機密（不要上傳）
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Vercel 本機設定
+.vercel/
+
+# 記錄檔
+logs/
+*.log
+npm-debug.log*
+
+# 編輯器與系統檔
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# TypeScript 暫存
+*.tsbuildinfo
+
+# 私密原始照片請勿放進專案（若暫存在此資料夾，會被排除）
+private-originals/
+
+# Claude Code 本機設定
+.claude/
