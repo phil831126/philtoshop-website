@@ -1,151 +1,176 @@
-# 內容更新教學：新增作品、照片與首頁精選
+# 內容更新教學：上傳照片、新增作品、首頁精選
 
-日常更新只需要：**① 放照片 → ② 改資料檔 → ③ 本機檢查 → ④ 提交推送 → ⑤ 等 Vercel 更新**。不需要修改任何 `.vue` 元件。
+## 最短流程（替換或增加照片）
 
-## 重要提醒
+1. 把照片放進對應資料夾：`public/images/works/<分類>/<作品id>/`
+2. 執行 `npm.cmd run dev` 預覽（已經開著的話會**自動更新**，不用重開）
+3. 推送上線：`git add .` → `git commit -m "Update photos"` → `git push`
 
-- **`published: false` 只是讓網站不顯示，不是隱私保護。** 放在 `public/` 的照片一旦推送到 GitHub 並部署，任何知道網址的人都可能直接開啟；GitHub 儲存庫若為公開，所有檔案也都看得到。**私密或未授權公開的原始照片不要放進這個專案。**
-- 路徑與檔名只用 **英文小寫、數字、連字號**，不要有空白或中文，例如 `/images/works/emotional/quiet-light/01.jpg`。
-- **大小寫必須完全一致**：Windows 不分大小寫，本機看起來正常；Vercel 伺服器會區分，`01.JPG` 和 `01.jpg` 是不同檔案。
-- `width`／`height` 請填照片檔案的**實際像素**（檔案總管 → 右鍵 → 內容 → 詳細資料，或用看圖軟體查看）。比例錯誤會造成留白或比例異常。
-- 建議上傳前先縮圖：長邊約 1600～2000px、JPG 品質約 80%，單張最好在 500 KB 以內，網站會快很多。
+**不需要修改任何程式或資料檔。** 照片會自動依**檔名順序**排列，寬高自動讀取，照片數（例如 10 PHOTOS）自動計算。
 
 ---
 
-## 範例：在 Emotional 新增一組 5 張照片的作品
+## 重要提醒
 
-假設作品叫 **Morning Window**，識別碼（id）取 `morning-window`。
+- **`published: false` 只是讓網站不顯示，不是隱私保護。** 放在 `public/` 的照片推送後，任何知道網址的人都能開啟；儲存庫若為 Public，所有檔案也都看得到。**私密原始照片不要放進專案。**
+- 手機照片常含 **GPS 拍攝地點**：選取照片 → 右鍵 → 內容 → 詳細資料 → **移除內容和個人資訊**。
+- 建議先縮圖：長邊 1600～2000 px、單張約 500 KB 以內（Windows「相片」App 的「調整影像大小」，或 PowerToys 的「調整圖片大小」可一次處理多張）。
+- 檔名建議用 **小寫英文、數字、連字號**，例如 `01.jpg`。大寫或空白也能顯示，但工具會提醒你。
 
-### ① 放入照片
+---
 
-建立資料夾並放入 5 張照片，依顯示順序命名：
+## 照片的排列與顯示
+
+| 想做什麼 | 怎麼做 |
+| --- | --- |
+| 調整照片順序 | **改檔名**：`01.jpg` 會排在 `02.jpg` 前面（`10.jpg` 也會正確排在 `09.jpg` 後面） |
+| 暫時不顯示某張照片 | 在檔名前面加底線，例如 `_05.jpg`（檔案仍在公開資料夾中） |
+| 刪除照片 | 直接刪除檔案 |
+| 換照片 | 用同檔名覆蓋 |
+
+顯示方式：
+
+- 分類頁相簿會依這組照片的**實際比例**（例如 2:3 直式）排列：桌面一次剛好 3 張、平板 2 張、手機 1 張，**邊緣不會出現被切到一半的照片**，每張都完整顯示、不裁切。
+- 同一組裡有少數比例不同的照片（例如一張橫式），會**完整縮小置中**放進同樣大小的格子。
+- 大圖檢視、Works 總覽代表圖、About 照片也都完整顯示。
+- 只有**首頁**的主照片與精選照片會依設計稿裁切，可用 `objectPosition` 調整對焦位置（見下方）。
+
+---
+
+## 新增一組作品
+
+以在 Emotional 新增 **Morning Window** 為例：
+
+### ① 建立資料夾並放照片
 
 ```
 public/images/works/emotional/morning-window/01.jpg
 public/images/works/emotional/morning-window/02.jpg
-public/images/works/emotional/morning-window/03.jpg
-public/images/works/emotional/morning-window/04.jpg
-public/images/works/emotional/morning-window/05.jpg
+…
 ```
 
-### ② 在資料檔新增作品
+資料夾名稱（`morning-window`）就是作品識別碼：用小寫英文與連字號，**上線後不要再改**。
 
-開啟 `src/data/projects/emotional.ts`，在最後一個 `},` 之後、`]` 之前加入：
+### ② 取得要貼上的內容
+
+```bash
+npm.cmd run photos
+```
+
+工具會列出「有照片但還沒有作品資料」的資料夾，並印出可以直接貼上的內容：
 
 ```ts
   {
-    id: 'morning-window', // 作品識別碼，上線後勿改（網址錨點 #morning-window）
-    categoryId: 'emotional', // 必須和所在檔案的分類一致
+    id: 'morning-window',
+    categoryId: 'emotional',
     title: 'Morning Window',
-    description: 'Soft light before the city wakes.',
-    year: 2026, // 選填，可刪除整行
-    coverPhotoId: 'mw-01', // 封面：填下面某張照片的 id
-    order: 4, // 排在第 4 組
+    description: 'Write one sentence about this series.',
+    order: 4,
     published: true,
-    photos: [
-      { id: 'mw-01', src: '/images/works/emotional/morning-window/01.jpg', alt: 'Portrait by a bright window', width: 1080, height: 1920 },
-      { id: 'mw-02', src: '/images/works/emotional/morning-window/02.jpg', alt: 'Hands resting on the windowsill', width: 1080, height: 1920 },
-      { id: 'mw-03', src: '/images/works/emotional/morning-window/03.jpg', alt: 'Profile in morning light', width: 1080, height: 1920 },
-      { id: 'mw-04', src: '/images/works/emotional/morning-window/04.jpg', alt: 'Curtains and soft shadow', width: 1600, height: 1067, caption: 'Landscape frames keep their ratio.' },
-      { id: 'mw-05', src: '/images/works/emotional/morning-window/05.jpg', alt: 'Looking back toward the room', width: 1080, height: 1920 },
-    ],
   },
 ```
 
-說明：
+### ③ 貼進分類資料檔
 
-- 照片總數「05 PHOTOS」會**自動計算**，不用另外填。
-- 相簿順序＝ `photos` 陣列順序；要調整順序，直接上下移動整行。
-- 第 4 張是橫式，網站會用相同高度、依比例加寬完整顯示，不會裁切或拉伸。
-- 章節編號（01 /、02 /…）依 `order` 排序後自動產生。
+開啟 `src/data/projects/emotional.ts`，貼在最後一個 `},` 的下一行、`]` 的上一行，再把 `title`、`description` 改成你的文字（只改引號內），按 `Ctrl + S` 存檔。
 
-### ③ 放到首頁精選
+完成後的檔案結尾看起來像這樣：
 
-首頁精選與一般作品分開設定。開啟 `src/data/home.ts`，有兩種做法：
+```ts
+  {
+    id: 'between-us',
+    …
+    published: true,
+  },
+  {
+    id: 'morning-window',
+    categoryId: 'emotional',
+    title: 'Morning Window',
+    description: 'Soft light before the city wakes.',
+    order: 4,
+    published: true,
+  },
+]
+```
 
-**做法 A：替換現有位置**（推薦，保持設計稿的 4 格版面）
-找到想替換的那一筆（例如 `featured-emotional`），修改：
+### ④ 選填欄位（需要時再加）
+
+```ts
+  {
+    id: 'morning-window',
+    categoryId: 'emotional',
+    title: 'Morning Window',
+    description: 'Soft light before the city wakes.',
+    year: 2026,                 // 年份
+    coverPhotoId: '03',         // Works 總覽封面：檔名去掉副檔名；不填＝第一張
+    order: 4,
+    published: true,
+    photoNotes: {               // 個別照片的描述（給螢幕閱讀器）與大圖下方說明
+      '01.jpg': { alt: 'Portrait by a bright window' },
+      '04.jpg': { alt: 'Curtains and soft shadow', caption: 'Taipei, 2026' },
+    },
+  },
+```
+
+沒寫 `photoNotes` 的照片，描述會自動使用「作品名稱 — photo 3 of 10」。
+
+---
+
+## 放到首頁精選
+
+開啟 `src/data/home.ts`。首頁照片只要寫路徑，寬高會自動帶入：
 
 ```ts
     projectId: 'morning-window', // 點擊後跳到這組作品
-    image: {
-      id: 'featured-morning-window',
-      src: '/images/works/emotional/morning-window/01.jpg', // 也可以另外準備一張橫式首頁專用圖
+    image: imageFile('/images/works/emotional/morning-window/01.jpg', {
       alt: 'Portrait by a bright window',
-      width: 1080,
-      height: 1920,
-      objectPosition: 'center 25%', // 首頁會裁切，用這個調整對焦位置，避免切到臉
-    },
+      objectPosition: 'center 25%', // 首頁會裁切；用這個調整對焦位置，避免切到臉
+    }),
     heading: 'Emotional',
     text: 'Soft light,\nbefore the city wakes.', // \n＝換行
 ```
 
-**做法 B：新增第 5 筆**
-在 `featured` 陣列最後加入一筆，`order: 5`、`layout: 'wide-left'`。首頁每 4 筆為一組，第 5 筆起會自動開新的一組，依序使用 `wide-left`、`offset-right`、`inset-left`、`tall-right` 四種位置。
+**做法 A：替換現有位置**（推薦）— 修改現有某一筆的 `projectId`、`image`、`heading`、`text`。
 
-```ts
-  {
-    id: 'featured-morning-window',
-    categoryId: 'emotional',
-    projectId: 'morning-window',
-    image: {
-      id: 'featured-morning-window',
-      src: '/images/works/emotional/morning-window/01.jpg',
-      alt: 'Portrait by a bright window',
-      width: 1080,
-      height: 1920,
-      objectPosition: 'center 25%',
-    },
-    number: '04',
-    heading: 'Emotional',
-    text: 'Soft light,\nbefore the city wakes.',
-    layout: 'wide-left',
-    order: 5,
-    published: true,
-  },
-```
-
-四種位置（同一組內各用一次）：
+**做法 B：新增第 5 筆** — 首頁每 4 筆為一組，第 5 筆起自動開新的一組，依序使用以下四種位置：
 
 | layout | 桌面位置 | 文字位置 |
 | --- | --- | --- |
 | `wide-left` | 左側大圖 | 圖片右側，上方一條短線 |
-| `offset-right` | 右側、起點較低 | 只在照片上顯示小型毛玻璃標籤（手機版改到照片下方） |
+| `offset-right` | 右側、起點較低 | 照片上的小型毛玻璃標籤（手機版改到照片下方） |
 | `inset-left` | 第二排、內縮 | 圖片左側，標題後接細線 |
 | `tall-right` | 右側直式高圖 | 圖片左下方，標題後接細線 |
 
-### ④ 本機檢查
+替換首頁主照片最簡單：用同檔名覆蓋 `public/images/home/hero.jpg`。
+
+---
+
+## 上線前檢查
 
 ```bash
-npm run dev
+npm.cmd run photos
 ```
-開啟 <http://localhost:5173/works/emotional>，確認新章節、5 張照片、計數與大圖都正常。按 `F12 → Console`，若有「[內容檢查]」開頭的黃色警告（例如 id 重複、封面 id 不存在），依提示修正。
+會列出每組作品的照片數，以及需要注意的檔案（太大、含 GPS、檔名大寫或空白、找不到的檔案）。
 
-接著確認正式建置會通過：
 ```bash
-npm run build
+npm.cmd run build
 ```
+建置前會自動檢查照片；有照片找不到時會停止，Vercel 也不會把壞掉的版本上線（舊版網站繼續運作）。
 
-### ⑤ 提交並推送
+開發中也可以按 `F12 → Console`，查看「[內容檢查]」開頭的提醒。
+
+---
+
+## 推送上線
 
 ```bash
 git add .
 ```
 ```bash
-git commit -m "Add Morning Window to Emotional"
+git commit -m "Update photos"
 ```
 ```bash
 git push
 ```
 
-等待 Vercel 自動部署完成（約 1～2 分鐘），再到正式網址確認。
-
----
-
-## 其他常見操作
-
-- **隱藏作品**：`published: false`。若首頁精選指向它，開發模式會提示，記得一併調整 `home.ts`。
-- **刪除作品**：刪除資料檔中的整個 `{ ... }`，再刪除對應照片資料夾。
-- **換照片但檔名不變**：直接覆蓋檔案；若尺寸改變，記得同步更新 `width`／`height`。
-- **修改替代文字**：改 `alt`，用一句話描述畫面內容（給視障使用者與照片載入失敗時使用）。
-- **聯絡方式**：`src/data/site.ts` 的 `contact`，留空字串就不會顯示連結。
+等 1～2 分鐘，Vercel 自動部署完成。

@@ -1,6 +1,6 @@
 # PHILTOSHOP — Personal Photography
 
-攝影作品展示網站（Vite＋Vue 3＋TypeScript＋Vue Router），部署於 Vercel。沒有後台、資料庫或 API：所有照片與文字都在 `src/data/` 與 `public/images/` 修改，推送到 GitHub 後由 Vercel 自動建置。
+攝影作品展示網站（Vite＋Vue 3＋TypeScript＋Vue Router），部署於 Vercel。沒有後台、資料庫或 API：照片放進 `public/images/works/<分類>/<作品id>/` 就會自動顯示（依檔名排序、寬高自動讀取），文字在 `src/data/` 修改，推送到 GitHub 後由 Vercel 自動建置。
 
 ## 快速開始
 
@@ -15,7 +15,9 @@ npm run dev
 | --- | --- |
 | `npm run dev` | 本機開發預覽 <http://localhost:5173> |
 | `npm run typecheck` | 型別與資料欄位檢查 |
-| `npm run build` | 正式建置到 `dist/`（含型別檢查） |
+| `npm run build` | 正式建置到 `dist/`（會先檢查照片與型別） |
+| `npm run photos` | 檢查照片，並印出新作品資料夾可貼上的內容 |
+| `npm run photos:check` | 同上；有找不到的照片時以錯誤結束（build 會自動執行） |
 | `npm run preview` | 預覽正式建置 |
 
 PowerShell 出現 `npm.ps1` 被封鎖時，改用「命令提示字元」或輸入 `npm.cmd run dev`，不需要調整系統安全設定。

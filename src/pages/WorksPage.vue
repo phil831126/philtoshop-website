@@ -2,7 +2,7 @@
 【控制畫面】/works（作品分類總覽）— 延伸設計：設計稿未提供此頁，沿用分頁風格簡約處理
 【負責功能】顯示六個分類的代表圖、名稱、短介紹與作品組數；點擊進入分類分頁。
 【資料來源】src/data/categories.ts（名稱、summary、cover）、src/data/projects/（代表圖與組數）。
-【常見修改】代表圖：categories.ts 的 cover；介紹：summary；卡片比例：本檔 .works-card__media 的 aspect-ratio。
+【常見修改】代表圖：categories.ts 的 cover；介紹：summary；卡片比例：本檔 .works-card__media 的 aspect-ratio（目前 2:3，照片完整顯示不裁切）。
 【注意事項】代表圖未設定時，自動使用該分類第一組已公開作品的封面；都沒有時顯示替代區塊。
 -->
 <script setup lang="ts">
@@ -41,7 +41,7 @@ const items = sortedCategories.map((cat, i) => ({
       <li v-for="item in items" :key="item.cat.id">
         <RouterLink :to="`/works/${item.cat.id}`" class="works-card">
           <span class="works-card__media">
-            <AppImage v-if="item.cover" :photo="item.cover" fit="cover" sizes="(max-width: 767px) 92vw, (max-width: 1023px) 46vw, 31vw" />
+            <AppImage v-if="item.cover" :photo="item.cover" fit="contain" sizes="(max-width: 767px) 92vw, (max-width: 1023px) 46vw, 31vw" />
             <span v-else class="works-card__placeholder" aria-hidden="true" />
           </span>
           <span class="works-card__meta">
@@ -99,7 +99,7 @@ const items = sortedCategories.map((cat, i) => ({
 
 .works-card__media {
   display: block;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 2 / 3; /* 與照片相同的 2:3 直式，代表圖不被裁切（其他比例會完整縮放顯示） */
   overflow: hidden;
   background: var(--color-img-bg);
 }
@@ -174,7 +174,7 @@ const items = sortedCategories.map((cat, i) => ({
   }
 
   .works-card__media {
-    aspect-ratio: 4 / 4.4;
+    aspect-ratio: 2 / 3;
   }
 }
 

@@ -18,7 +18,7 @@ const isDev = import.meta.env.DEV
 <template>
   <div class="about-page container">
     <div class="about">
-      <div class="about__media">
+      <div class="about__media" :style="{ aspectRatio: `${about.image.width} / ${about.image.height}` }">
         <AppImage :photo="about.image" fit="cover" loading="eager" sizes="(max-width: 767px) 92vw, 40vw" />
       </div>
 
@@ -76,7 +76,7 @@ const isDev = import.meta.env.DEV
 }
 
 .about__media {
-  aspect-ratio: 4 / 5;
+  /* 比例依照片本身（寫在 template 的 style），完整顯示不裁切 */
   position: sticky;
   top: calc(var(--header-h) + 24px);
 }
@@ -180,7 +180,6 @@ const isDev = import.meta.env.DEV
 
   .about__media {
     position: static;
-    aspect-ratio: 4 / 4.6;
   }
 
   .about__body {

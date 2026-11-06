@@ -65,7 +65,7 @@
   --radius-card: 10px;
   --radius-pill: 8px;
 
-  /* ── 相簿（桌面：一次約 3 張 9:16） ── */
+  /* ── 相簿（桌面一次 3 張；格子比例依照片自動調整，例如 2:3 或 9:16） ── */
   --carousel-visible: 3;
   --carousel-gap: max(5px, calc(0.68 * var(--u)));
   --carousel-max-h: 80vh;
@@ -97,8 +97,8 @@
     --fs-chapter-text: 15px;
     --fs-page-intro: 16px;
     --fs-counter: 15px;
-    /* 手機相簿：主要顯示 1 張，露出下一張的一小部分 */
-    --carousel-visible: 1.22;
+    /* 手機相簿：一次完整顯示 1 張（不露出半張）；想露出下一張的一小部分可改成 1.2 */
+    --carousel-visible: 1;
     --carousel-gap: 6px;
     --carousel-max-h: min(64svh, 560px);
   }

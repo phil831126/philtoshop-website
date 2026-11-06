@@ -19,7 +19,7 @@ export const categories: Category[] = [
     intro: 'Three stories, quietly told.', // ✎
     summary: 'Quiet moments, honestly seen.', // ✎
     order: 1,
-    cover: { projectId: 'quiet-light', photoId: 'ql-01' }, // ✎ 代表圖
+    cover: { projectId: 'quiet-light', photoId: '01' }, // ✎ 代表圖（photoId＝檔名去掉副檔名）
   },
   {
     id: 'style',

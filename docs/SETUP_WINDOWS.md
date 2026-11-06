@@ -71,7 +71,9 @@ VS Code（寫程式、預覽）→ Git（記錄版本）→ GitHub（線上存�
 | --- | --- |
 | `npm run dev` | 本機開發預覽（修改後自動更新） |
 | `npm run typecheck` | 檢查資料欄位與程式型別 |
-| `npm run build` | 正式建置（會先做型別檢查），輸出到 `dist/` |
+| `npm run build` | 正式建置（會先檢查照片與型別），輸出到 `dist/` |
+| `npm run photos` | 檢查照片，並印出新作品資料夾可貼上的內容 |
+| `npm run photos:check` | 同上；有找不到的照片時以錯誤結束（build 會自動執行） |
 | `npm run preview` | 預覽 `dist/` 的正式建置結果 |
 
 ### 7. 建立第一筆 Git 版本（先確認 .gitignore）

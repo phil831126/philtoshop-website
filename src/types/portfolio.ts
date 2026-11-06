@@ -16,31 +16,43 @@ export type CategoryId =
   | 'shore'
   | 'viscera'
 
-/** 一張照片 */
+/** 一張照片（網站內部使用的完整資料；作品照片由資料夾自動產生，不需要手寫） */
 export interface Photo {
-  /** 照片識別碼：同一組作品內不可重複，建議用「作品縮寫-序號」，例如 ql-01 */
+  /** 照片識別碼：自動照片＝檔名去掉副檔名，例如 01.jpg → '01' */
   id: string
   /** 圖片路徑：放在 public 之下，以 / 開頭，例如 /images/works/emotional/quiet-light/01.jpg */
   src: string
   /** 替代文字：描述照片內容，給螢幕閱讀器與圖片載入失敗時使用 */
   alt: string
-  /** 原始寬度（像素）：用來保留比例，避免載入時版面跳動 */
+  /** 寬度（像素）：自動讀取 */
   width: number
-  /** 原始高度（像素） */
+  /** 高度（像素）：自動讀取 */
   height: number
   /** 選填：照片說明，會顯示在大圖檢視下方 */
   caption?: string
   /**
-   * 選填：當照片被「裁切顯示」時（首頁主圖、首頁精選、Works 代表圖）的對焦位置。
+   * 選填：當照片被「裁切顯示」時（首頁主圖、首頁精選）的對焦位置。
    * 寫法同 CSS object-position，例如 'center 30%'（水平置中、垂直偏上）。
-   * 分類分頁的相簿一律完整顯示照片，不使用這個欄位。
+   * 分類分頁相簿、大圖、Works 總覽一律完整顯示照片，不使用這個欄位。
    */
   objectPosition?: string
 }
 
-/** 一組作品（分類分頁中的一個章節） */
-export interface Project {
-  /** 作品識別碼：全站唯一、穩定不變，用英文小寫與連字號，例如 quiet-light。也是網址錨點 #quiet-light */
+/** 個別照片的補充說明（選填），以「檔名」對應，例如 '03.jpg': { alt: '…' } */
+export interface PhotoNote {
+  /** 照片描述（替代文字）；未填時自動使用「作品名稱 — photo 3 of 10」 */
+  alt?: string
+  /** 大圖檢視下方的說明文字 */
+  caption?: string
+}
+
+/**
+ * 一組作品（分類分頁中的一個章節）— 這是你在 src/data/projects/<分類>.ts 填寫的格式。
+ * 照片「不用」寫在這裡：放進 public/images/works/<分類>/<作品id>/ 就會自動依檔名順序顯示。
+ */
+export interface ProjectEntry {
+  /** 作品識別碼：全站唯一、穩定不變，用英文小寫與連字號，例如 quiet-light。
+   *  同時是照片資料夾名稱與網址錨點 #quiet-light */
   id: string
   /** 所屬分類 */
   categoryId: CategoryId
@@ -50,13 +62,22 @@ export interface Project {
   description: string
   /** 選填：年份 */
   year?: number
-  /** 封面照片：填 photos 中某一張的 id */
-  coverPhotoId: string
+  /** 選填：封面照片檔名去掉副檔名，例如 '03'；未填＝第一張 */
+  coverPhotoId?: string
   /** 排序：數字小的在前 */
   order: number
   /** 是否顯示在網站上（false＝隱藏；注意這不是隱私保護，照片檔案仍可能被直接存取） */
   published: boolean
-  /** 照片清單：陣列順序就是相簿顯示順序；照片總數會自動計算 */
+  /** 選填：照片資料夾（public/images/ 之後的路徑）；未填＝works/<分類>/<id> */
+  folder?: string
+  /** 選填：個別照片的描述與說明，例如 { '01.jpg': { alt: 'Portrait by the window' } } */
+  photoNotes?: Record<string, PhotoNote>
+}
+
+/** 網站內部使用的作品資料（已自動帶入照片與封面） */
+export interface Project extends ProjectEntry {
+  coverPhotoId: string
+  /** 照片清單：依檔名排序；照片總數會自動計算 */
   photos: Photo[]
 }
 
@@ -72,7 +93,7 @@ export interface Category {
   /** 排序：數字小的在前 */
   order: number
   /**
-   * 選填：Works 總覽代表圖。指定某組作品的某張照片。
+   * 選填：Works 總覽代表圖。指定某組作品的某張照片（photoId＝檔名去掉副檔名，例如 '01'）。
    * 未填時自動使用此分類第一組作品的封面。
    */
   cover?: PhotoRef
