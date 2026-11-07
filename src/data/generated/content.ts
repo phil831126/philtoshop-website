@@ -116,7 +116,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/emotional/after-the-rain": {
     "fields": {
-      "標題": "After the Rain",
+      "標題": "Room",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -129,7 +129,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/emotional/between-us": {
     "fields": {
-      "標題": "Between Us",
+      "標題": "Daydream",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -142,7 +142,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/emotional/quiet-light": {
     "fields": {
-      "標題": "Quiet Light",
+      "標題": "被遺忘之人",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -165,7 +165,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/monochrome/grey-hours": {
     "fields": {
-      "標題": "Grey Hours",
+      "標題": "日常的勇氣",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -178,7 +178,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/monochrome/paper-light": {
     "fields": {
-      "標題": "Paper Light",
+      "標題": "山海",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -191,7 +191,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/monochrome/silent-branches": {
     "fields": {
-      "標題": "Silent Branches",
+      "標題": "Under The Light",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -214,7 +214,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/ordinary/kitchen-window": {
     "fields": {
-      "標題": "Kitchen Window",
+      "標題": "Life",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -227,7 +227,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/ordinary/morning-errands": {
     "fields": {
-      "標題": "Morning Errands",
+      "標題": "黄金の瞬間",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -312,7 +312,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/style/linen-and-shadow": {
     "fields": {
-      "標題": "Linen & Shadow",
+      "標題": "Dark Game",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -325,7 +325,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/style/studio-hours": {
     "fields": {
-      "標題": "Studio Hours",
+      "標題": "自白",
       "模特": "",
       "IG": "",
       "日期": "",
