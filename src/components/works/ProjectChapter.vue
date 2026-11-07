@@ -2,7 +2,7 @@
 【控制畫面】分類分頁中的「一組作品」章節（A 款章節式相簿）
 【負責功能】桌面：左欄約 22.5%（編號、非斜體作品名稱、短線、介紹、照片數標籤）＋右欄橫向相簿；
             手機：上方介紹、下方相簿；章節之間以細線區隔。
-【資料來源】由 CategoryPage.vue 傳入 src/data/projects/<分類>.ts 的作品。
+【資料來源】由 CategoryPage.vue 傳入的作品（照片＋ public/images/works/<分類>/<作品>/info.txt 的文字）。
 【常見修改】
   - 文字、照片：改作品資料檔
   - 左右欄比例：本檔 .chapter 的 grid-template-columns

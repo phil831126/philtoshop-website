@@ -38,7 +38,7 @@ export interface Photo {
   objectPosition?: string
 }
 
-/** 個別照片的補充說明（選填），以「檔名」對應，例如 '03.jpg': { alt: '…' } */
+/** 個別照片的補充說明（選填），來自 info.txt 的「照片說明 03」「照片描述 03」，以檔名（不含副檔名）對應 */
 export interface PhotoNote {
   /** 照片描述（替代文字）；未填時自動使用「作品名稱 — photo 3 of 10」 */
   alt?: string
@@ -47,36 +47,30 @@ export interface PhotoNote {
 }
 
 /**
- * 一組作品（分類分頁中的一個章節）— 這是你在 src/data/projects/<分類>.ts 填寫的格式。
- * 照片「不用」寫在這裡：放進 public/images/works/<分類>/<作品id>/ 就會自動依檔名順序顯示。
+ * 一組作品（分類分頁中的一個章節），由資料夾自動建立：
+ * public/images/works/<分類>/<作品資料夾>/ 裡的照片＋同資料夾的 info.txt。
  */
-export interface ProjectEntry {
-  /** 作品識別碼：全站唯一、穩定不變，用英文小寫與連字號，例如 quiet-light。
-   *  同時是照片資料夾名稱與網址錨點 #quiet-light */
+export interface Project {
+  /** 作品資料夾名稱，例如 quiet-light；同時是網址錨點 #quiet-light */
   id: string
-  /** 所屬分類 */
+  /** 所屬分類（上一層資料夾名稱） */
   categoryId: CategoryId
-  /** 作品名稱（顯示用，可隨時修改，不影響程式關聯） */
+  /** 照片資料夾（public/images/ 之後的路徑），例如 works/emotional/quiet-light */
+  folder: string
+  /** 作品名稱（info.txt 的「標題」；沒寫＝資料夾名稱） */
   title: string
-  /** 作品介紹（一到兩句） */
+  /** 作品介紹（info.txt 的「介紹」） */
   description: string
-  /** 選填：年份 */
-  year?: number
-  /** 選填：封面照片檔名去掉副檔名，例如 '03'；未填＝第一張 */
-  coverPhotoId?: string
-  /** 排序：數字小的在前 */
+  /** 排序：數字小的在前（info.txt 的「順序」） */
   order: number
-  /** 是否顯示在網站上（false＝隱藏；注意這不是隱私保護，照片檔案仍可能被直接存取） */
+  /** 是否顯示（info.txt 的「顯示」；注意這不是隱私保護，照片檔案仍是公開的） */
   published: boolean
-  /** 選填：照片資料夾（public/images/ 之後的路徑）；未填＝works/<分類>/<id> */
-  folder?: string
-  /** 選填：個別照片的描述與說明，例如 { '01.jpg': { alt: 'Portrait by the window' } } */
-  photoNotes?: Record<string, PhotoNote>
-}
-
-/** 網站內部使用的作品資料（已自動帶入照片與封面） */
-export interface Project extends ProjectEntry {
+  /** 實際使用的封面照片 id（檔名去掉副檔名） */
   coverPhotoId: string
+  /** info.txt「封面」寫的值（檢查用；找不到時退回第一張） */
+  requestedCover: string
+  /** 個別照片的描述與說明 */
+  photoNotes: Record<string, PhotoNote>
   /** 照片清單：依檔名排序；照片總數會自動計算 */
   photos: Photo[]
 }
@@ -93,7 +87,7 @@ export interface Category {
   /** 排序：數字小的在前 */
   order: number
   /**
-   * 選填：Works 總覽代表圖。指定某組作品的某張照片（photoId＝檔名去掉副檔名，例如 '01'）。
+   * 選填：Works 總覽代表圖。指定某組作品的某張照片（photoId＝檔名去掉副檔名，例如 '01'；留空＝該作品封面）。
    * 未填時自動使用此分類第一組作品的封面。
    */
   cover?: PhotoRef
@@ -120,6 +114,8 @@ export type FeaturedLayout = 'wide-left' | 'offset-right' | 'inset-left' | 'tall
 export interface FeaturedWork {
   /** 精選項目識別碼（自訂、唯一即可） */
   id: string
+  /** info.txt 的區段名稱，例如「精選 1」（檢查訊息用） */
+  label?: string
   /** 連結到哪個分類 */
   categoryId: CategoryId
   /** 選填：連結到該分類中的哪組作品（會跳到該章節）；未填則只到分類頁頂端 */

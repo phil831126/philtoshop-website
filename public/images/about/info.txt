@@ -1,0 +1,22 @@
+# ════════════════════════════════════════════
+#  About 頁文字（存檔後網站自動更新）
+#  寫法：欄位：內容　「# 」開頭的行是說明
+#  段落：內容可以寫好幾行，空一行＝新段落
+#  超連結：[顯示文字](網址)，例如 [Instagram](https://www.instagram.com/your_account/)
+# ════════════════════════════════════════════
+
+# 照片：這個資料夾裡的檔名
+照片：01.jpg
+照片描述：Portrait of the photographer
+
+標題：The unreserved version of you.
+
+# 品牌與攝影理念
+理念：
+[Placeholder] One or two sentences about what PHILTOSHOP looks for in a photograph — the light, the pace, the people.
+
+[Placeholder] How a session feels: quiet, unhurried, honest.
+
+# 自我介紹（請只寫真實資訊）
+自我介紹：
+[Placeholder] A short introduction about the photographer goes here.

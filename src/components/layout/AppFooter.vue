@@ -2,7 +2,7 @@
 【控制畫面】全站頁尾（延伸設計：設計稿未包含頁尾，採極簡處理）
 【負責功能】品牌名稱、版權年份；有填寫時顯示 Instagram／Email。
 【資料來源】src/data/site.ts（site、contact）。
-【常見修改】版權名稱與聯絡方式請改 site.ts。
+【常見修改】版權名稱與聯絡方式請改 public/images/info.txt。
 【注意事項】聯絡欄位留空時不會產生連結。
 -->
 <script setup lang="ts">

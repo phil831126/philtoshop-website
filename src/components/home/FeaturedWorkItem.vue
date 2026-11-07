@@ -3,7 +3,7 @@
 【負責功能】依 layout 代號放到附圖對應位置；點擊照片或標題進入分類（有 projectId 時跳到該組作品章節）。
 【資料來源】由 FeaturedWorks.vue 傳入 src/data/home.ts 的 featured 項目。
 【常見修改】
-  - 文字與照片：改 home.ts
+  - 文字與照片：改 public/images/home/info.txt 的【精選 N】
   - 桌面位置：本檔「桌面」區段的 grid-column／grid-row／margin-top（以 48 欄計算）
   - 手機大小與錯位：本檔「手機」區段的 width／margin
 【注意事項】桌面版 article 使用 display: contents，讓照片與文字各自成為格線中的一格；

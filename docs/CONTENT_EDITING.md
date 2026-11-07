@@ -1,18 +1,20 @@
 # 內容更新教學：上傳照片、新增作品、首頁精選
 
+> 文字怎麼改、怎麼加超連結，見 [EDIT_TEXT.md](EDIT_TEXT.md)。
+
 ## 最短流程（替換或增加照片）
 
-1. 把照片放進對應資料夾：`public/images/works/<分類>/<作品id>/`
+1. 把照片放進對應資料夾：`public/images/works/<分類>/<作品資料夾>/`
 2. 執行 `npm.cmd run dev` 預覽（已經開著的話會**自動更新**，不用重開）
 3. 推送上線：`git add .` → `git commit -m "Update photos"` → `git push`
 
-**不需要修改任何程式或資料檔。** 照片會自動依**檔名順序**排列，寬高自動讀取，照片數（例如 10 PHOTOS）自動計算。
+**不需要修改任何程式。** 照片會自動依**檔名順序**排列，寬高自動讀取，照片數（例如 10 PHOTOS）自動計算。
 
 ---
 
 ## 重要提醒
 
-- **`published: false` 只是讓網站不顯示，不是隱私保護。** 放在 `public/` 的照片推送後，任何知道網址的人都能開啟；儲存庫若為 Public，所有檔案也都看得到。**私密原始照片不要放進專案。**
+- **「顯示：否」只是讓網站不顯示，不是隱私保護。** 放在 `public/` 的照片推送後，任何知道網址的人都能開啟；儲存庫若為 Public，所有檔案也都看得到。**私密原始照片不要放進專案。**
 - 手機照片常含 **GPS 拍攝地點**：選取照片 → 右鍵 → 內容 → 詳細資料 → **移除內容和個人資訊**。
 - 建議先縮圖：長邊 1600～2000 px、單張約 500 KB 以內（Windows「相片」App 的「調整影像大小」，或 PowerToys 的「調整圖片大小」可一次處理多張）。
 - 檔名建議用 **小寫英文、數字、連字號**，例如 `01.jpg`。大寫或空白也能顯示，但工具會提醒你。
@@ -33,15 +35,15 @@
 - 分類頁相簿會依這組照片的**實際比例**（例如 2:3 直式）排列：桌面一次剛好 3 張、平板 2 張、手機 1 張，**邊緣不會出現被切到一半的照片**，每張都完整顯示、不裁切。
 - 同一組裡有少數比例不同的照片（例如一張橫式），會**完整縮小置中**放進同樣大小的格子。
 - 大圖檢視、Works 總覽代表圖、About 照片也都完整顯示。
-- 只有**首頁**的主照片與精選照片會依設計稿裁切，可用 `objectPosition` 調整對焦位置（見下方）。
+- 只有**首頁**的主照片與精選照片會依設計稿裁切，可用 `home/info.txt` 的「對焦」調整保留的位置。
 
 ---
 
-## 新增一組作品
+## 新增一組作品（例如在 Emotional 往下多加一列）
 
-以在 Emotional 新增 **Morning Window** 為例：
+### ① 建立資料夾、放照片
 
-### ① 建立資料夾並放照片
+在 VS Code 左側檔案總管，對 `public/images/works/emotional` 按右鍵 → **新增資料夾**，取名例如 `morning-window`，把照片拖進去：
 
 ```
 public/images/works/emotional/morning-window/01.jpg
@@ -49,97 +51,75 @@ public/images/works/emotional/morning-window/02.jpg
 …
 ```
 
-資料夾名稱（`morning-window`）就是作品識別碼：用小寫英文與連字號，**上線後不要再改**。
+**存檔的那一刻，Emotional 頁最下面就會多出一組「Morning Window」**（標題自動用資料夾名稱）。
 
-### ② 取得要貼上的內容
+資料夾名稱請用**小寫英文、數字、連字號**。它只會出現在網址的錨點（`/works/emotional#morning-window`），網站上顯示的名稱由 info.txt 的「標題」決定，兩者無關。
 
+### ② 加上文字
+
+在終端機執行：
 ```bash
 npm.cmd run photos
 ```
+工具會在新資料夾裡**自動建立 `info.txt`**，打開改「標題」「介紹」：
 
-工具會列出「有照片但還沒有作品資料」的資料夾，並印出可以直接貼上的內容：
+```
+標題：Morning Window
 
-```ts
-  {
-    id: 'morning-window',
-    categoryId: 'emotional',
-    title: 'Morning Window',
-    description: 'Write one sentence about this series.',
-    order: 4,
-    published: true,
-  },
+介紹：Soft light before the city wakes.
+
+順序：4
 ```
 
-### ③ 貼進分類資料檔
+存檔就完成了。也可以不跑工具，直接從別的作品資料夾複製一份 `info.txt` 過來改。
 
-開啟 `src/data/projects/emotional.ts`，貼在最後一個 `},` 的下一行、`]` 的上一行，再把 `title`、`description` 改成你的文字（只改引號內），按 `Ctrl + S` 存檔。
+### ③ 推送上線
 
-完成後的檔案結尾看起來像這樣：
-
-```ts
-  {
-    id: 'between-us',
-    …
-    published: true,
-  },
-  {
-    id: 'morning-window',
-    categoryId: 'emotional',
-    title: 'Morning Window',
-    description: 'Soft light before the city wakes.',
-    order: 4,
-    published: true,
-  },
-]
+```bash
+git add .
+```
+```bash
+git commit -m "Add Morning Window"
+```
+```bash
+git push
 ```
 
-### ④ 選填欄位（需要時再加）
+> 分類頁大標下的介紹（例如 Emotional 的「Three stories, quietly told.」）不會自動改，多了一組作品時記得到 `works/emotional/info.txt` 修改「介紹」。
 
-```ts
-  {
-    id: 'morning-window',
-    categoryId: 'emotional',
-    title: 'Morning Window',
-    description: 'Soft light before the city wakes.',
-    year: 2026,                 // 年份
-    coverPhotoId: '03',         // Works 總覽封面：檔名去掉副檔名；不填＝第一張
-    order: 4,
-    published: true,
-    photoNotes: {               // 個別照片的描述（給螢幕閱讀器）與大圖下方說明
-      '01.jpg': { alt: 'Portrait by a bright window' },
-      '04.jpg': { alt: 'Curtains and soft shadow', caption: 'Taipei, 2026' },
-    },
-  },
-```
+### 作品順序、隱藏、改名
 
-沒寫 `photoNotes` 的照片，描述會自動使用「作品名稱 — photo 3 of 10」。
+| 想做什麼 | 怎麼做 |
+| --- | --- |
+| 調整前後順序 | 改各作品 info.txt 的「順序」（數字小的在前） |
+| 暫時隱藏一組作品 | 該作品 info.txt 的「顯示」改成 `否` |
+| 改作品名稱 | 改「標題」（隨時可以改） |
+| 改資料夾名稱 | 可以改，但如果首頁精選或分類總覽封面有用到這個資料夾，要一起改 `home/info.txt` 的「連結」、分類 info.txt 的「總覽封面」 |
+| 刪除一組作品 | 刪除整個資料夾 |
 
 ---
 
 ## 放到首頁精選
 
-開啟 `src/data/home.ts`。首頁照片只要寫路徑，寬高會自動帶入：
+打開 `public/images/home/info.txt`，找到要換的【精選 N】：
 
-```ts
-    projectId: 'morning-window', // 點擊後跳到這組作品
-    image: imageFile('/images/works/emotional/morning-window/01.jpg', {
-      alt: 'Portrait by a bright window',
-      objectPosition: 'center 25%', // 首頁會裁切；用這個調整對焦位置，避免切到臉
-    }),
-    heading: 'Emotional',
-    text: 'Soft light,\nbefore the city wakes.', // \n＝換行
+```
+【精選 1】
+照片：works/emotional/morning-window/01.jpg
+照片描述：Portrait by a bright window
+對焦：上
+編號：01
+標題：Emotional
+介紹：Soft light,
+before the city wakes.
+連結：emotional/morning-window
+顯示：是
 ```
 
-**做法 A：替換現有位置**（推薦）— 修改現有某一筆的 `projectId`、`image`、`heading`、`text`。
-
-**做法 B：新增第 5 筆** — 首頁每 4 筆為一組，第 5 筆起自動開新的一組，依序使用以下四種位置：
-
-| layout | 桌面位置 | 文字位置 |
-| --- | --- | --- |
-| `wide-left` | 左側大圖 | 圖片右側，上方一條短線 |
-| `offset-right` | 右側、起點較低 | 照片上的小型毛玻璃標籤（手機版改到照片下方） |
-| `inset-left` | 第二排、內縮 | 圖片左側，標題後接細線 |
-| `tall-right` | 右側直式高圖 | 圖片左下方，標題後接細線 |
+- **照片**：可以填 home 資料夾裡的檔名（`featured-emotional.jpg`），也可以直接用作品照片的路徑（從 `works/` 開始寫）。
+- **對焦**：首頁會裁切照片，`上`、`中`、`下` 或百分比決定保留哪裡，避免切到臉。
+- **連結**：`emotional` 到分類頁頂端；`emotional/morning-window` 直接跳到那組作品。
+- 想多放幾張：往下加【精選 5】【精選 6】…，每 4 張自動成一組新的交錯排版。
 
 替換首頁主照片最簡單：用同檔名覆蓋 `public/images/home/hero.jpg`。
 
@@ -150,7 +130,7 @@ npm.cmd run photos
 ```bash
 npm.cmd run photos
 ```
-會列出每組作品的照片數，以及需要注意的檔案（太大、含 GPS、檔名大寫或空白、找不到的檔案）。
+會列出每組作品的照片數，以及需要注意的地方：照片太大、含 GPS、檔名大寫或空白、找不到的照片、info.txt 打錯的欄位（含第幾行）。
 
 ```bash
 npm.cmd run build
@@ -158,19 +138,3 @@ npm.cmd run build
 建置前會自動檢查照片；有照片找不到時會停止，Vercel 也不會把壞掉的版本上線（舊版網站繼續運作）。
 
 開發中也可以按 `F12 → Console`，查看「[內容檢查]」開頭的提醒。
-
----
-
-## 推送上線
-
-```bash
-git add .
-```
-```bash
-git commit -m "Update photos"
-```
-```bash
-git push
-```
-
-等 1～2 分鐘，Vercel 自動部署完成。

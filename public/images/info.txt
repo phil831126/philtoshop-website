@@ -1,0 +1,31 @@
+# ════════════════════════════════════════════
+#  全站文字（存檔後網站自動更新）
+#  寫法：欄位：內容　「# 」開頭的行是說明，不會出現在網站上
+#
+#  其他文字在哪裡：
+#    首頁        → images/home/info.txt
+#    About       → images/about/info.txt
+#    分類        → images/works/分類/info.txt
+#    每組作品    → images/works/分類/作品/info.txt
+# ════════════════════════════════════════════
+
+# 左上角網站名稱（第一行大字），兩行會自動對齊成一樣寬
+網站名稱：PHILTOSHOP
+
+# 左上角第二行小字
+副標：PHOTOGRAPHY PORTFOLIO
+
+# 瀏覽器分頁標題後面的名稱，例如「Emotional — PHILTOSHOP」
+分頁標題：PHILTOSHOP
+
+# 頁尾版權名稱
+版權：PHILTOSHOP
+
+# Instagram：填帳號（例如 @your_account）或個人頁網址都可以；留空＝不顯示
+Instagram：
+
+# 選填：Instagram 連結顯示的文字；不填＝自動顯示 @帳號
+Instagram顯示文字：
+
+# Email：留空＝不顯示
+Email：

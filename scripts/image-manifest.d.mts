@@ -18,4 +18,9 @@ export interface ImageScan {
 }
 
 export function scanImages(root: string): ImageScan
-export function writeManifest(root: string): { changed: boolean; scan: ImageScan }
+export interface TextScan {
+  files: Record<string, { fields: Record<string, string>; sections: { title: string; fields: Record<string, string> }[] }>
+  problems: { file: string; line: number; message: string }[]
+}
+
+export function writeManifest(root: string): { changed: boolean; scan: ImageScan; text: TextScan }

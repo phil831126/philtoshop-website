@@ -1,46 +1,31 @@
 # 檔案對照表：想改什麼 → 開哪個檔案 → 改哪個欄位
 
-> 日常更新照片與文字只需要改 `src/data/` 與 `public/images/`，**不需要修改 Vue 元件**。
-> 文字修改與超連結的完整教學見 [EDIT_TEXT.md](EDIT_TEXT.md)。
-> 資料檔中標有 `✎` 的欄位可以放心修改；標有 `⚠` 的請先閱讀說明。
+> **日常更新只需要動 `public/images/`：照片放進資料夾，文字改資料夾裡的 `info.txt`。不需要打開程式檔。**
+> 寫法與每個欄位的說明見 [EDIT_TEXT.md](EDIT_TEXT.md)。
 
 ## 內容（最常修改）
 
-| 想修改什麼 | 應開啟哪個檔案 | 應修改哪個欄位 |
+| 想修改什麼 | 打開哪個檔案 | 改哪個欄位 |
 | --- | --- | --- |
-| 左上角網站名稱（兩行） | `src/data/site.ts` | `site.brandName`（大字）、`site.brandSubtitle`（小字） |
-| 導覽文字（Home／Works／About） | `src/data/site.ts` | `nav[].label`（`to` 是網址，不建議改） |
-| 瀏覽器分頁標題後綴 | `src/data/site.ts` | `site.titleSuffix` |
-| 首頁主照片 | `public/images/home/hero.jpg`（同檔名覆蓋）或 `src/data/home.ts` | `hero.image` 的路徑與 `alt`（寬高自動帶入） |
-| 首頁主照片裁切位置（避免切到臉） | `src/data/home.ts` | `hero.image.objectPosition`，例如 `'center 30%'` |
-| 首頁標語與換行位置 | `src/data/home.ts` | `hero.tagline`（`\n` 是桌面版換行處） |
-| EXPLORE WORKS 文字／連結 | `src/data/home.ts` | `hero.ctaLabel`、`hero.ctaTo` |
-| 首屏毛玻璃資訊卡 | `src/data/home.ts` | `hero.card.label`、`title`、`to` |
-| 首頁精選區標題（目前不顯示） | `src/data/home.ts` | `featuredHeading.regular`、`featuredHeading.italic`（兩個都留空＝不顯示） |
-| 文字中加超連結（IG、Email、站內） | 各資料檔的介紹文字 | 寫成 `[顯示文字](網址)`，見 EDIT_TEXT.md |
-| 首頁精選：照片 | `src/data/home.ts` | `featured[].image`（可填作品資料夾內的照片路徑） |
-| 首頁精選：位置 | `src/data/home.ts` | `featured[].layout`：`wide-left`／`offset-right`／`inset-left`／`tall-right` |
-| 首頁精選：編號、標題、短介紹 | `src/data/home.ts` | `featured[].number`、`heading`、`text` |
-| 首頁精選：點擊後前往哪裡 | `src/data/home.ts` | `featured[].categoryId`、`projectId`（跳到該章節） |
-| 首頁精選：順序、隱藏 | `src/data/home.ts` | `featured[].order`、`published` |
-| 分類名稱 | `src/data/categories.ts` | `name`（`id` 是網址，不可改） |
-| 分類頁大標下的一句介紹 | `src/data/categories.ts` | `intro` |
-| Works 總覽的介紹與代表圖 | `src/data/categories.ts` | `summary`、`cover` |
-| 新增作品（一組照片） | `src/data/projects/<分類>.ts` | 在陣列加一個 `{ ... }`，見 CONTENT_EDITING.md |
-| 刪除作品 | `src/data/projects/<分類>.ts` | 刪除整個 `{ ... }`（若首頁精選有引用，也要一併修改 home.ts） |
-| 暫時隱藏作品 | `src/data/projects/<分類>.ts` | `published: false` |
-| 作品前後順序 | `src/data/projects/<分類>.ts` | `order`（數字小的在前） |
-| 作品名稱、介紹 | `src/data/projects/<分類>.ts` | `title`、`description` |
-| 作品封面（Works 總覽用） | `src/data/projects/<分類>.ts` | `coverPhotoId`：檔名去掉副檔名，例如 `'03'`（不填＝第一張） |
-| 新增／替換照片 | `public/images/works/<分類>/<作品id>/` | 直接放進資料夾即可，**不用改資料檔**（寬高、張數自動） |
-| 新作品要貼的內容 | 終端機 | `npm.cmd run photos` 會印出可貼上的作品資料 |
-| 檢查照片（太大、GPS、找不到） | 終端機 | `npm.cmd run photos` |
+| 左上角網站名稱（兩行） | `public/images/info.txt` | 網站名稱、副標 |
+| 瀏覽器分頁標題、頁尾版權 | `public/images/info.txt` | 分頁標題、版權 |
+| Instagram、Email | `public/images/info.txt` | Instagram、Email（留空＝不顯示） |
+| 首頁主照片 | `public/images/home/`（同檔名覆蓋 hero.jpg）或 `home/info.txt` | 主照片、主照片對焦 |
+| 首頁標語、EXPLORE WORKS、毛玻璃小卡 | `public/images/home/info.txt` | 標語、按鈕文字、小卡小字／大字／連結 |
+| 首頁精選區標題 | `public/images/home/info.txt` | 精選標題（留空＝不顯示） |
+| 首頁精選作品 | `public/images/home/info.txt` | 【精選 N】的照片、標題、介紹、連結、顯示 |
+| 分類名稱、大標下的一句話 | `public/images/works/<分類>/info.txt` | 名稱、介紹 |
+| Works 總覽卡片介紹與代表圖 | `public/images/works/<分類>/info.txt` | 總覽介紹、總覽封面 |
+| 新增一組作品 | `public/images/works/<分類>/` | 新增資料夾放照片（見 CONTENT_EDITING.md） |
+| 作品名稱、介紹 | `public/images/works/<分類>/<作品>/info.txt` | 標題、介紹 |
+| 作品前後順序、隱藏 | 同上 | 順序、顯示 |
+| 作品封面（Works 總覽用） | 同上 | 封面（照片檔名，不用寫 .jpg） |
+| 大圖下方的照片說明 | 同上 | 照片說明 03 |
 | 照片順序 | 照片資料夾 | 改檔名（`01.jpg` 排第一）；檔名前加 `_` 可暫時不顯示 |
-| 照片替代文字 | `src/data/projects/<分類>.ts` | `photoNotes`，例如 `{ '01.jpg': { alt: '…' } }`（不填則自動產生） |
-| 照片說明（大圖下方） | `src/data/projects/<分類>.ts` | `photoNotes` 的 `caption`（選填） |
-| About 照片與文字 | `src/data/about.ts` | `image`、`heading`、`philosophy`、`bio` |
-| Instagram、Email | `src/data/site.ts` | `contact.instagramUrl`、`instagramLabel`、`email`（留空＝不顯示） |
-| 頁尾版權名稱 | `src/data/site.ts` | `site.copyrightName` |
+| About 照片與文字 | `public/images/about/info.txt` | 照片、標題、理念、自我介紹 |
+| 文字中加超連結 | 任何「介紹」類欄位 | 寫成 `[顯示文字](網址)` |
+| 檢查照片與 info.txt 寫法 | 終端機 | `npm.cmd run photos` |
+| 導覽文字（Home／Works／About） | `src/data/site.ts` | `nav[].label`（較少需要改） |
 
 ## 外觀（較少修改）
 
@@ -64,9 +49,11 @@
 
 | 檔案 | 用途 |
 | --- | --- |
-| `src/types/portfolio.ts` | 所有資料欄位的格式定義 |
-| `src/data/projects/index.ts` | 合併六個分類資料、查詢工具、照片數計算 |
-| `src/data/validate.ts` | 開發模式資料檢查（主控台顯示「[內容檢查]」警告） |
+| `src/types/portfolio.ts` | 網站內部資料的格式定義 |
+| `src/data/projects/index.ts` | 依照片資料夾自動建立作品、查詢工具、照片數計算 |
+| `src/data/site.ts`、`home.ts`、`about.ts`、`categories.ts` | 讀取各 info.txt（沒寫的欄位用這裡的預設值），一般不用打開 |
+| `src/data/text.ts` | info.txt 讀取小工具（段落、是／否、對焦、照片路徑） |
+| `src/data/validate.ts` | 開發模式內容檢查（主控台顯示「[內容檢查]」警告，含 info.txt 打錯的欄位） |
 | `src/router/index.ts` | 網址與頁面對應、捲動位置、分頁標題 |
 | `src/composables/usePhotoCarousel.ts` | 相簿捲動、計數、頭尾停用邏輯 |
 | `src/components/layout/` | 導覽列、手機選單、頁尾 |
@@ -76,6 +63,8 @@
 | `src/pages/` | 各頁面的組合 |
 | `scripts/photos.mjs` | 照片檢查與新作品內容產生（npm run photos／photos:check） |
 | `scripts/image-manifest.mjs` | 掃描照片寬高，產生 `src/data/generated/images.ts`（dev／build 自動執行） |
-| `src/data/generated/images.ts` | ⚠ 自動產生的照片清單，請勿手動修改 |
-| `src/data/images.ts` | `imageFile()`：首頁／About 照片只寫路徑，寬高自動帶入 |
+| `scripts/content-files.mjs` | 讀取 info.txt，產生 `src/data/generated/content.ts`；可用的欄位名稱列在這裡 |
+| `scripts/info-templates.mjs` | 新作品資料夾的 info.txt 範本 |
+| `src/data/generated/` | ⚠ 自動產生的照片清單與文字，請勿手動修改 |
+| `src/data/images.ts` | `imageFile()`：首頁／About 照片寬高自動帶入 |
 | `vercel.json` | Vercel 建置設定與深層網址支援 |

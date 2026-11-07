@@ -1,6 +1,6 @@
 # PHILTOSHOP — Personal Photography
 
-攝影作品展示網站（Vite＋Vue 3＋TypeScript＋Vue Router），部署於 Vercel。沒有後台、資料庫或 API：照片放進 `public/images/works/<分類>/<作品id>/` 就會自動顯示（依檔名排序、寬高自動讀取），文字在 `src/data/` 修改，推送到 GitHub 後由 Vercel 自動建置。
+攝影作品展示網站（Vite＋Vue 3＋TypeScript＋Vue Router），部署於 Vercel。沒有後台、資料庫或 API：照片放進 `public/images/works/<分類>/<作品>/` 就會自動顯示（依檔名排序、寬高自動讀取），**文字寫在同資料夾的 `info.txt`**（一行一個「欄位：內容」，不用寫程式），推送到 GitHub 後由 Vercel 自動建置。
 
 ## 快速開始
 
@@ -31,7 +31,7 @@ PowerShell 出現 `npm.ps1` 被封鎖時，改用「命令提示字元」或輸�
 | 文件 | 內容 |
 | --- | --- |
 | [docs/SETUP_WINDOWS.md](docs/SETUP_WINDOWS.md) | Windows 環境安裝、Git 設定、第一次推送（依速查表 10 步） |
-| [docs/EDIT_TEXT.md](docs/EDIT_TEXT.md) | **自己修改網站文字、加入超連結（IG 等）**，含 GitHub 網頁直接修改 |
+| [docs/EDIT_TEXT.md](docs/EDIT_TEXT.md) | **自己修改網站文字（info.txt）、加入超連結（IG 等）**，含 GitHub 網頁直接修改 |
 | [docs/CONTENT_EDITING.md](docs/CONTENT_EDITING.md) | 新增作品與照片、放到首頁精選的完整範例 |
 | [docs/FILE_MAP.md](docs/FILE_MAP.md) | 想改什麼 → 開哪個檔案 → 改哪個欄位 |
 | [docs/DEPLOY_VERCEL.md](docs/DEPLOY_VERCEL.md) | Vercel 匯入、設定與部署驗收 |
@@ -41,17 +41,18 @@ PowerShell 出現 `npm.ps1` 被封鎖時，改用「命令提示字元」或輸�
 
 ```
 src/
-  data/          ← 內容（日常只改這裡）
-    site.ts  home.ts  categories.ts  about.ts
-    projects/    emotional.ts … viscera.ts、index.ts
+  data/          讀取照片與 info.txt 的程式（平常不用打開）
   types/         資料格式定義
   components/    layout/ home/ works/ common/
   pages/         HomePage、WorksPage、CategoryPage、AboutPage、NotFoundPage
   composables/   usePhotoCarousel.ts
   styles/        tokens.css（設計變數）、base.css
   router/
-public/images/   home/ about/ works/<分類>/<作品>/
+public/images/   ← 內容（日常只改這裡）：照片＋每個資料夾的 info.txt
+  info.txt       全站文字
+  home/ about/   首頁、About 的照片與 info.txt
+  works/<分類>/<作品>/   作品照片與 info.txt
 ```
 
 > ⚠ 部分照片與文案仍為示意內容，請依 docs/VISUAL_CHECK.md 的清單替換。
-> `published: false` 只控制是否顯示，不是隱私保護；私密原始照片請勿放進專案。
+> info.txt 的「顯示：否」只控制是否顯示，不是隱私保護；私密原始照片請勿放進專案。

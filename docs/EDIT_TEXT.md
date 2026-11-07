@@ -1,44 +1,55 @@
-# 自己修改網站文字與加入超連結
+# 自己修改網站文字（info.txt）
 
-網站上所有文字都放在 `src/data/` 資料夾裡的幾個檔案，**不用碰程式、不用依靠 Claude**。改完存檔、推送到 GitHub，Vercel 就會自動更新網站。
-
----
-
-## 一、文字在哪個檔案
-
-| 網站上的位置 | 檔案 | 欄位 |
-| --- | --- | --- |
-| 左上角網站名稱（兩行） | `src/data/site.ts` | `brandName`（第一行）、`brandSubtitle`（第二行） |
-| 瀏覽器分頁標題後綴、頁尾版權 | `src/data/site.ts` | `titleSuffix`、`copyrightName` |
-| 首頁大標語 | `src/data/home.ts` | `hero.tagline`（`\n` 是換行處） |
-| 首頁毛玻璃小卡 | `src/data/home.ts` | `hero.card.label`、`hero.card.title` |
-| 首頁精選的名稱與短介紹 | `src/data/home.ts` | `featured` 裡每一項的 `heading`、`text` |
-| 首頁精選區標題（目前不顯示） | `src/data/home.ts` | `featuredHeading`（留空＝不顯示） |
-| 分類名稱、分類頁大標下的一句話 | `src/data/categories.ts` | `name`、`intro` |
-| Works 總覽卡片下的介紹 | `src/data/categories.ts` | `summary` |
-| 每組作品的名稱、介紹 | `src/data/projects/<分類>.ts` | `title`、`description` |
-| 大圖下方的照片說明 | `src/data/projects/<分類>.ts` | `photoNotes` 的 `caption` |
-| About 頁 | `src/data/about.ts` | `heading`、`philosophy`、`bio` |
-
-更完整的對照表見 [FILE_MAP.md](FILE_MAP.md)。
+**網站上的文字，都寫在照片資料夾裡的 `info.txt`。** 照片和文字放在一起：要改哪一頁，就打開那個資料夾的 `info.txt`，改完存檔即可。不用寫程式，不用加引號或逗號。
 
 ---
 
-## 二、改文字的兩種方法
+## 一、哪個 info.txt 管哪裡
 
-### 方法 A：在 VS Code 修改（可先預覽）
+```
+public/images/
+├─ info.txt                       ← 全站：左上角網站名稱、副標、Instagram、Email、頁尾版權
+├─ home/info.txt                  ← 首頁：標語、毛玻璃小卡、精選作品
+├─ about/info.txt                 ← About 頁：標題、理念、自我介紹、照片
+└─ works/
+   ├─ emotional/info.txt          ← Emotional 分類：名稱、大標下的一句話、總覽介紹與封面
+   ├─ emotional/quiet-light/info.txt   ← Quiet Light 這組作品：標題、介紹、順序、封面、照片說明
+   ├─ emotional/after-the-rain/info.txt
+   └─ …（每個分類、每組作品都一樣）
+```
 
-1. VS Code 左側檔案總管打開要改的檔案，例如 `src/data/projects/emotional.ts`。
-2. **只改單引號 `' '` 裡面的文字**，例如：
-   ```ts
-   description: 'A portrait series in natural window light.', // ✎
-   ```
-   改成：
-   ```ts
-   description: 'Soft afternoon light, quiet hands.', // ✎
-   ```
-3. `Ctrl + S` 存檔。若 `npm.cmd run dev` 開著，瀏覽器的 <http://localhost:5173> 會立刻更新。
-4. 確認沒問題後推送：
+在 VS Code 左側檔案總管依序點開 `public` → `images` → 資料夾，就能找到 `info.txt`。
+
+---
+
+## 二、寫法
+
+一行一個「**欄位：內容**」：
+
+```
+標題：Quiet Light
+
+介紹：A portrait series in natural window light.
+```
+
+只有四條規則：
+
+1. **冒號前面是欄位名稱，不要改**；冒號後面是內容，隨便改。冒號用全形「：」或半形「:」都可以。
+2. **內容可以寫好幾行**，空一行＝新段落（About 的理念、自我介紹會分段顯示）。
+3. **「# 」開頭（井字號＋空白）的行是說明**，不會出現在網站上，可以刪除也可以留著。像 `#portrait` 這種 hashtag（# 後面沒有空白）會正常顯示。
+4. **留空＝使用預設值或不顯示**，例如 `Email：` 後面不寫，網站就不顯示 Email。
+
+英文撇號（Philtoshop's）、引號、逗號都可以直接寫，不需要任何特殊處理。
+
+---
+
+## 三、改完之後
+
+### 在 VS Code 修改（建議）
+
+1. 改好按 `Ctrl + S` 存檔。
+2. 如果 `npm.cmd run dev` 開著，瀏覽器 <http://localhost:5173> 會**自動更新**。
+3. 確認沒問題後推送：
    ```bash
    git add .
    ```
@@ -48,93 +59,110 @@
    ```bash
    git push
    ```
+   1～2 分鐘後正式網站更新。
 
-### 方法 B：直接在 GitHub 網頁修改（不用開電腦裡的專案）
+### 直接在 GitHub 網頁修改（手機也可以）
 
-適合臨時改一兩個字，手機瀏覽器也可以操作。
+1. 打開 <https://github.com/phil831126/philtoshop-website> → 依序點 `public` → `images` → 資料夾 → `info.txt`。
+2. 點右上角的**鉛筆圖示**，修改文字。
+3. 點綠色的 **Commit changes…** → 再按 **Commit changes**。1～2 分鐘後網站更新。
 
-1. 打開 <https://github.com/phil831126/philtoshop-website>，點進 `src` → `data` → 要改的檔案。
-2. 點右上角的**鉛筆圖示（Edit this file）**。
-3. 修改單引號裡的文字。
-4. 點右上角綠色的 **Commit changes…**，再按一次 **Commit changes**。
-5. 1～2 分鐘後 Vercel 會自動更新網站。
+> ⚠ 在網頁改過之後，回到 VS Code 繼續工作前，**先在終端機執行 `git pull`**，把網頁上的修改拿回電腦，否則下次 `git push` 會被拒絕。
 
-> ⚠ 用方法 B 改過之後，回到 VS Code 繼續工作前，**先在終端機執行 `git pull`**，把網頁上的修改拿回電腦，否則下次 `git push` 會被拒絕。
+### 打錯字怎麼辦？
 
----
-
-## 三、寫文字時要注意的 4 件事
-
-1. **文字前後的單引號不能刪**，結尾的逗號 `,` 也要保留。
-2. **文字裡要用英文撇號（'）時**，前面加反斜線 `\`，或把外面的引號改成雙引號：
-   ```ts
-   title: 'Philtoshop\'s Diary',
-   title: "Philtoshop's Diary",
-   ```
-   中文的「」、，。不受影響，可以直接寫。
-3. `\n` 代表換行（只有首頁標語與首頁精選短介紹會換行）。
-4. 檔案裡 `//` 後面是給你看的說明，不會出現在網站上；標 `✎` 的欄位可以放心改，標 `⚠` 的請先看說明（例如作品的 `id` 不要改）。
-
-**改壞了怎麼辦？** 如果格式寫錯（例如少一個引號），Vercel 建置會失敗，**正式網站會維持上一個正常版本，不會壞掉**。到 Vercel 的 Deployments 頁面會看到紅色的 Error，修正後再推送一次即可。推送前在本機執行 `npm.cmd run build` 可以先抓出錯誤。
+欄位名稱打錯（例如把「標題」打成「標提」），那一行**不會出現在網站上**。在終端機執行 `npm.cmd run photos` 會告訴你是哪個檔案的第幾行、可以用哪些欄位；開發中瀏覽器按 `F12 → Console` 也看得到。網站不會因此壞掉。
 
 ---
 
 ## 四、加入超連結
 
-在文字中用這個格式：
+在內容中寫：
 
 ```
 [要顯示的文字](網址)
 ```
 
-中括號 `[ ]` 裡是網站上看到的文字，小括號 `( )` 裡是網址，**兩者中間不能有空格**。
-
-### 範例：連到 Instagram 帳號
-
-`src/data/about.ts`：
-```ts
-bio: [
-  'Based in Taipei. See more on [Instagram](https://www.instagram.com/你的帳號/).',
-],
+例如在 `about/info.txt`：
 ```
-網站上會顯示「Based in Taipei. See more on Instagram.」，其中 **Instagram** 是可點擊的連結（有細底線），點了會在新分頁打開你的 IG 頁面。
-
-把 `你的帳號` 換成你真正的 IG 帳號。最保險的做法是：用瀏覽器打開你的 IG 個人頁面，**直接複製網址列的網址**貼進小括號。
-
-### 其他範例
-
-| 想連到 | 寫法 | 開啟方式 |
-| --- | --- | --- |
-| IG 帳號 | `[@your_account](https://www.instagram.com/your_account/)` | 新分頁 |
-| 某一則 IG 貼文 | `[this post](https://www.instagram.com/p/貼文代碼/)` | 新分頁 |
-| 寄 Email | `[email me](mailto:you@example.com)` | 開啟郵件程式 |
-| 網站內的分類頁 | `[Shore](/works/shore)` | 原分頁 |
-| 網站內的某組作品 | `[Quiet Light](/works/emotional#quiet-light)` | 原分頁 |
-
-同一段文字可以放好幾個連結：
-```ts
-description: 'Shot with [@model_a](https://www.instagram.com/model_a/) and [@model_b](https://www.instagram.com/model_b/).',
+自我介紹：Based in Taipei. See more on [Instagram](https://www.instagram.com/你的帳號/).
 ```
+網站上「Instagram」會變成有細底線的連結，點了在新分頁打開你的 IG。
 
-### 可以放連結的地方
+| 想連到 | 寫法 |
+| --- | --- |
+| IG 帳號 | `[@your_account](https://www.instagram.com/your_account/)` |
+| 某一則 IG 貼文 | `[this post](https://www.instagram.com/p/貼文代碼/)` |
+| 寄 Email | `[email me](mailto:you@example.com)` |
+| 網站內的分類 | `[Shore](/works/shore)` |
+| 網站內的某組作品 | `[Quiet Light](/works/emotional#quiet-light)` |
 
-- ✅ 作品介紹 `description`、分類頁介紹 `intro`、首頁精選短介紹 `text`、About 的 `philosophy` 與 `bio`、大圖說明 `caption`
-- ❌ 標題類（作品名稱 `title`、分類名稱、首頁標語、網站名稱）與 Works 總覽卡片的 `summary`：這些本身已經是連結或大標題，寫了 `[ ](...)` 會原樣顯示括號
-
-### 為了安全
-
-只接受 `https://`、`http://`、`mailto:` 與 `/` 開頭的站內網址，其他寫法會被當成一般文字。文字裡的 HTML 標籤（例如 `<a href>`）也不會被執行，所以請一律使用上面的 `[文字](網址)` 格式。
+- 網址最保險的做法：用瀏覽器打開那個頁面，**直接複製網址列**。
+- `]` 和 `(` 中間不能有空格。
+- **可以放連結的欄位**：作品的「介紹」與「照片說明」、分類的「介紹」、首頁精選的「介紹」、About 的「理念」與「自我介紹」。
+- 標題、網站名稱、Works 總覽卡片本身已經是連結或大標題，寫了會原樣顯示括號。
+- 只接受 `https://`、`http://`、`mailto:` 與 `/` 開頭的站內網址，其他寫法會當成一般文字（安全考量）。
 
 ---
 
-## 五、頁尾／About 的 Instagram 與 Email 按鈕
+## 五、各個 info.txt 可以用的欄位
 
-除了在文字中放連結，`src/data/site.ts` 的 `contact` 也可以填 IG 與 Email，網站會在 About 頁與頁尾自動顯示：
+### 全站 `public/images/info.txt`
 
-```ts
-export const contact: ContactLinks = {
-  instagramUrl: 'https://www.instagram.com/your_account/',
-  instagramLabel: '@your_account',
-  email: '',          // 留空＝不顯示
-}
-```
+| 欄位 | 用途 |
+| --- | --- |
+| 網站名稱 | 左上角第一行大字（兩行會自動對齊成一樣寬） |
+| 副標 | 左上角第二行小字 |
+| 分頁標題 | 瀏覽器分頁標題後面的名稱 |
+| 版權 | 頁尾的版權名稱 |
+| Instagram | 填 `@帳號` 或個人頁網址都可以；留空＝不顯示 |
+| Instagram顯示文字 | 選填；不填＝自動顯示 @帳號 |
+| Email | 留空＝不顯示 |
+
+### 每組作品 `works/<分類>/<作品>/info.txt`
+
+| 欄位 | 用途 |
+| --- | --- |
+| 標題 | 作品名稱（隨時可以改） |
+| 介紹 | 一到兩句介紹，可放連結 |
+| 順序 | 在這個分類排第幾組，數字小的在前 |
+| 封面 | Works 總覽用的封面，填照片檔名（不用寫 .jpg），例如 `03`；不填＝第一張 |
+| 顯示 | 改成「否」＝暫時不顯示（不是隱私保護，照片仍是公開的） |
+| 照片說明 03 | 大圖下方的說明，`03` 換成照片檔名；需要幾張就寫幾行 |
+| 照片描述 03 | 選填：照片內容描述，給看不到圖片的人（螢幕閱讀器）；不填會自動產生 |
+
+### 分類 `works/<分類>/info.txt`
+
+| 欄位 | 用途 |
+| --- | --- |
+| 名稱 | 分類名稱（選單、頁面大標） |
+| 介紹 | 分類頁大標下方的一句話 |
+| 總覽介紹 | Works 總覽卡片下方的短介紹 |
+| 總覽封面 | Works 總覽的代表圖：`作品資料夾/照片檔名`，例如 `quiet-light/01`；不填＝第一組的封面 |
+| 順序 | 分類在選單與總覽的順序 |
+
+### 首頁 `home/info.txt`
+
+| 欄位 | 用途 |
+| --- | --- |
+| 主照片 | 首屏大照片的檔名（放在 home 資料夾），也可以寫作品照片，例如 `works/emotional/quiet-light/03.jpg` |
+| 主照片描述 | 照片內容描述 |
+| 主照片對焦 | 照片被裁切時保留哪裡：`上`、`中`、`下`，或百分比（`0%`＝最上、`50%`＝中間、`100%`＝最下） |
+| 標語 | 大標語；換行的位置就是電腦版的換行位置 |
+| 按鈕文字 | EXPLORE WORKS |
+| 小卡小字、小卡大字、小卡連結 | 主照片左下角的毛玻璃小卡 |
+| 精選標題 | 精選區上方的標題；留空＝不顯示。`*星號*` 包起來的字會變斜體 |
+
+精選作品每一張用【精選 1】【精選 2】…分段，每段可用：照片、照片描述、對焦、編號、標題、介紹、連結、顯示。
+**連結**寫分類（`emotional`），或「分類/作品資料夾」（`emotional/quiet-light`，會直接跳到那組作品）。
+每 4 張一組，位置依序是：①左側大圖 ②右側較低的圖（只顯示小標籤）③文字在左、圖片內縮 ④右側直式高圖。想多放就往下加【精選 5】。
+
+### About `about/info.txt`
+
+| 欄位 | 用途 |
+| --- | --- |
+| 照片 | About 頁照片的檔名（放在 about 資料夾） |
+| 照片描述 | 照片內容描述 |
+| 標題 | About 頁大標題 |
+| 理念 | 品牌與攝影理念，空一行＝新段落 |
+| 自我介紹 | 簡短自我介紹，空一行＝新段落（請只寫真實資訊） |

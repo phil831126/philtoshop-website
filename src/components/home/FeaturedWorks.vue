@@ -3,8 +3,8 @@
 【負責功能】把精選項目每 4 個分成一組，交給 FeaturedWorkItem 依版面代號排版。
 【資料來源】src/data/home.ts 的 featured、featuredHeading。
 【常見修改】
-  - 標題文字（留空＝不顯示）：home.ts 的 featuredHeading
-  - 精選內容、順序、位置代號：改 home.ts
+  - 標題文字（留空＝不顯示）：public/images/home/info.txt 的「精選標題」
+  - 精選內容與順序：改 public/images/home/info.txt（位置依順序自動決定）
   - 區塊上下間距：本檔 .featured 的 margin／padding
 【注意事項】每組的列結構（grid-template-rows）配合四種版面代號設計，請勿任意刪改。
 -->

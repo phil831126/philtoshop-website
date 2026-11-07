@@ -2,7 +2,7 @@
 【控制畫面】/about — 延伸設計：設計稿未提供此頁，沿用全站風格簡約處理
 【負責功能】攝影師照片、品牌與攝影理念、簡短自我介紹、Instagram／Email 聯絡連結。
 【資料來源】src/data/about.ts（照片與文字）、src/data/site.ts（contact 聯絡方式）。
-【常見修改】文字與照片：about.ts；聯絡方式：site.ts 的 contact。
+【常見修改】文字與照片：public/images/about/info.txt；聯絡方式：public/images/info.txt。
 【注意事項】聯絡方式留空時，不會顯示假的連結，而是顯示「尚未設定」的提示（僅開發模式）。
 -->
 <script setup lang="ts">
@@ -58,7 +58,7 @@ const isDev = import.meta.env.DEV
           </ul>
           <p v-else class="about__text about__text--muted">
             Contact details coming soon.
-            <span v-if="isDev" class="about__dev-note">（開發模式提示：請在 src/data/site.ts 的 contact 填入 Instagram 與 Email）</span>
+            <span v-if="isDev" class="about__dev-note">（開發模式提示：請在 public/images/info.txt 填入 Instagram 與 Email）</span>
           </p>
         </section>
       </div>

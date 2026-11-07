@@ -1,7 +1,7 @@
 <!--
 【控制畫面】/works/emotional、/works/style、/works/monochrome、/works/ordinary、/works/shore、/works/viscera
 【負責功能】六個分類「共用」的頁面：依網址讀取分類資料，顯示頁首與每組作品章節；沒有作品時顯示空狀態。
-【資料來源】src/data/categories.ts、src/data/projects/<分類>.ts。
+【資料來源】src/data/categories.ts、src/data/projects/（皆讀取 public/images/works/ 的資料夾與 info.txt）。
 【常見修改】內容請改資料檔；章節外觀請改 components/works/ProjectChapter.vue。
 【注意事項】請勿為各分類複製此頁面；新增作品只需修改資料檔。
 -->

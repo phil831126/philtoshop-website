@@ -3,7 +3,7 @@
 【負責功能】品牌名稱與副標、Home／Works／About；Works 點擊後展開「總覽＋六個分類」選單；
             手機寬度改為「Menu」按鈕，展開 MobileMenu。
 【資料來源】src/data/site.ts（品牌、導覽文字）、src/data/categories.ts（六個分類）。
-【常見修改】品牌名稱與導覽文字請改 site.ts；導覽列高度與字級請改 tokens.css（--header-h、--fs-nav）。
+【常見修改】網站名稱與副標請改 public/images/info.txt；導覽文字請改 site.ts 的 nav；導覽列高度與字級請改 tokens.css（--header-h、--fs-nav）。
 【注意事項】展開／收合狀態、Esc 關閉與點擊外部關閉的邏輯請勿刪除（無障礙與觸控操作需要）。
 -->
 <script setup lang="ts">
@@ -29,8 +29,10 @@ const setWorksButton = (el: unknown) => {
   worksButton.value = el as HTMLButtonElement | null
 }
 
-/** 品牌名稱逐字拆開（空白改成不換行空白，才不會被瀏覽器吃掉） */
-const brandLetters = computed(() => Array.from(site.brandName).map((ch) => (ch === ' ' ? ' ' : ch)))
+/** 逐字拆開（空白改成不換行空白，才不會被瀏覽器吃掉） */
+const letters = (text: string) => Array.from(text).map((ch) => (ch === ' ' ? ' ' : ch))
+const brandLetters = computed(() => letters(site.brandName))
+const subLetters = computed(() => letters(site.brandSubtitle))
 
 const isActive =(to: string) => (to === '/' ? route.path === '/' : route.path === to || route.path.startsWith(`${to}/`))
 const worksActive = computed(() => isActive('/works'))
@@ -73,11 +75,13 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
   <header class="site-header" :class="{ 'is-menu-open': mobileOpen }">
     <div class="container site-header__inner">
       <RouterLink to="/" class="brand" :aria-label="`${site.brandName} ${site.brandSubtitle} — Home`">
-        <!-- 品牌名稱逐字拆開、平均分散，讓總寬度與下方副標同寬（連結本身有 aria-label，螢幕閱讀器會讀完整名稱） -->
+        <!-- 網站名稱與副標都逐字拆開、平均分散：較短的一行會自動拉開到與較長的一行同寬（連結本身有 aria-label，螢幕閱讀器會讀完整名稱） -->
         <span class="brand__name" aria-hidden="true">
           <span v-for="(ch, i) in brandLetters" :key="i">{{ ch }}</span>
         </span>
-        <span class="brand__sub">{{ site.brandSubtitle }}</span>
+        <span class="brand__sub" aria-hidden="true">
+          <span v-for="(ch, i) in subLetters" :key="i">{{ ch }}</span>
+        </span>
       </RouterLink>
 
       <!-- 桌面／平板導覽 -->
@@ -186,7 +190,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
   font-size: var(--fs-brand);
   font-weight: 450;
   color: var(--color-text);
-  /* 字母平均分散，第一個字母靠左、最後一個字母靠右，與副標同寬 */
+  /* 字母平均分散，第一個字母靠左、最後一個字母靠右，與副標同寬（名稱較短時會拉開） */
   display: flex;
   justify-content: space-between;
 }
@@ -198,6 +202,9 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
   /* 抵銷最後一個字母後面多出的字距，讓副標右緣＝最後一個字母，上下兩行才會精準對齊 */
   margin-right: -0.24em;
   white-space: nowrap;
+  /* 副標比網站名稱短時，也會平均分散到同寬 */
+  display: flex;
+  justify-content: space-between;
   color: var(--color-text-soft);
 }
 

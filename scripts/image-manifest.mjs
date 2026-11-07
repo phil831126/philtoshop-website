@@ -1,6 +1,6 @@
 /**
  * 【控制畫面】無（建置輔助工具，不會被打包進網站）
- * 【負責功能】掃描 public/images/ 內所有照片，讀取實際寬高（含手機旋轉標記換算），
+ * 【負責功能】掃描 public/images/ 內所有照片（以及各資料夾的 info.txt 文字，見 content-files.mjs），讀取實際寬高（含手機旋轉標記換算），
  *            寫入 src/data/generated/images.ts，讓網站「放進資料夾就自動顯示」。
  *            npm run dev 期間偵測到照片新增／刪除會自動重新產生；npm run build 也會先執行。
  * 【資料來源】public/images/ 內的 JPG、PNG、WebP。
@@ -11,6 +11,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
+import { renderContent, scanTextFiles } from './content-files.mjs'
 
 export const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp'])
 
@@ -169,14 +170,24 @@ ${folderLines.join('\n')}
 `
 }
 
-/** 產生 src/data/generated/images.ts；內容沒變時不寫入（避免開發伺服器重複重新整理）。回傳是否有更新 */
+/** 內容沒變時不寫入（避免開發伺服器重複重新整理）。回傳是否有更新 */
+function writeIfChanged(file, next) {
+  const prev = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : ''
+  if (prev === next) return false
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  fs.writeFileSync(file, next)
+  return true
+}
+
+/**
+ * 產生 src/data/generated/images.ts（照片清單）與 src/data/generated/content.ts（info.txt 文字）。
+ * 回傳 { changed: 是否有任一檔更新, scan: 照片掃描結果, text: 文字掃描結果 }
+ */
 export function writeManifest(root) {
   const scan = scanImages(root)
-  const out = path.join(root, 'src', 'data', 'generated', 'images.ts')
-  const next = render(scan)
-  const prev = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : ''
-  if (prev === next) return { changed: false, scan }
-  fs.mkdirSync(path.dirname(out), { recursive: true })
-  fs.writeFileSync(out, next)
-  return { changed: true, scan }
+  const text = scanTextFiles(root)
+  const dir = path.join(root, 'src', 'data', 'generated')
+  const a = writeIfChanged(path.join(dir, 'images.ts'), render(scan))
+  const b = writeIfChanged(path.join(dir, 'content.ts'), renderContent(text))
+  return { changed: a || b, scan, text }
 }

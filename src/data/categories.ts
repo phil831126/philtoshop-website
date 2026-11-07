@@ -1,62 +1,43 @@
 /**
  * 【控制畫面】Works 總覽頁、六個分類分頁的頁首、導覽列的分類選單
  * 【負責功能】六個作品分類的名稱、介紹、排序與代表圖。
- * 【資料來源】代表圖從 src/data/projects/ 的作品照片中指定。
- * 【常見修改】
- *   - 分類分頁大標下方那句話：intro
- *   - Works 總覽頁的短介紹：summary
- *   - Works 總覽代表圖：cover（填作品 id 與照片 id；刪掉 cover 則自動用第一組作品封面）
- *   - 分類顯示順序：order
- * 【注意事項】id 對應網址 /works/<id>，拼字固定，請勿修改。
- *            ⚠ 除 Emotional 的 intro 取自設計稿外，其餘介紹文字皆為示意，請替換。
+ * 【資料來源】✎ 文字請改 public/images/works/<分類>/info.txt（名稱、介紹、總覽介紹、總覽封面、順序）。
+ *            這個檔案只負責讀取，平常不需要打開。
+ * 【常見修改】無。
+ * 【注意事項】六個分類的 id（emotional、style…）同時是網址 /works/<id> 與資料夾名稱，拼字固定，請勿修改。
+ *            info.txt 沒寫的欄位會使用下方的預設值。
  */
-import type { Category, CategoryId } from '@/types/portfolio'
+import type { Category, CategoryId, PhotoRef } from '@/types/portfolio'
+import { num, pick, textFile } from './text'
 
-export const categories: Category[] = [
-  {
-    id: 'emotional',
-    name: 'Emotional',
-    intro: 'Three stories, quietly told.', // ✎
-    summary: 'Quiet moments, honestly seen.', // ✎
-    order: 1,
-    cover: { projectId: 'quiet-light', photoId: '01' }, // ✎ 代表圖（photoId＝檔名去掉副檔名）
-  },
-  {
-    id: 'style',
-    name: 'Style',
-    intro: 'Form, fabric and the quiet of a pose.', // ✎ 示意
-    summary: 'Wardrobe, texture and composed light.', // ✎ 示意
-    order: 2,
-  },
-  {
-    id: 'monochrome',
-    name: 'Monochrome',
-    intro: 'A study in light and silence.', // ✎
-    summary: 'A study in light and silence.', // ✎
-    order: 3,
-  },
-  {
-    id: 'ordinary',
-    name: 'Ordinary',
-    intro: 'Everyday light, kept close.', // ✎ 示意
-    summary: 'Small rituals and familiar rooms.', // ✎ 示意
-    order: 4,
-  },
-  {
-    id: 'shore',
-    name: 'Shore',
-    intro: 'Where the sea meets memory.', // ✎
-    summary: 'Where the sea meets memory.', // ✎
-    order: 5,
-  },
-  {
-    id: 'viscera',
-    name: 'Viscera',
-    intro: 'Close, unguarded, unfiltered.', // ✎ 示意
-    summary: 'Texture, tension and what is left unsaid.', // ✎ 示意
-    order: 6,
-  },
+/** 六個分類與預設文字（info.txt 有寫就以 info.txt 為準） */
+const defaults: { id: CategoryId; name: string }[] = [
+  { id: 'emotional', name: 'Emotional' },
+  { id: 'style', name: 'Style' },
+  { id: 'monochrome', name: 'Monochrome' },
+  { id: 'ordinary', name: 'Ordinary' },
+  { id: 'shore', name: 'Shore' },
+  { id: 'viscera', name: 'Viscera' },
 ]
+
+/** 「quiet-light/01」→ { projectId: 'quiet-light', photoId: '01' }；只寫作品＝該作品的封面 */
+function parseCover(value: string): PhotoRef | undefined {
+  const [projectId, photo] = value.split('/').map((s) => s.trim())
+  if (!projectId) return undefined
+  return { projectId, photoId: (photo ?? '').replace(/\.[a-z]+$/i, '') }
+}
+
+export const categories: Category[] = defaults.map((d, i) => {
+  const t = textFile(`works/${d.id}`).fields
+  return {
+    id: d.id,
+    name: pick(t, '名稱', d.name),
+    intro: pick(t, '介紹'),
+    summary: pick(t, '總覽介紹'),
+    order: num(t['順序'], i + 1),
+    cover: parseCover(pick(t, '總覽封面')),
+  }
+})
 
 /** 依 order 排序後的分類（導覽與總覽頁使用） */
 export const sortedCategories: Category[] = [...categories].sort((a, b) => a.order - b.order)

@@ -3,7 +3,7 @@
 【負責功能】依附圖排版；手機改成上圖下文。
 【資料來源】src/data/home.ts 的 hero。
 【常見修改】
-  - 照片、裁切位置、標語、資訊卡文字：改 home.ts
+  - 照片、對焦位置、標語、資訊卡文字：改 public/images/home/info.txt
   - 照片與文字欄比例：本檔 .hero 的 grid-template-columns
   - 照片比例：.hero__media 的 aspect-ratio
 【注意事項】資訊卡固定在照片左下角，請透過 hero.image.objectPosition 調整照片，避免卡片遮住人物臉部。

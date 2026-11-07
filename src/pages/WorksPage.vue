@@ -1,8 +1,8 @@
 <!--
 【控制畫面】/works（作品分類總覽）— 延伸設計：設計稿未提供此頁，沿用分頁風格簡約處理
 【負責功能】顯示六個分類的代表圖、名稱、短介紹與作品組數；點擊進入分類分頁。
-【資料來源】src/data/categories.ts（名稱、summary、cover）、src/data/projects/（代表圖與組數）。
-【常見修改】代表圖：categories.ts 的 cover；介紹：summary；卡片比例：本檔 .works-card__media 的 aspect-ratio（目前 2:3，照片完整顯示不裁切）。
+【資料來源】各分類資料夾的 info.txt（名稱、總覽介紹、總覽封面），經 src/data/categories.ts 讀取；作品組數自動計算。
+【常見修改】代表圖：分類 info.txt 的「總覽封面」；介紹：「總覽介紹」；卡片比例：本檔 .works-card__media 的 aspect-ratio（目前 2:3，照片完整顯示不裁切）。
 【注意事項】代表圖未設定時，自動使用該分類第一組已公開作品的封面；都沒有時顯示替代區塊。
 -->
 <script setup lang="ts">
@@ -14,7 +14,7 @@ import IconArrow from '@/components/common/IconArrow.vue'
 
 function coverFor(cat: Category): Photo | undefined {
   if (cat.cover) {
-    const p = getPhoto(cat.cover)
+    const p = getPhoto(cat.cover, cat.id)
     if (p) return p
   }
   const first = getPublishedProjects(cat.id)[0]

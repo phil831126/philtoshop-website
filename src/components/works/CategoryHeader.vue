@@ -2,7 +2,7 @@
 【控制畫面】分類分頁頁首：Works / 分類名稱 麵包屑、大型非斜體分類標題、一句介紹、短分隔線
 【負責功能】六個分類共用的頁首。
 【資料來源】由 CategoryPage.vue 傳入 src/data/categories.ts 的分類。
-【常見修改】標題與介紹文字：改 categories.ts 的 name、intro；字級：tokens.css 的 --fs-page-title。
+【常見修改】標題與介紹文字：改 public/images/works/<分類>/info.txt 的「名稱」「介紹」；字級：tokens.css 的 --fs-page-title。
 【注意事項】標題固定使用非斜體襯線字，請勿加上 font-style: italic。
 -->
 <script setup lang="ts">
