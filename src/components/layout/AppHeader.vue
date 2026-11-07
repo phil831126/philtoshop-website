@@ -29,7 +29,10 @@ const setWorksButton = (el: unknown) => {
   worksButton.value = el as HTMLButtonElement | null
 }
 
-const isActive = (to: string) => (to === '/' ? route.path === '/' : route.path === to || route.path.startsWith(`${to}/`))
+/** 品牌名稱逐字拆開（空白改成不換行空白，才不會被瀏覽器吃掉） */
+const brandLetters = computed(() => Array.from(site.brandName).map((ch) => (ch === ' ' ? ' ' : ch)))
+
+const isActive =(to: string) => (to === '/' ? route.path === '/' : route.path === to || route.path.startsWith(`${to}/`))
 const worksActive = computed(() => isActive('/works'))
 
 function closeAll() {
@@ -70,7 +73,10 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
   <header class="site-header" :class="{ 'is-menu-open': mobileOpen }">
     <div class="container site-header__inner">
       <RouterLink to="/" class="brand" :aria-label="`${site.brandName} ${site.brandSubtitle} — Home`">
-        <span class="brand__name">{{ site.brandName }}</span>
+        <!-- 品牌名稱逐字拆開、平均分散，讓總寬度與下方副標同寬（連結本身有 aria-label，螢幕閱讀器會讀完整名稱） -->
+        <span class="brand__name" aria-hidden="true">
+          <span v-for="(ch, i) in brandLetters" :key="i">{{ ch }}</span>
+        </span>
         <span class="brand__sub">{{ site.brandSubtitle }}</span>
       </RouterLink>
 
@@ -179,14 +185,19 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
   font-family: var(--font-serif);
   font-size: var(--fs-brand);
   font-weight: 450;
-  letter-spacing: 0.005em;
   color: var(--color-text);
+  /* 字母平均分散，第一個字母靠左、最後一個字母靠右，與副標同寬 */
+  display: flex;
+  justify-content: space-between;
 }
 
 .brand__sub {
   font-family: var(--font-sans);
   font-size: var(--fs-brand-sub);
   letter-spacing: 0.24em;
+  /* 抵銷最後一個字母後面多出的字距，讓副標右緣＝最後一個字母，上下兩行才會精準對齊 */
+  margin-right: -0.24em;
+  white-space: nowrap;
   color: var(--color-text-soft);
 }
 
