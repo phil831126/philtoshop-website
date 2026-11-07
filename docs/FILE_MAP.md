@@ -1,13 +1,14 @@
 # 檔案對照表：想改什麼 → 開哪個檔案 → 改哪個欄位
 
 > 日常更新照片與文字只需要改 `src/data/` 與 `public/images/`，**不需要修改 Vue 元件**。
+> 文字修改與超連結的完整教學見 [EDIT_TEXT.md](EDIT_TEXT.md)。
 > 資料檔中標有 `✎` 的欄位可以放心修改；標有 `⚠` 的請先閱讀說明。
 
 ## 內容（最常修改）
 
 | 想修改什麼 | 應開啟哪個檔案 | 應修改哪個欄位 |
 | --- | --- | --- |
-| 品牌名稱、副標 | `src/data/site.ts` | `site.brandName`、`site.brandSubtitle` |
+| 左上角網站名稱（兩行） | `src/data/site.ts` | `site.brandName`（大字）、`site.brandSubtitle`（小字） |
 | 導覽文字（Home／Works／About） | `src/data/site.ts` | `nav[].label`（`to` 是網址，不建議改） |
 | 瀏覽器分頁標題後綴 | `src/data/site.ts` | `site.titleSuffix` |
 | 首頁主照片 | `public/images/home/hero.jpg`（同檔名覆蓋）或 `src/data/home.ts` | `hero.image` 的路徑與 `alt`（寬高自動帶入） |
@@ -15,7 +16,8 @@
 | 首頁標語與換行位置 | `src/data/home.ts` | `hero.tagline`（`\n` 是桌面版換行處） |
 | EXPLORE WORKS 文字／連結 | `src/data/home.ts` | `hero.ctaLabel`、`hero.ctaTo` |
 | 首屏毛玻璃資訊卡 | `src/data/home.ts` | `hero.card.label`、`title`、`to` |
-| 「Selected works.」標題 | `src/data/home.ts` | `featuredHeading.regular`、`featuredHeading.italic` |
+| 首頁精選區標題（目前不顯示） | `src/data/home.ts` | `featuredHeading.regular`、`featuredHeading.italic`（兩個都留空＝不顯示） |
+| 文字中加超連結（IG、Email、站內） | 各資料檔的介紹文字 | 寫成 `[顯示文字](網址)`，見 EDIT_TEXT.md |
 | 首頁精選：照片 | `src/data/home.ts` | `featured[].image`（可填作品資料夾內的照片路徑） |
 | 首頁精選：位置 | `src/data/home.ts` | `featured[].layout`：`wide-left`／`offset-right`／`inset-left`／`tall-right` |
 | 首頁精選：編號、標題、短介紹 | `src/data/home.ts` | `featured[].number`、`heading`、`text` |

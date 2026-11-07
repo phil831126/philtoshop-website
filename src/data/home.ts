@@ -16,7 +16,7 @@ import { imageFile } from './images'
 
 export const hero: HomeHero = {
   image: imageFile('/images/home/hero.jpg', {
-    alt: 'Placeholder: portrait by the sea at dusk', // ✎ ⚠ 示意圖
+    alt: 'Photograph by Philtoshop', // ✎ 請改成照片內容的簡短描述（給看不到圖片的人）
     objectPosition: 'center 40%', // ✎ 裁切對焦位置
   }),
   tagline: 'Capturing every\nmoment, the\nunreserved\nversion of you.', // ✎
@@ -29,10 +29,14 @@ export const hero: HomeHero = {
   },
 }
 
-/** 精選區標題：前半一般字、後半斜體（依設計稿 Selected works.） */
+/**
+ * 精選區標題：前半一般字、後半斜體（設計稿原為 Selected works.）
+ * 目前不顯示：兩個都留空字串＝畫面上沒有標題（螢幕閱讀器仍會讀到「Selected works」區塊名稱）。
+ * 想恢復時填回，例如 regular: 'Selected', italic: 'works.'
+ */
 export const featuredHeading = {
-  regular: 'Selected', // ✎
-  italic: 'works.', // ✎
+  regular: '', // ✎
+  italic: '', // ✎
 }
 
 export const featured: FeaturedWork[] = [
@@ -41,7 +45,7 @@ export const featured: FeaturedWork[] = [
     categoryId: 'emotional',
     projectId: 'quiet-light', // 點擊後跳到 Emotional 頁的 Quiet Light 章節
     image: imageFile('/images/home/featured-emotional.jpg', {
-      alt: 'Placeholder: portrait in window light', // ✎ ⚠ 示意圖
+      alt: 'Photograph by Philtoshop', // ✎ 請改成照片內容的簡短描述（給看不到圖片的人）
       objectPosition: 'center 35%',
     }),
     number: '01', // ✎
@@ -55,7 +59,7 @@ export const featured: FeaturedWork[] = [
     id: 'featured-ordinary',
     categoryId: 'ordinary',
     image: imageFile('/images/home/featured-ordinary.jpg', {
-      alt: 'Placeholder: shoreline at sunset', // ✎ ⚠ 示意圖
+      alt: 'Photograph by Philtoshop', // ✎ 請改成照片內容的簡短描述（給看不到圖片的人）
     }),
     number: '', // 設計稿此張不顯示編號
     heading: 'Ordinary', // ✎ 桌面版以照片上的小型毛玻璃標籤顯示
@@ -69,7 +73,7 @@ export const featured: FeaturedWork[] = [
     categoryId: 'monochrome',
     projectId: 'grey-hours',
     image: imageFile('/images/home/featured-monochrome.jpg', {
-      alt: 'Placeholder: blossoms in black and white', // ✎ ⚠ 示意圖
+      alt: 'Photograph by Philtoshop', // ✎ 請改成照片內容的簡短描述（給看不到圖片的人）
     }),
     number: '02', // ✎
     heading: 'Monochrome', // ✎
@@ -83,7 +87,7 @@ export const featured: FeaturedWork[] = [
     categoryId: 'shore',
     projectId: 'low-tide',
     image: imageFile('/images/home/featured-shore.jpg', {
-      alt: 'Placeholder: portrait against the evening sky', // ✎ ⚠ 示意圖
+      alt: 'Photograph by Philtoshop', // ✎ 請改成照片內容的簡短描述（給看不到圖片的人）
       objectPosition: 'center 30%',
     }),
     number: '03', // ✎

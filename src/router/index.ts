@@ -63,7 +63,7 @@ function pageTitle(route: RouteLocationNormalized): string {
   if (route.name === 'category') {
     title = getCategory(String(route.params.categoryId))?.name ?? ''
   }
-  return title ? `${title} — ${site.titleSuffix}` : `${site.titleSuffix} — Personal Photography`
+  return title ? `${title} — ${site.titleSuffix}` : `${site.brandName} ${site.brandSubtitle}`
 }
 
 router.afterEach((to) => {

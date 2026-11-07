@@ -10,6 +10,7 @@
             文字放在深色留白區，不壓在照片上（offset-right 依附圖只顯示小型毛玻璃標籤）。
 -->
 <script setup lang="ts">
+import RichText from '@/components/common/RichText.vue'
 import { computed } from 'vue'
 import type { FeaturedWork } from '@/types/portfolio'
 import AppImage from '@/components/common/AppImage.vue'
@@ -44,7 +45,7 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
         </RouterLink>
         <span v-if="lineAfter" class="fw__line" aria-hidden="true" />
       </h3>
-      <p v-if="item.text" class="fw__desc">{{ item.text }}</p>
+      <p v-if="item.text" class="fw__desc"><RichText :text="item.text" /></p>
     </div>
   </article>
 </template>

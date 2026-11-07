@@ -6,6 +6,7 @@
 【注意事項】聯絡方式留空時，不會顯示假的連結，而是顯示「尚未設定」的提示（僅開發模式）。
 -->
 <script setup lang="ts">
+import RichText from '@/components/common/RichText.vue'
 import { about } from '@/data/about'
 import { contact } from '@/data/site'
 import AppImage from '@/components/common/AppImage.vue'
@@ -29,12 +30,12 @@ const isDev = import.meta.env.DEV
 
         <section class="about__section" aria-labelledby="about-philosophy">
           <h2 id="about-philosophy" class="about__label">Philosophy</h2>
-          <p v-for="(para, i) in about.philosophy" :key="i" class="about__text">{{ para }}</p>
+          <p v-for="(para, i) in about.philosophy" :key="i" class="about__text"><RichText :text="para" /></p>
         </section>
 
         <section class="about__section" aria-labelledby="about-bio">
           <h2 id="about-bio" class="about__label">The photographer</h2>
-          <p v-for="(para, i) in about.bio" :key="i" class="about__text">{{ para }}</p>
+          <p v-for="(para, i) in about.bio" :key="i" class="about__text"><RichText :text="para" /></p>
         </section>
 
         <section class="about__section" aria-labelledby="about-contact">

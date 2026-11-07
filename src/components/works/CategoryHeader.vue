@@ -6,6 +6,7 @@
 【注意事項】標題固定使用非斜體襯線字，請勿加上 font-style: italic。
 -->
 <script setup lang="ts">
+import RichText from '@/components/common/RichText.vue'
 import type { Category } from '@/types/portfolio'
 
 defineProps<{ category: Category }>()
@@ -21,7 +22,7 @@ defineProps<{ category: Category }>()
       </ol>
     </nav>
     <h1 class="category-header__title">{{ category.name }}</h1>
-    <p class="category-header__intro">{{ category.intro }}</p>
+    <p class="category-header__intro"><RichText :text="category.intro" /></p>
     <span class="category-header__rule" aria-hidden="true" />
   </header>
 </template>

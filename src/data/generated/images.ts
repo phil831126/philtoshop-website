@@ -5,12 +5,12 @@
  */
 
 export const imageSizes: Record<string, readonly [number, number]> = {
-  '/images/about/portrait.jpg': [1080, 1350],
-  '/images/home/featured-emotional.jpg': [1400, 1015],
-  '/images/home/featured-monochrome.jpg': [1320, 1000],
-  '/images/home/featured-ordinary.jpg': [1360, 1000],
-  '/images/home/featured-shore.jpg': [1080, 1350],
-  '/images/home/hero.jpg': [1600, 1200],
+  '/images/about/01.jpg': [1044, 1568],
+  '/images/home/featured-emotional.jpg': [1045, 1567],
+  '/images/home/featured-monochrome.jpg': [1045, 1567],
+  '/images/home/featured-ordinary.jpg': [1567, 1045],
+  '/images/home/featured-shore.jpg': [1045, 1567],
+  '/images/home/hero.jpg': [4000, 6000],
   '/images/works/emotional/after-the-rain/11.jpg': [1045, 1567],
   '/images/works/emotional/after-the-rain/12.jpg': [1045, 1567],
   '/images/works/emotional/after-the-rain/13.jpg': [1045, 1567],
@@ -184,7 +184,7 @@ export const imageSizes: Record<string, readonly [number, number]> = {
 
 export const imageFolders: Record<string, readonly string[]> = {
   'about': [
-    '/images/about/portrait.jpg',
+    '/images/about/01.jpg',
   ],
   'home': [
     '/images/home/featured-emotional.jpg',

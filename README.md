@@ -31,6 +31,7 @@ PowerShell 出現 `npm.ps1` 被封鎖時，改用「命令提示字元」或輸�
 | 文件 | 內容 |
 | --- | --- |
 | [docs/SETUP_WINDOWS.md](docs/SETUP_WINDOWS.md) | Windows 環境安裝、Git 設定、第一次推送（依速查表 10 步） |
+| [docs/EDIT_TEXT.md](docs/EDIT_TEXT.md) | **自己修改網站文字、加入超連結（IG 等）**，含 GitHub 網頁直接修改 |
 | [docs/CONTENT_EDITING.md](docs/CONTENT_EDITING.md) | 新增作品與照片、放到首頁精選的完整範例 |
 | [docs/FILE_MAP.md](docs/FILE_MAP.md) | 想改什麼 → 開哪個檔案 → 改哪個欄位 |
 | [docs/DEPLOY_VERCEL.md](docs/DEPLOY_VERCEL.md) | Vercel 匯入、設定與部署驗收 |
@@ -52,5 +53,5 @@ src/
 public/images/   home/ about/ works/<分類>/<作品>/
 ```
 
-> ⚠ 目前所有照片皆為程式產生的示意圖，部分文案為示意內容，請依 docs/VISUAL_CHECK.md 的清單替換。
+> ⚠ 部分照片與文案仍為示意內容，請依 docs/VISUAL_CHECK.md 的清單替換。
 > `published: false` 只控制是否顯示，不是隱私保護；私密原始照片請勿放進專案。

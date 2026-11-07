@@ -10,6 +10,7 @@
 【注意事項】章節 id 等於作品 id，首頁精選用它跳到指定章節（#quiet-light）。照片數由 photos 自動計算。
 -->
 <script setup lang="ts">
+import RichText from '@/components/common/RichText.vue'
 import { computed } from 'vue'
 import type { Project } from '@/types/portfolio'
 import { formatPhotoCount } from '@/data/projects'
@@ -27,7 +28,7 @@ const titleId = computed(() => `${props.project.id}-title`)
       <p class="chapter__num">{{ numberLabel }}</p>
       <h2 :id="titleId" class="chapter__title">{{ project.title }}</h2>
       <span class="chapter__rule" aria-hidden="true" />
-      <p class="chapter__desc">{{ project.description }}</p>
+      <p class="chapter__desc"><RichText :text="project.description" /></p>
       <p class="pill chapter__count">{{ formatPhotoCount(project.photos.length) }}</p>
     </header>
 

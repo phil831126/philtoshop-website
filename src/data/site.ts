@@ -12,8 +12,8 @@
 import type { ContactLinks, NavItem } from '@/types/portfolio'
 
 export const site = {
-  brandName: 'PHILTOSHOP', // ✎
-  brandSubtitle: 'PERSONAL PHOTOGRAPHY', // ✎
+  brandName: 'Philtoshop', // ✎ 導覽列左上角第一行（大字）
+  brandSubtitle: 'Photography Portfolio', // ✎ 導覽列左上角第二行（小字）
   /** 瀏覽器分頁標題的後綴，例如「Emotional — PHILTOSHOP」 */
   titleSuffix: 'PHILTOSHOP', // ✎
   copyrightName: 'PHILTOSHOP', // ✎

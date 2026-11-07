@@ -7,6 +7,7 @@
 【注意事項】使用瀏覽器原生 <dialog>（showModal），背景內容自動不可操作；不循環播放，到頭尾時箭頭停用。
 -->
 <script setup lang="ts">
+import RichText from '@/components/common/RichText.vue'
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import type { Photo } from '@/types/portfolio'
 import AppImage from '@/components/common/AppImage.vue'
@@ -140,7 +141,7 @@ onBeforeUnmount(() => lockScroll(false))
     <div v-if="open && photo" class="lightbox__stage">
       <figure class="lightbox__figure" :style="figureStyle" @pointerdown="onPointerDown" @pointerup="onPointerUp">
         <AppImage :key="photo.id" :photo="photo" fit="contain" loading="eager" sizes="92vw" />
-        <figcaption v-if="photo.caption" class="lightbox__caption">{{ photo.caption }}</figcaption>
+        <figcaption v-if="photo.caption" class="lightbox__caption"><RichText :text="photo.caption" /></figcaption>
       </figure>
 
       <div class="lightbox__bar">

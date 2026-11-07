@@ -69,7 +69,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocumentClick))
 <template>
   <header class="site-header" :class="{ 'is-menu-open': mobileOpen }">
     <div class="container site-header__inner">
-      <RouterLink to="/" class="brand" aria-label="PHILTOSHOP — Home">
+      <RouterLink to="/" class="brand" :aria-label="`${site.brandName} ${site.brandSubtitle} — Home`">
         <span class="brand__name">{{ site.brandName }}</span>
         <span class="brand__sub">{{ site.brandSubtitle }}</span>
       </RouterLink>

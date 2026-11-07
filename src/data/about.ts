@@ -9,8 +9,8 @@ import type { AboutContent } from '@/types/portfolio'
 import { imageFile } from './images'
 
 export const about: AboutContent = {
-  image: imageFile('/images/about/portrait.jpg', {
-    alt: 'Placeholder portrait of the photographer', // ✎ ⚠ 示意圖，換成攝影師照片
+  image: imageFile('/images/about/01.jpg', {
+    alt: 'Portrait of the photographer', // ✎ 請改成照片內容的簡短描述
   }),
   heading: 'The unreserved version of you.', // ✎
   philosophy: [

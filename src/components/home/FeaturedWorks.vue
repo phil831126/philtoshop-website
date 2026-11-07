@@ -3,6 +3,7 @@
 【負責功能】把精選項目每 4 個分成一組，交給 FeaturedWorkItem 依版面代號排版。
 【資料來源】src/data/home.ts 的 featured、featuredHeading。
 【常見修改】
+  - 標題文字（留空＝不顯示）：home.ts 的 featuredHeading
   - 精選內容、順序、位置代號：改 home.ts
   - 區塊上下間距：本檔 .featured 的 margin／padding
 【注意事項】每組的列結構（grid-template-rows）配合四種版面代號設計，請勿任意刪改。
@@ -11,6 +12,9 @@
 import { computed } from 'vue'
 import { featuredHeading, publishedFeatured } from '@/data/home'
 import FeaturedWorkItem from './FeaturedWorkItem.vue'
+
+/** 標題兩段都留空時不顯示 */
+const hasHeading = computed(() => Boolean(featuredHeading.regular || featuredHeading.italic))
 
 /** 每 4 個一組 */
 const groups = computed(() => {
@@ -22,9 +26,11 @@ const groups = computed(() => {
 
 <template>
   <section v-if="publishedFeatured.length" class="featured container" aria-labelledby="featured-title">
-    <h2 id="featured-title" class="featured__title">
-      {{ featuredHeading.regular }} <em>{{ featuredHeading.italic }}</em>
+    <h2 v-if="hasHeading" id="featured-title" class="featured__title">
+      {{ featuredHeading.regular }} <em v-if="featuredHeading.italic">{{ featuredHeading.italic }}</em>
     </h2>
+    <!-- 標題留空時畫面不顯示，但保留給螢幕閱讀器的區塊名稱 -->
+    <h2 v-else id="featured-title" class="visually-hidden">Selected works</h2>
     <div v-for="(group, gi) in groups" :key="gi" class="featured__group">
       <FeaturedWorkItem v-for="item in group" :key="item.id" :item="item" />
     </div>
