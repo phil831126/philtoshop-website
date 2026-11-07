@@ -1,10 +1,10 @@
 <!--
 【控制畫面】分類分頁中的「一組作品」章節（A 款章節式相簿）
-【負責功能】桌面：左欄約 22.5%（編號、非斜體作品名稱、短線、介紹、照片數標籤）＋右欄橫向相簿；
+【負責功能】桌面：左欄約 22.5%（編號、作品名稱、短線、模特名字、IG 連結、日期、選填介紹、照片數標籤）＋右欄橫向相簿；
             手機：上方介紹、下方相簿；章節之間以細線區隔。
 【資料來源】由 CategoryPage.vue 傳入的作品（照片＋ public/images/works/<分類>/<作品>/info.txt 的文字）。
 【常見修改】
-  - 文字、照片：改作品資料檔
+  - 文字：改作品資料夾的 info.txt（標題、模特、IG、日期、介紹）
   - 左右欄比例：本檔 .chapter 的 grid-template-columns
   - 章節上下間距：.chapter 的 padding
 【注意事項】章節 id 等於作品 id，首頁精選用它跳到指定章節（#quiet-light）。照片數由 photos 自動計算。
@@ -20,6 +20,7 @@ const props = defineProps<{ project: Project; number: number }>()
 
 const numberLabel = computed(() => `${String(props.number).padStart(2, '0')} /`)
 const titleId = computed(() => `${props.project.id}-title`)
+const hasMeta = computed(() => Boolean(props.project.model || props.project.instagram.length || props.project.date))
 </script>
 
 <template>
@@ -28,7 +29,19 @@ const titleId = computed(() => `${props.project.id}-title`)
       <p class="chapter__num">{{ numberLabel }}</p>
       <h2 :id="titleId" class="chapter__title">{{ project.title }}</h2>
       <span class="chapter__rule" aria-hidden="true" />
-      <p class="chapter__desc"><RichText :text="project.description" /></p>
+      <!-- 依手稿排版：模特名字 → IG（連結）→ 日期 → 照片數；沒填的項目不顯示 -->
+      <div v-if="hasMeta" class="chapter__meta">
+        <p v-if="project.model" class="chapter__model"><RichText :text="project.model" /></p>
+        <ul v-if="project.instagram.length" class="chapter__ig" aria-label="Instagram">
+          <li v-for="ig in project.instagram" :key="ig.url">
+            <a :href="ig.url" target="_blank" rel="noopener noreferrer" class="chapter__ig-link"
+              >{{ ig.label }}<span class="visually-hidden"> on Instagram (opens in a new tab)</span></a
+            >
+          </li>
+        </ul>
+        <p v-if="project.date" class="chapter__date">{{ project.date }}</p>
+      </div>
+      <p v-if="project.description" class="chapter__desc"><RichText :text="project.description" /></p>
       <p class="pill chapter__count">{{ formatPhotoCount(project.photos.length) }}</p>
     </header>
 
@@ -76,12 +89,57 @@ const titleId = computed(() => `${props.project.id}-title`)
   background: var(--color-line-strong);
 }
 
-.chapter__desc {
+/* 模特名字、IG、日期：同一組緊密排列 */
+.chapter__meta {
   margin-top: calc(3 * var(--u));
+  font-size: var(--fs-chapter-text);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: var(--color-text-soft);
+}
+
+.chapter__model {
+  color: var(--color-text);
+  white-space: pre-line;
+}
+
+.chapter__ig-link {
+  color: var(--color-text-soft);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.chapter__ig-link:hover,
+.chapter__ig-link:focus-visible {
+  color: var(--color-text);
+  text-decoration-color: currentColor;
+}
+
+.chapter__date {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+.chapter__desc {
+  margin-top: calc(1.8 * var(--u));
   font-size: var(--fs-chapter-text);
   line-height: 1.5;
   letter-spacing: 0.01em;
   color: var(--color-text-soft);
+}
+
+.chapter__meta + .chapter__desc {
+  margin-top: calc(1.4 * var(--u));
+}
+
+.chapter__rule + .chapter__desc {
+  margin-top: calc(3 * var(--u));
 }
 
 .chapter__count {
@@ -127,9 +185,18 @@ const titleId = computed(() => `${props.project.id}-title`)
     margin-top: 16px;
   }
 
-  .chapter__desc {
+  .chapter__meta {
+    margin-top: 14px;
+  }
+
+  .chapter__desc,
+  .chapter__rule + .chapter__desc {
     margin-top: 14px;
     max-width: 34em;
+  }
+
+  .chapter__meta + .chapter__desc {
+    margin-top: 10px;
   }
 
   .chapter__count {

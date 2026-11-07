@@ -27,7 +27,18 @@ export const KEYS = {
   featured: ['照片', '照片描述', '對焦', '編號', '標題', '介紹', '連結', '顯示'],
   about: ['照片', '照片描述', '標題', '理念', '自我介紹'],
   category: ['名稱', '介紹', '總覽介紹', '總覽封面', '順序'],
-  series: ['標題', '介紹', '封面', '順序', '顯示'],
+  series: ['標題', '模特', 'IG', '日期', '介紹', '封面', '順序', '顯示'],
+}
+
+/** 作品系列欄位的其他常見寫法（寫成這些也看得懂） */
+const SERIES_ALIASES = {
+  模特兒: '模特',
+  模特名字: '模特',
+  model: '模特',
+  instagram: 'IG',
+  模特ig: 'IG',
+  時間: '日期',
+  date: '日期',
 }
 
 /** 每張照片的欄位（只用在系列資料夾），例如「照片說明 03：Taipei, 2026」 */
@@ -63,6 +74,7 @@ function canonicalKey(raw, kind, inSection) {
   const hit = list.find((k) => squash(k) === key)
   if (hit) return hit
   if (kind === 'series') {
+    if (SERIES_ALIASES[key]) return SERIES_ALIASES[key]
     for (const p of PHOTO_KEYS) {
       if (key.startsWith(p) && key.length > p.length) return `${p} ${raw.replace(/\s+/g, '').slice(p.length)}`
     }

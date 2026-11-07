@@ -61,12 +61,16 @@ public/images/works/emotional/morning-window/02.jpg
 ```bash
 npm.cmd run photos
 ```
-工具會在新資料夾裡**自動建立 `info.txt`**，打開改「標題」「介紹」：
+工具會在新資料夾裡**自動建立 `info.txt`**，打開填「標題」「模特」「IG」「日期」：
 
 ```
 標題：Morning Window
 
-介紹：Soft light before the city wakes.
+模特：Model Name
+
+IG：@model_account
+
+日期：2026/05
 
 順序：4
 ```

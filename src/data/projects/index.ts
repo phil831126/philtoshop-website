@@ -3,7 +3,7 @@
  * 【負責功能】依資料夾「自動」建立每組作品：
  *   - public/images/works/<分類>/<作品資料夾>/ 裡有照片＝一組作品（一個章節）
  *   - 照片依檔名排序，寬高自動讀取，照片數自動計算
- *   - 標題、介紹、順序、封面、照片說明 → 讀取同資料夾的 info.txt（沒有 info.txt 時，標題自動用資料夾名稱）
+ *   - 標題、模特、IG、日期、介紹、順序、封面、照片說明 → 讀取同資料夾的 info.txt（沒有 info.txt 時，標題自動用資料夾名稱）
  *   也提供查詢工具給頁面使用：依分類取得作品、找照片、取得封面。
  * 【資料來源】src/data/generated/images.ts（照片）、src/data/generated/content.ts（info.txt 文字），兩者皆自動產生。
  * 【常見修改】不需要修改。新增作品＝新增資料夾放照片；改文字＝改該資料夾的 info.txt。
@@ -12,7 +12,7 @@
 import type { CategoryId, Photo, PhotoNote, PhotoRef, Project } from '@/types/portfolio'
 import { imageFolders, imageSizes } from '../generated/images'
 import { isCategoryId } from '../categories'
-import { num, pick, textFile, yes } from '../text'
+import { instagramLinks, num, pick, textFile, yes } from '../text'
 
 const fileName = (src: string) => src.slice(src.lastIndexOf('/') + 1)
 const stem = (name: string) => name.replace(/\.[^.]+$/, '')
@@ -70,6 +70,9 @@ function buildProject(folder: string, index: number): Project | undefined {
     categoryId,
     folder,
     title,
+    model: pick(t, '模特'),
+    instagram: instagramLinks(t['IG']),
+    date: pick(t, '日期'),
     description: pick(t, '介紹'),
     // 沒寫順序的作品排在有寫的後面，依資料夾名稱
     order: num(t['順序'], 1000 + index),

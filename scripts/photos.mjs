@@ -117,7 +117,7 @@ for (const cat of CATEGORIES) {
 }
 
 if (created.length) {
-  console.log(`\n📝 新作品資料夾已自動建立文字檔（打開改「標題」「介紹」即可）：`)
+  console.log(`\n📝 新作品資料夾已自動建立文字檔（打開填「標題」「模特」「IG」「日期」即可）：`)
   for (const c of created) console.log(`  - ${c}`)
 }
 if (warnings.length) {

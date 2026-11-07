@@ -117,7 +117,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/emotional/after-the-rain": {
     "fields": {
       "標題": "After the Rain",
-      "介紹": "City portraits in the calm after a downpour.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "2",
       "封面": "",
       "顯示": "是"
@@ -127,7 +130,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/emotional/between-us": {
     "fields": {
       "標題": "Between Us",
-      "介紹": "Portraits by the coast, where distance feels closer.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "3",
       "封面": "",
       "顯示": "是"
@@ -137,7 +143,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/emotional/quiet-light": {
     "fields": {
       "標題": "Quiet Light",
-      "介紹": "A portrait series in natural window light.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "1",
       "封面": "",
       "顯示": "是"
@@ -157,7 +166,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/monochrome/grey-hours": {
     "fields": {
       "標題": "Grey Hours",
-      "介紹": "A study in light and silence.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "1",
       "封面": "",
       "顯示": "是"
@@ -167,7 +179,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/monochrome/paper-light": {
     "fields": {
       "標題": "Paper Light",
-      "介紹": "Black and white portraits, printed in memory.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "3",
       "封面": "",
       "顯示": "是"
@@ -177,7 +192,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/monochrome/silent-branches": {
     "fields": {
       "標題": "Silent Branches",
-      "介紹": "Winter branches against a pale sky.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "2",
       "封面": "",
       "顯示": "是"
@@ -197,7 +215,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/ordinary/kitchen-window": {
     "fields": {
       "標題": "Kitchen Window",
-      "介紹": "The light that arrives before anyone is awake.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "2",
       "封面": "",
       "顯示": "是"
@@ -207,7 +228,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/ordinary/morning-errands": {
     "fields": {
       "標題": "Morning Errands",
-      "介紹": "Small walks, small rituals.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "1",
       "封面": "",
       "顯示": "是"
@@ -217,7 +241,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/ordinary/small-rooms": {
     "fields": {
       "標題": "Small Rooms",
-      "介紹": "Everyday corners, honestly seen.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "3",
       "封面": "",
       "顯示": "是"
@@ -237,7 +264,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/shore/last-light-on-the-coast": {
     "fields": {
       "標題": "Last Light on the Coast",
-      "介紹": "The final hour of a long day by the sea.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "3",
       "封面": "",
       "顯示": "是"
@@ -247,7 +277,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/shore/low-tide": {
     "fields": {
       "標題": "Low Tide",
-      "介紹": "Where the sea meets memory.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "1",
       "封面": "",
       "顯示": "是"
@@ -257,7 +290,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/shore/salt-wind": {
     "fields": {
       "標題": "Salt Wind",
-      "介紹": "Hair, coats and the wind off the water.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "2",
       "封面": "",
       "顯示": "是"
@@ -277,7 +313,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/style/linen-and-shadow": {
     "fields": {
       "標題": "Linen & Shadow",
-      "介紹": "Soft fabric, hard light, and the space between.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "1",
       "封面": "",
       "顯示": "是"
@@ -287,7 +326,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/style/studio-hours": {
     "fields": {
       "標題": "Studio Hours",
-      "介紹": "A short series made in a single afternoon.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "2",
       "封面": "",
       "顯示": "是"
@@ -297,7 +339,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/style/wardrobe-notes": {
     "fields": {
       "標題": "Wardrobe Notes",
-      "介紹": "Sample long description for layout testing: a longer paragraph that checks how the narrow text column wraps when an introduction runs to several lines, so the chapter still reads calmly.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "3",
       "封面": "",
       "顯示": "是"
@@ -317,7 +362,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/viscera/pulse": {
     "fields": {
       "標題": "Pulse",
-      "介紹": "Three frames, one heartbeat.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "2",
       "封面": "",
       "顯示": "是"
@@ -327,7 +375,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/viscera/raw-edges": {
     "fields": {
       "標題": "Raw Edges",
-      "介紹": "Texture, tension and what is left unsaid.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "3",
       "封面": "",
       "顯示": "是"
@@ -337,7 +388,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/viscera/under-the-skin": {
     "fields": {
       "標題": "Under the Skin",
-      "介紹": "Close, unguarded, and a little uncomfortable.",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
       "順序": "1",
       "封面": "",
       "顯示": "是"

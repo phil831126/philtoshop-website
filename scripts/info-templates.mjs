@@ -14,19 +14,40 @@ export const titleFromFolder = (name) =>
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
 
-export function seriesTemplate({ title, description = '', order = '', cover = '' }) {
+export function seriesTemplate({ title, model = '', ig = '', date = '', description = '', order = '', cover = '' }) {
   return `# ════════════════════════════════════════════
 #  這組作品的文字（存檔後網站自動更新）
 #  寫法：欄位：內容（冒號全形、半形都可以）
 #  「# 」開頭的行是說明，不會出現在網站上
 #  照片：這個資料夾裡的照片會依檔名（01、02…）自動排列
+#
+#  網站上的排列：
+#    01 /
+#    標題
+#    ──
+#    模特
+#    IG（自動變成連結）
+#    日期
+#    [10 PHOTOS]
+#  沒填的項目不會顯示。
 # ════════════════════════════════════════════
 
 標題：${title}
 
-介紹：${description}
+# 模特名字（好幾位可以寫成好幾行）
+模特：${model}
+
+# 模特的 Instagram：填 @帳號 就會自動變成連結（也可以貼個人頁網址）
+# 好幾個帳號用「、」分開，例如 @model_a、@model_b
+IG：${ig}
+
+# 日期：照寫的顯示，例如 2026/05
+日期：${date}
 
 # ── 以下選填 ──
+
+# 介紹：顯示在日期下方，一兩句即可；可放連結 [文字](網址)；不需要就留空
+介紹：${description}
 
 # 排在這個分類的第幾組（數字小的在前）
 順序：${order}

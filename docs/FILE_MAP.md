@@ -17,7 +17,7 @@
 | 分類名稱、大標下的一句話 | `public/images/works/<分類>/info.txt` | 名稱、介紹 |
 | Works 總覽卡片介紹與代表圖 | `public/images/works/<分類>/info.txt` | 總覽介紹、總覽封面 |
 | 新增一組作品 | `public/images/works/<分類>/` | 新增資料夾放照片（見 CONTENT_EDITING.md） |
-| 作品名稱、介紹 | `public/images/works/<分類>/<作品>/info.txt` | 標題、介紹 |
+| 作品名稱、模特、模特 IG、日期 | `public/images/works/<分類>/<作品>/info.txt` | 標題、模特、IG（填 @帳號 自動變連結）、日期、選填介紹 |
 | 作品前後順序、隱藏 | 同上 | 順序、顯示 |
 | 作品封面（Works 總覽用） | 同上 | 封面（照片檔名，不用寫 .jpg） |
 | 大圖下方的照片說明 | 同上 | 照片說明 03 |

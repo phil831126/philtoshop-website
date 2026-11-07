@@ -8,7 +8,7 @@
  *            Instagram／Email 留空＝網站上不顯示，不會產生假的連結。
  */
 import type { ContactLinks, NavItem } from '@/types/portfolio'
-import { pick, textFile } from './text'
+import { instagramLinks, pick, textFile } from './text'
 
 const t = textFile('').fields
 
@@ -28,18 +28,10 @@ export const nav: NavItem[] = [
 ]
 
 /** Instagram：可填帳號（@your_account、your_account）或完整網址 */
-function instagram(value: string, label: string): Pick<ContactLinks, 'instagramUrl' | 'instagramLabel'> {
-  const v = value.trim()
-  if (!v) return { instagramUrl: '', instagramLabel: '' }
-  if (/^https?:\/\//i.test(v)) {
-    const handle = /instagram\.com\/([^/?#]+)/i.exec(v)?.[1]
-    return { instagramUrl: v, instagramLabel: label || (handle ? `@${handle}` : 'Instagram') }
-  }
-  const handle = v.replace(/^@/, '').replace(/\/+$/, '')
-  return { instagramUrl: `https://www.instagram.com/${encodeURIComponent(handle)}/`, instagramLabel: label || `@${handle}` }
-}
+const ig = instagramLinks(pick(t, 'Instagram'))[0]
 
 export const contact: ContactLinks = {
-  ...instagram(pick(t, 'Instagram'), pick(t, 'Instagram顯示文字')),
+  instagramUrl: ig?.url ?? '',
+  instagramLabel: ig ? pick(t, 'Instagram顯示文字', ig.label) : '',
   email: pick(t, 'Email'),
 }

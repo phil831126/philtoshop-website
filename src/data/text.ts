@@ -75,3 +75,30 @@ export function imagePath(folder: string, value: string | undefined, fallback: s
   const clean = v.replace(/^\/+/, '').replace(/^public\//, '').replace(/^images\//, '')
   return clean.includes('/') ? `/images/${clean}` : `/images/${folder ? folder + '/' : ''}${clean}`
 }
+
+/** 一個 Instagram 連結 */
+export interface InstagramLink {
+  /** 顯示文字，例如 @your_account */
+  label: string
+  /** 個人頁網址 */
+  url: string
+}
+
+/**
+ * Instagram 欄位 → 連結。可填 @帳號、帳號，或個人頁網址；
+ * 有好幾個帳號時用空白、逗號或「、」分開，例如「@model_a、@model_b」。
+ */
+export function instagramLinks(value: string | undefined): InstagramLink[] {
+  return (value ?? '')
+    .split(/[\s,，、]+/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((v) => {
+      if (/^https?:\/\//i.test(v)) {
+        const handle = /instagram\.com\/([^/?#]+)/i.exec(v)?.[1]
+        return { url: v, label: handle ? `@${handle}` : 'Instagram' }
+      }
+      const handle = v.replace(/^@/, '').replace(/^(www\.)?instagram\.com\//i, '').replace(/\/+$/, '')
+      return { url: `https://www.instagram.com/${encodeURIComponent(handle)}/`, label: `@${handle}` }
+    })
+}

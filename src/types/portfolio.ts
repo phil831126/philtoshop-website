@@ -59,7 +59,13 @@ export interface Project {
   folder: string
   /** 作品名稱（info.txt 的「標題」；沒寫＝資料夾名稱） */
   title: string
-  /** 作品介紹（info.txt 的「介紹」） */
+  /** 模特名字（info.txt 的「模特」；可寫好幾行） */
+  model: string
+  /** 模特 Instagram（info.txt 的「IG」；自動變成連結） */
+  instagram: { label: string; url: string }[]
+  /** 日期，照寫的顯示，例如 2026/05（info.txt 的「日期」） */
+  date: string
+  /** 選填：作品介紹（info.txt 的「介紹」） */
   description: string
   /** 排序：數字小的在前（info.txt 的「順序」） */
   order: number
