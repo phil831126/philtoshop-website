@@ -35,7 +35,8 @@
   --glass-blur: blur(14px) saturate(115%);
 
   /* ── 字型（替代字型：Source Serif 4、Inter；原稿字型未提供） ── */
-  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  /* 中文自動改用思源宋體（Noto Serif TC）；英文仍是 Source Serif 4 */
+  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', 'Noto Serif TC Variable', 'Noto Serif TC', Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
 
   /* ── 字級（桌面基準） ── */
@@ -54,6 +55,8 @@
   --fs-page-intro: max(15px, calc(1.9 * var(--u)));
   --fs-chapter-num: max(14px, calc(1.9 * var(--u)));
   --fs-chapter-title: max(30px, calc(4.3 * var(--u)));
+  /* 中文作品名稱：比英文小一點；名稱較長時還會自動縮小到一行放得下（見 ProjectChapter.vue） */
+  --fs-chapter-title-cjk: max(26px, calc(3.4 * var(--u)));
   --fs-chapter-text: max(14px, calc(1.75 * var(--u)));
   --fs-pill: max(11px, calc(1.5 * var(--u)));
   --fs-counter: max(14px, calc(1.9 * var(--u)));
@@ -92,6 +95,7 @@
     --fs-display: clamp(30px, 8.6vw, 40px);
     --fs-page-title: clamp(40px, 12vw, 56px);
     --fs-chapter-title: clamp(28px, 8vw, 36px);
+    --fs-chapter-title-cjk: clamp(24px, 7vw, 30px);
     --fs-feature-title: 19px;
     --fs-body: 15px;
     --fs-chapter-text: 15px;

@@ -20,6 +20,9 @@ const props = defineProps<{ project: Project; number: number }>()
 
 const numberLabel = computed(() => `${String(props.number).padStart(2, '0')} /`)
 const titleId = computed(() => `${props.project.id}-title`)
+/** 中文（含日文假名）作品名稱：字級較小，並依字數自動縮小，盡量一行放得下 */
+const isCjk = computed(() => /[぀-ヿ㐀-鿿豈-﫿]/.test(props.project.title))
+const titleChars = computed(() => [...props.project.title.trim()].length)
 const hasMeta = computed(() => Boolean(props.project.model || props.project.instagram.length || props.project.date))
 </script>
 
@@ -27,7 +30,14 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
   <article :id="project.id" class="chapter" :aria-labelledby="titleId">
     <header class="chapter__info">
       <p class="chapter__num">{{ numberLabel }}</p>
-      <h2 :id="titleId" class="chapter__title">{{ project.title }}</h2>
+      <h2
+        :id="titleId"
+        class="chapter__title"
+        :class="{ 'chapter__title--cjk': isCjk }"
+        :style="isCjk ? { '--chars': titleChars } : undefined"
+      >
+        {{ project.title }}
+      </h2>
       <span class="chapter__rule" aria-hidden="true" />
       <!-- 依手稿排版：模特名字 → IG（連結）→ 日期 → 照片數；沒填的項目不顯示 -->
       <div v-if="hasMeta" class="chapter__meta">
@@ -63,6 +73,8 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
 .chapter__info {
   padding: calc(5.4 * var(--u)) calc(1.2 * var(--u)) 0 calc(1.1 * var(--u));
   min-width: 0;
+  /* 讓中文標題可以依這一欄的寬度（cqi）計算字級 */
+  container-type: inline-size;
 }
 
 .chapter__num {
@@ -81,6 +93,14 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
   hyphens: auto;
 }
 
+/* 中文作品名稱：思源宋體、字距稍開；字數多時縮小到一行放得下（最小 18px，再長才換行） */
+.chapter__title--cjk {
+  font-size: max(18px, min(var(--fs-chapter-title-cjk), calc(100cqi / (var(--chars) * 1.08))));
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  font-weight: 450;
+}
+
 .chapter__rule {
   display: block;
   width: calc(3.6 * var(--u));
@@ -89,11 +109,17 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
   background: var(--color-line-strong);
 }
 
-/* 模特名字、IG、日期：同一組緊密排列 */
+/* 模特名字、IG、日期：每一行間距相同（行距改 gap） */
+.chapter__meta,
+.chapter__ig {
+  display: flex;
+  flex-direction: column;
+  gap: calc(1 * var(--u));
+}
 .chapter__meta {
   margin-top: calc(3 * var(--u));
   font-size: var(--fs-chapter-text);
-  line-height: 1.55;
+  line-height: 1.4;
   letter-spacing: 0.01em;
   color: var(--color-text-soft);
 }
@@ -187,6 +213,10 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
 
   .chapter__meta {
     margin-top: 14px;
+  }
+  .chapter__meta,
+  .chapter__ig {
+    gap: 8px;
   }
 
   .chapter__desc,

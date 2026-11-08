@@ -11,6 +11,8 @@ import { createApp } from 'vue'
 import '@fontsource-variable/source-serif-4/opsz.css'
 import '@fontsource-variable/source-serif-4/opsz-italic.css'
 import '@fontsource-variable/inter/index.css'
+// 中文標題：思源宋體（Noto Serif TC，與英文的 Source Serif 4 同系列）；只會下載頁面上實際出現的字
+import '@fontsource-variable/noto-serif-tc/index.css'
 
 import './styles/tokens.css'
 import './styles/base.css'

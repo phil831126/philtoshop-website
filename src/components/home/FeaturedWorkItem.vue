@@ -164,14 +164,16 @@ const lineAfter = computed(() => props.item.layout !== 'wide-left')
     grid-column: 11 / 25;
     grid-row: 2;
     align-self: start;
-    margin-top: calc(4 * var(--u));
+    /* 負值＝往上拉，靠近第一張的下緣 */
+    margin-top: calc(-6.5 * var(--u));
     aspect-ratio: 4 / 5;
   }
 
   /* 04 右側直式高圖＋圖片左下方文字 */
   .fw--tall-right .fw__media {
     grid-column: 29 / 48;
-    grid-row: 2 / 4;
+    /* 跨到第 4 列：第 5 張可以跟著 04 的文字往上，不必等這張高圖結束 */
+    grid-row: 2 / 5;
     align-self: start;
     margin-top: calc(3.7 * var(--u));
     aspect-ratio: 4 / 5;

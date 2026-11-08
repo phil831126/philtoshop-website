@@ -67,7 +67,7 @@ const groups = computed(() => {
 .featured__group {
   display: grid;
   grid-template-columns: repeat(48, minmax(0, 1fr));
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto auto auto;
   margin-top: calc(3.4 * var(--u));
 }
 
