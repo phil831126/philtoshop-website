@@ -3,15 +3,17 @@
  * 【負責功能】掃描 public/images/ 內所有照片（以及各資料夾的 info.txt 文字，見 content-files.mjs），讀取實際寬高（含手機旋轉標記換算），
  *            寫入 src/data/generated/images.ts，讓網站「放進資料夾就自動顯示」。
  *            npm run dev 期間偵測到照片新增／刪除會自動重新產生；npm run build 也會先執行。
+ *            新的作品資料夾放進照片後，會自動建立 info.txt 範本（createMissingSeriesInfo）。
  * 【資料來源】public/images/ 內的 JPG、PNG、WebP。
  * 【常見修改】不需要修改。
  * 【注意事項】
  *   - 檔名以「_」或「.」開頭的照片會被略過（可用來暫時不顯示某張照片）。
- *   - 只讀取照片，不會修改或刪除任何照片。
+ *   - 只讀取照片，不會修改或刪除任何照片；唯一會建立的檔案是「不存在的」info.txt 範本。
  */
 import fs from 'node:fs'
 import path from 'node:path'
 import { renderContent, scanTextFiles } from './content-files.mjs'
+import { seriesTemplate } from './info-templates.mjs'
 
 export const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp'])
 
@@ -190,4 +192,24 @@ export function writeManifest(root) {
   const a = writeIfChanged(path.join(dir, 'images.ts'), render(scan))
   const b = writeIfChanged(path.join(dir, 'content.ts'), renderContent(text))
   return { changed: a || b, scan, text }
+}
+
+const CATEGORIES = ['emotional', 'style', 'monochrome', 'ordinary', 'shore', 'viscera']
+
+/**
+ * 新作品資料夾（works/<分類>/<作品>/ 裡有照片、但還沒有 info.txt）→ 自動建立 info.txt 範本。
+ * npm run dev 期間放進照片就會執行；npm run photos 也會執行。
+ * 只建立「不存在」的檔案，絕不覆蓋已寫好的 info.txt。回傳建立的檔案清單（public/images/ 開頭）。
+ */
+export function createMissingSeriesInfo(root, scan) {
+  const created = []
+  for (const folder of Object.keys(scan.folders)) {
+    const parts = folder.split('/')
+    if (parts.length !== 3 || parts[0] !== 'works' || !CATEGORIES.includes(parts[1])) continue
+    const dir = path.join(root, 'public', 'images', ...parts)
+    if (!fs.existsSync(dir) || fs.readdirSync(dir).some((n) => n.toLowerCase() === 'info.txt')) continue
+    fs.writeFileSync(path.join(dir, 'info.txt'), seriesTemplate({}).replace(/\n/g, '\r\n'))
+    created.push(`public/images/${folder}/info.txt`)
+  }
+  return created
 }

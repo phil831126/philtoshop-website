@@ -2,7 +2,8 @@
  * 【控制畫面】無（在終端機執行的輔助工具，不會被打包進網站）
  * 【負責功能】
  *   npm.cmd run photos        更新照片清單與文字，列出每組作品有幾張照片、需要注意的檔案與 info.txt 寫法；
- *                             新的作品資料夾若還沒有 info.txt，會自動建立一份範本（不會覆蓋已存在的檔案）。
+ *                             新的作品資料夾若還沒有 info.txt，會自動建立一份範本（不會覆蓋已存在的檔案）；
+ *                             npm run dev 開著時，放進照片就會自動建立，不必另外執行。
  *   npm.cmd run photos:check  只檢查、不建立檔案；有錯誤（照片找不到、檔名大小寫不符）會以錯誤結束。
  *                             npm run build 會自動先執行這個檢查。
  * 【資料來源】public/images/（照片與 info.txt）
@@ -12,8 +13,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { writeManifest } from './image-manifest.mjs'
-import { seriesTemplate, titleFromFolder } from './info-templates.mjs'
+import { createMissingSeriesInfo, writeManifest } from './image-manifest.mjs'
+import { titleFromFolder } from './info-templates.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const strict = process.argv[2] === 'check'
@@ -29,13 +30,7 @@ const created = []
 // ── 新作品資料夾：自動建立 info.txt 範本 ──
 const seriesFolders = Object.keys(scan.folders).filter((f) => f.startsWith('works/') && f.split('/').length === 3)
 if (!strict) {
-  for (const folder of seriesFolders) {
-    const file = path.join(imagesDir, ...folder.split('/'), 'info.txt')
-    const hasAny = fs.readdirSync(path.dirname(file)).some((n) => n.toLowerCase() === 'info.txt')
-    if (hasAny) continue
-    fs.writeFileSync(file, seriesTemplate({}).replace(/\n/g, '\r\n'))
-    created.push(`public/images/${folder}/info.txt`)
-  }
+  created.push(...createMissingSeriesInfo(root, scan))
   if (created.length) ({ scan, text } = writeManifest(root))
 }
 

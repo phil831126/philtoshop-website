@@ -24,3 +24,4 @@ export interface TextScan {
 }
 
 export function writeManifest(root: string): { changed: boolean; scan: ImageScan; text: TextScan }
+export function createMissingSeriesInfo(root: string, scan: ImageScan): string[]
