@@ -15,10 +15,10 @@
 | 首頁精選區標題 | `public/images/home/info.txt` | 精選標題（留空＝不顯示） |
 | 首頁精選作品 | `public/images/home/info.txt` | 【精選 N】的照片、標題、介紹、連結、顯示 |
 | 分類名稱、大標下的一句話 | `public/images/works/<分類>/info.txt` | 名稱、介紹 |
-| Works 總覽卡片介紹與代表圖 | `public/images/works/<分類>/info.txt` | 總覽介紹、總覽封面 |
+| Works 總覽卡片介紹與代表圖 | `public/images/works/<分類>/info.txt` | 總覽介紹、總覽封面、作品順序（分類頁裡各組作品的上下順序） |
 | 新增一組作品 | `public/images/works/<分類>/` | 新增資料夾放照片（見 CONTENT_EDITING.md） |
 | 作品名稱、模特、模特 IG、日期 | `public/images/works/<分類>/<作品>/info.txt` | 標題、模特、IG（填 @帳號 自動變連結）、日期、選填介紹 |
-| 作品前後順序、隱藏 | 同上 | 順序、顯示 |
+| 作品隱藏 | 同上 | 顯示（前後順序建議改分類 info.txt 的「作品順序」） |
 | 作品封面（Works 總覽用） | 同上 | 封面（照片檔名，不用寫 .jpg） |
 | 大圖下方的照片說明 | 同上 | 照片說明 03 |
 | 照片順序 | 照片資料夾 | 改檔名（`01.jpg` 排第一）；檔名前加 `_` 可暫時不顯示 |

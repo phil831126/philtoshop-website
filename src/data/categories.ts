@@ -1,7 +1,7 @@
 /**
  * 【控制畫面】Works 總覽頁、六個分類分頁的頁首、導覽列的分類選單
  * 【負責功能】六個作品分類的名稱、介紹、排序與代表圖。
- * 【資料來源】✎ 文字請改 public/images/works/<分類>/info.txt（名稱、介紹、總覽介紹、總覽封面、順序）。
+ * 【資料來源】✎ 文字請改 public/images/works/<分類>/info.txt（名稱、介紹、總覽介紹、總覽封面、作品順序、順序）。
  *            這個檔案只負責讀取，平常不需要打開。
  * 【常見修改】無。
  * 【注意事項】六個分類的 id（emotional、style…）同時是網址 /works/<id> 與資料夾名稱，拼字固定，請勿修改。
@@ -27,6 +27,14 @@ function parseCover(value: string): PhotoRef | undefined {
   return { projectId, photoId: (photo ?? '').replace(/\.[a-z]+$/i, '') }
 }
 
+/** 「作品順序」：一行一組（也可以用「、」分開；行首的 1. 2. 編號會被忽略），回傳作品名稱清單 */
+function listFrom(value: string): string[] {
+  return value
+    .split(/[\n、]/)
+    .map((s) => s.replace(/^\s*\d+\s*[.、．)]\s*/, '').trim())
+    .filter(Boolean)
+}
+
 export const categories: Category[] = defaults.map((d, i) => {
   const t = textFile(`works/${d.id}`).fields
   return {
@@ -36,6 +44,7 @@ export const categories: Category[] = defaults.map((d, i) => {
     summary: pick(t, '總覽介紹'),
     order: num(t['順序'], i + 1),
     cover: parseCover(pick(t, '總覽封面')),
+    seriesOrder: listFrom(pick(t, '作品順序')),
   }
 })
 

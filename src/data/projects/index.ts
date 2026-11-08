@@ -14,7 +14,7 @@
  */
 import type { CategoryId, Photo, PhotoNote, PhotoRef, Project } from '@/types/portfolio'
 import { imageFolders, imageSizes } from '../generated/images'
-import { isCategoryId } from '../categories'
+import { getCategory, isCategoryId } from '../categories'
 import { instagramLinks, num, pick, textFile, yes } from '../text'
 
 const fileName = (src: string) => src.slice(src.lastIndexOf('/') + 1)
@@ -92,7 +92,7 @@ function buildProject(folder: string, index: number): Project | undefined {
     instagram: instagramLinks(t['IG']),
     date: pick(t, '日期'),
     description: pick(t, '介紹'),
-    // 沒寫順序的作品排在有寫的後面，依資料夾名稱
+    // 分類「作品順序」沒列到時才用這個；沒寫順序的作品排在有寫的後面，依資料夾名稱
     order: num(t['順序'], 1000 + index),
     published: yes(t['顯示']),
     coverPhotoId: cover?.id ?? '',
@@ -108,11 +108,27 @@ export const allProjects: Project[] = Object.keys(imageFolders)
   .map((f, i) => buildProject(f, i))
   .filter((p): p is Project => Boolean(p))
 
-/** 取得某分類「要顯示」的作品，依順序排列 */
+/**
+ * 作品在分類「作品順序」清單中的位置（資料夾名稱或標題都可以，不分大小寫）；沒列到＝排在清單後面
+ */
+function listRank(p: Project): number {
+  const list = getCategory(p.categoryId)?.seriesOrder ?? []
+  const i = list.findIndex((name) => name === p.folderName || sameName(name, p.folderName) || sameName(name, p.title))
+  return i === -1 ? Number.POSITIVE_INFINITY : i
+}
+
+/**
+ * 取得某分類「要顯示」的作品，依順序排列：
+ *   1. 分類 info.txt 的「作品順序」清單（建議用這個，一個地方就能排好）
+ *   2. 沒列在清單裡的，再依各作品 info.txt 的「順序」、資料夾名稱
+ */
 export function getPublishedProjects(categoryId: CategoryId): Project[] {
   return allProjects
     .filter((p) => p.categoryId === categoryId && p.published)
-    .sort((a, b) => a.order - b.order || a.id.localeCompare(b.id, 'en', { numeric: true }))
+    .sort(
+      (a, b) =>
+        listRank(a) - listRank(b) || a.order - b.order || a.id.localeCompare(b.id, 'en', { numeric: true }),
+    )
 }
 
 /**

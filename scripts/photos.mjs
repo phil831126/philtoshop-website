@@ -106,6 +106,18 @@ for (const [where, value] of homeLinks) {
     warnings.push(`public/images/home/info.txt ${where}：找不到作品「${cat}/${proj}」（寫資料夾名稱或標題）`)
   }
 }
+// 分類的「作品順序」：一行一組（也可用「、」分開；行首的 1. 2. 編號會被忽略），與網站的 categories.ts 相同
+function seriesOrderOf(cat) {
+  return (text.files[`works/${cat}`]?.fields['作品順序'] ?? '')
+    .split(/[\n、]/)
+    .map((s) => s.replace(/^\s*\d+\s*[.、．)]\s*/, '').trim())
+    .filter(Boolean)
+}
+for (const cat of CATEGORIES) {
+  for (const name of seriesOrderOf(cat)) {
+    if (!findSeries(cat, name)) warnings.push(`public/images/works/${cat}/info.txt「作品順序」：找不到作品「${name}」（寫資料夾名稱）`)
+  }
+}
 for (const cat of CATEGORIES) {
   const cover = text.files[`works/${cat}`]?.fields['總覽封面']?.trim()
   if (!cover) continue
@@ -119,9 +131,13 @@ for (const cat of CATEGORIES) {
 console.log('\n照片與文字已更新。各組作品目前的照片數：')
 for (const cat of CATEGORIES) {
   const order = (f) => Number(text.files[f]?.fields['順序']?.trim() || NaN)
+  const wanted = seriesOrderOf(cat).map((name) => findSeries(cat, name))
+  const rank = (f) => (wanted.includes(f) ? wanted.indexOf(f) : Infinity)
   const list = seriesFolders
     .filter((f) => f.split('/')[1] === cat)
-    .sort((a, b) => (order(a) || 1000) - (order(b) || 1000) || a.localeCompare(b, 'en', { numeric: true }))
+    .sort(
+      (a, b) => rank(a) - rank(b) || (order(a) || 1000) - (order(b) || 1000) || a.localeCompare(b, 'en', { numeric: true }),
+    )
   if (!list.length) continue
   const parts = list.map((f) => {
     const t = text.files[f]?.fields ?? {}

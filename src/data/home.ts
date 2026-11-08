@@ -6,7 +6,7 @@
  * 【常見修改】無。
  * 【注意事項】
  *   - 首頁照片依版面「裁切」顯示（附圖設計），用 info.txt 的「對焦」調整；作品頁、大圖、Works 總覽一律完整顯示。
- *   - 精選每 4 個一組，位置依序為 wide-left → offset-right → inset-left → tall-right（說明見 src/types/portfolio.ts）。
+ *   - 精選每 5 個一組，位置依序為 wide-left → offset-right → inset-left → tall-right → low-left（說明見 src/types/portfolio.ts）。
  *   - 「連結」寫分類 id（emotional）或「分類/作品資料夾」（emotional/被遺忘之人），寫錯時開發模式主控台會提示。
  */
 import type { CategoryId, FeaturedLayout, FeaturedWork, HomeHero } from '@/types/portfolio'
@@ -54,7 +54,7 @@ export const featuredHeading = {
   italic: italic?.[1]?.trim() ?? '',
 }
 
-const LAYOUTS: FeaturedLayout[] = ['wide-left', 'offset-right', 'inset-left', 'tall-right']
+export const LAYOUTS: FeaturedLayout[] = ['wide-left', 'offset-right', 'inset-left', 'tall-right', 'low-left']
 
 export const featured: FeaturedWork[] = home.sections.map((s, i) => {
   const f = s.fields

@@ -6,7 +6,7 @@
  *   public/images/info.txt                        全站：網站名稱、副標、Instagram、Email
  *   public/images/home/info.txt                   首頁：標語、毛玻璃小卡、精選
  *   public/images/about/info.txt                  About 頁
- *   public/images/works/<分類>/info.txt           分類：名稱、介紹、總覽封面
+ *   public/images/works/<分類>/info.txt           分類：名稱、介紹、總覽封面、作品順序
  *   public/images/works/<分類>/<系列>/info.txt    每組作品：標題、介紹、封面、順序、照片說明
  * 【常見修改】不需要修改。可用的欄位名稱列在下方 KEYS。
  * 【注意事項】
@@ -26,7 +26,7 @@ export const KEYS = {
   home: ['主照片', '主照片描述', '主照片對焦', '標語', '按鈕文字', '小卡小字', '小卡大字', '小卡連結', '精選標題'],
   featured: ['照片', '照片描述', '對焦', '編號', '標題', '介紹', '連結', '顯示'],
   about: ['照片', '照片描述', '標題', '理念', '自我介紹'],
-  category: ['名稱', '介紹', '總覽介紹', '總覽封面', '順序'],
+  category: ['名稱', '介紹', '總覽介紹', '總覽封面', '作品順序', '順序'],
   series: ['標題', '模特', 'IG', '日期', '介紹', '封面', '順序', '顯示'],
 }
 

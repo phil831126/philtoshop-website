@@ -39,6 +39,9 @@ export function validateContent(): void {
   }
 
   for (const c of categories) {
+    for (const name of c.seriesOrder) {
+      if (!getProject(name, c.id)) warn(`public/images/works/${c.id}/info.txt 的作品順序「${name}」找不到這組作品（寫資料夾名稱）`)
+    }
     if (c.cover && !getPhoto(c.cover, c.id)) {
       warn(`public/images/works/${c.id}/info.txt 的總覽封面「${c.cover.projectId}/${c.cover.photoId}」找不到（格式：作品資料夾/照片檔名）`)
     }

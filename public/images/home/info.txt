@@ -28,9 +28,10 @@ version of you.
 精選標題：
 
 # ── 精選作品 ──
-# 每個【精選 N】是一張，依順序排列；每 4 張一組，位置依序為：
-#   1 左側大圖　2 右側較低的圖（只顯示小標籤）　3 文字在左、圖片內縮　4 右側直式高圖
-# 想多放幾張就照格式往下加【精選 5】…；不想顯示某張就把「顯示」改成「否」
+# 每個【精選 N】是一張，依順序排列；每 5 張一組，位置依序為：
+#   1 左側大圖　2 右側較低的圖（文字在圖上方）　3 文字在左、直式圖片　4 右側直式高圖　5 下方偏左的圖
+# 想多放幾張就照格式往下加【精選 6】…；不想顯示某張就把「顯示」改成「否」
+# 編號：顯示在標題前面的「01 /」，可自己改；留空＝不顯示
 
 【精選 1】
 照片：featured-emotional.jpg
@@ -47,9 +48,10 @@ honestly seen.
 照片：featured-ordinary.jpg
 照片描述：Photograph by Philtoshop
 對焦：中
-編號：
+編號：02
 標題：Ordinary
-介紹：Small rituals and familiar rooms.
+介紹：Small rituals and
+familiar rooms.
 連結：ordinary
 顯示：是
 
@@ -57,7 +59,7 @@ honestly seen.
 照片：featured-monochrome.jpg
 照片描述：Photograph by Philtoshop
 對焦：中
-編號：02
+編號：03
 標題：Monochrome
 介紹：A study in light
 and silence.
@@ -68,9 +70,20 @@ and silence.
 照片：featured-shore.jpg
 照片描述：Photograph by Philtoshop
 對焦：30%
-編號：03
+編號：04
 標題：Shore
 介紹：Where the sea
 meets memory.
 連結：shore/Low Tide
+顯示：是
+
+【精選 5】
+照片：works/style/Dark Game/01.jpg
+照片描述：Photograph by Philtoshop
+對焦：30%
+編號：05
+標題：Style
+介紹：Wardrobe, texture
+and composed light.
+連結：style/Dark Game
 顯示：是

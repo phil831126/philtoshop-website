@@ -99,6 +99,8 @@ export interface Category {
    * 未填時自動使用此分類第一組作品的封面。
    */
   cover?: PhotoRef
+  /** 分類 info.txt 的「作品順序」：依序列出的作品資料夾名稱（或標題）；沒列到的排在後面 */
+  seriesOrder: string[]
 }
 
 /** 指向某組作品中的某張照片 */
@@ -109,14 +111,15 @@ export interface PhotoRef {
 
 /**
  * 首頁精選的版面位置代號。
- * 首頁精選每 4 個為一組，依附圖的左右不對稱、上下交錯排列：
- *  - 'wide-left'     ：左側大圖，文字在圖片右側（附圖 01 / Emotional）
- *  - 'offset-right'  ：右側較低的圖，只顯示小型標籤（附圖海岸照片）
- *  - 'inset-left'    ：文字在左、圖片內縮（附圖 02 / Monochrome）
- *  - 'tall-right'    ：右側直式高圖，文字在圖片左下方（附圖 03 / Shore）
- * 同一組 4 個請各用一次；第 5 個起會自動開始新的一組。
+ * 首頁精選每 5 個為一組，左右不對稱、上下交錯排列：
+ *  - 'wide-left'     ：左側大圖，文字在圖片右側（01 / Emotional）
+ *  - 'offset-right'  ：右側較低的圖，文字在圖片上方（02 / Ordinary）
+ *  - 'inset-left'    ：文字在左、內縮的直式圖片（03 / Monochrome）
+ *  - 'tall-right'    ：右側直式高圖，文字在圖片左下方（04 / Shore）
+ *  - 'low-left'      ：下方偏左的圖，文字在右側靠下（05 / Style）
+ * 同一組 5 個各用一次；第 6 個起會自動開始新的一組。
  */
-export type FeaturedLayout = 'wide-left' | 'offset-right' | 'inset-left' | 'tall-right'
+export type FeaturedLayout = 'wide-left' | 'offset-right' | 'inset-left' | 'tall-right' | 'low-left'
 
 /** 首頁精選作品（與一般作品分開設定，新增作品不會打亂首頁） */
 export interface FeaturedWork {

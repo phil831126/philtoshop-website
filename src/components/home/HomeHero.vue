@@ -5,7 +5,7 @@
 【常見修改】
   - 照片、對焦位置、標語、資訊卡文字：改 public/images/home/info.txt
   - 照片與文字欄比例：本檔 .hero 的 grid-template-columns
-  - 照片比例：.hero__media 的 aspect-ratio
+  - 照片比例：.hero__media 的 aspect-ratio；照片最高不超過一個視窗高度：.hero__media 的 max-height
 【注意事項】資訊卡固定在照片左下角，請透過 hero.image.objectPosition 調整照片，避免卡片遮住人物臉部。
 -->
 <script setup lang="ts">
@@ -58,7 +58,11 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
 
 .hero__media {
   position: relative;
+  width: 100%;
   aspect-ratio: 563 / 427;
+  /* 一進網頁就完整看到整張主照片：最高＝視窗高度扣掉頁首與上下留白（螢幕較矮時照片會變扁一點） */
+  max-height: calc(100svh - var(--header-h) - 2 * calc(3.4 * var(--u)));
+  min-height: 300px;
 }
 
 /* 局部毛玻璃資訊卡 */
@@ -174,6 +178,8 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
 
   .hero__media {
     aspect-ratio: 4 / 3.6;
+    max-height: none;
+    min-height: 0;
   }
 
   .hero-card {

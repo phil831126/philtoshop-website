@@ -7,14 +7,13 @@
   - 桌面位置：本檔「桌面」區段的 grid-column／grid-row／margin-top（以 48 欄計算）
   - 手機大小與錯位：本檔「手機」區段的 width／margin
 【注意事項】桌面版 article 使用 display: contents，讓照片與文字各自成為格線中的一格；
-            文字放在深色留白區，不壓在照片上（offset-right 依附圖只顯示小型毛玻璃標籤）。
+            文字放在深色留白區，不壓在照片上（第 2 張 offset-right 的文字在照片上方）。
 -->
 <script setup lang="ts">
 import RichText from '@/components/common/RichText.vue'
 import { computed } from 'vue'
 import type { FeaturedWork } from '@/types/portfolio'
 import AppImage from '@/components/common/AppImage.vue'
-import IconArrow from '@/components/common/IconArrow.vue'
 
 const props = defineProps<{ item: FeaturedWork }>()
 
@@ -23,17 +22,14 @@ const to = computed(() => ({
   hash: props.item.projectId ? `#${props.item.projectId}` : '',
 }))
 
-const lineAfter = computed(() => props.item.layout === 'inset-left' || props.item.layout === 'tall-right')
+/** 標題後面接一條細線的版面（第一張是線在標題上方） */
+const lineAfter = computed(() => props.item.layout !== 'wide-left')
 </script>
 
 <template>
   <article class="fw" :class="`fw--${item.layout}`">
     <RouterLink :to="to" class="fw__media" :aria-label="`${item.heading} — view works`">
       <AppImage :photo="item.image" fit="cover" sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 40vw" />
-      <span v-if="item.layout === 'offset-right'" class="fw__tag" aria-hidden="true">
-        {{ item.heading }}
-        <IconArrow direction="up-right" :size="13" />
-      </span>
     </RouterLink>
 
     <div class="fw__text">
@@ -121,26 +117,6 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
   background: var(--color-line-strong);
 }
 
-/* 小型毛玻璃標籤（offset-right 桌面版） */
-.fw__tag {
-  position: absolute;
-  left: calc(1.4 * var(--u));
-  bottom: calc(1.4 * var(--u));
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7em;
-  padding: 0.65em 1em;
-  font-size: var(--fs-micro);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-text);
-  background: var(--glass-card-bg);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-pill);
-}
-
 /* ───────── 桌面（≥ 1024px）：依附圖座標換算（48 欄） ───────── */
 @media (min-width: 1024px) {
   .fw {
@@ -160,19 +136,24 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
     padding-left: calc(0.4 * var(--u));
   }
 
-  /* 右側較低的圖（只顯示小型標籤） */
-  .fw--offset-right .fw__media {
+  /* 02 右側較低的圖，文字在圖片上方 */
+  .fw--offset-right {
+    display: flex;
+    flex-direction: column;
     grid-column: 31 / 49;
     grid-row: 1;
     align-self: start;
-    margin-top: calc(6.2 * var(--u));
-    aspect-ratio: 366 / 270;
+    margin-top: calc(1.2 * var(--u));
   }
   .fw--offset-right .fw__text {
-    display: none;
+    order: -1;
+    margin-bottom: calc(2 * var(--u));
+  }
+  .fw--offset-right .fw__media {
+    aspect-ratio: 366 / 270;
   }
 
-  /* 02 左側文字＋內縮圖片 */
+  /* 03 左側文字＋內縮直式圖片（比原圖矮一點，保留版面變化） */
   .fw--inset-left .fw__text {
     grid-column: 1 / 11;
     grid-row: 2;
@@ -183,11 +164,11 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
     grid-column: 11 / 25;
     grid-row: 2;
     align-self: start;
-    margin-top: calc(-0.4 * var(--u));
-    aspect-ratio: 293 / 222;
+    margin-top: calc(4 * var(--u));
+    aspect-ratio: 4 / 5;
   }
 
-  /* 03 右側直式高圖＋圖片左下方文字 */
+  /* 04 右側直式高圖＋圖片左下方文字 */
   .fw--tall-right .fw__media {
     grid-column: 29 / 48;
     grid-row: 2 / 4;
@@ -201,6 +182,20 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
     align-self: start;
     margin-top: calc(4.6 * var(--u));
   }
+
+  /* 05 下方偏左的橫幅圖＋右側文字（文字靠圖片下緣） */
+  .fw--low-left .fw__media {
+    grid-column: 6 / 26;
+    grid-row: 4;
+    margin-top: calc(6 * var(--u));
+    aspect-ratio: 6 / 5;
+  }
+  .fw--low-left .fw__text {
+    grid-column: 27 / 37;
+    grid-row: 4;
+    align-self: end;
+    padding-bottom: calc(1.2 * var(--u));
+  }
 }
 
 /* ───────── 平板（768–1023px）：兩欄交錯，文字在照片下方 ───────── */
@@ -210,9 +205,6 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
     flex-direction: column;
     gap: 18px;
     margin-bottom: 56px;
-  }
-  .fw__tag {
-    display: none;
   }
   .fw__rule {
     display: none;
@@ -238,7 +230,7 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
   .fw--inset-left .fw__media {
     width: 84%;
     margin-left: 8%;
-    aspect-ratio: 293 / 222;
+    aspect-ratio: 4 / 5;
   }
   .fw--inset-left .fw__text {
     margin-left: 8%;
@@ -249,6 +241,13 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
   .fw--tall-right .fw__media {
     aspect-ratio: 4 / 5;
   }
+  .fw--low-left .fw__media,
+  .fw--low-left .fw__text {
+    width: 92%;
+  }
+  .fw--low-left .fw__media {
+    aspect-ratio: 6 / 5;
+  }
 }
 
 /* ───────── 手機（< 768px）：單欄、輕微錯位與尺寸變化，文字跟隨照片 ───────── */
@@ -258,7 +257,6 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
     flex-direction: column;
     gap: 14px;
   }
-  .fw__tag,
   .fw__rule {
     display: none;
   }
@@ -280,7 +278,7 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
     margin-left: 6%;
   }
   .fw--inset-left .fw__media {
-    aspect-ratio: 293 / 222;
+    aspect-ratio: 4 / 5;
   }
   .fw--tall-right .fw__media,
   .fw--tall-right .fw__text {
@@ -289,6 +287,14 @@ const lineAfter = computed(() => props.item.layout === 'inset-left' || props.ite
   }
   .fw--tall-right .fw__media {
     aspect-ratio: 4 / 5;
+  }
+  .fw--low-left .fw__media,
+  .fw--low-left .fw__text {
+    width: 92%;
+    margin-left: 2%;
+  }
+  .fw--low-left .fw__media {
+    aspect-ratio: 6 / 5;
   }
 }
 
