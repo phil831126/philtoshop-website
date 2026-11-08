@@ -7,23 +7,26 @@
  * 【注意事項】
  *   - 首頁照片依版面「裁切」顯示（附圖設計），用 info.txt 的「對焦」調整；作品頁、大圖、Works 總覽一律完整顯示。
  *   - 精選每 4 個一組，位置依序為 wide-left → offset-right → inset-left → tall-right（說明見 src/types/portfolio.ts）。
- *   - 「連結」寫分類 id（emotional）或「分類/作品資料夾」（emotional/quiet-light），寫錯時開發模式主控台會提示。
+ *   - 「連結」寫分類 id（emotional）或「分類/作品資料夾」（emotional/被遺忘之人），寫錯時開發模式主控台會提示。
  */
 import type { CategoryId, FeaturedLayout, FeaturedWork, HomeHero } from '@/types/portfolio'
 import { imageFile } from './images'
+import { getProject } from './projects'
 import { focus, imagePath, pick, textFile, yes } from './text'
 
 const FOLDER = 'home'
 const home = textFile(FOLDER)
 const t = home.fields
 
-/** 「emotional/quiet-light」→ 分類與作品 */
+/** 「emotional/被遺忘之人」→ 分類與作品（作品可寫資料夾名稱或標題，轉成網址錨點） */
 function parseLink(value: string): { categoryId: CategoryId; projectId?: string } {
   const [cat, project] = value
     .replace(/^\/?works\//, '')
     .split(/[/#]/)
     .map((s) => s.trim())
-  return { categoryId: (cat || 'emotional') as CategoryId, projectId: project || undefined }
+  const categoryId = (cat || 'emotional') as CategoryId
+  if (!project) return { categoryId }
+  return { categoryId, projectId: getProject(project, categoryId)?.id ?? project }
 }
 
 const cardLink = parseLink(pick(t, '小卡連結', 'emotional'))

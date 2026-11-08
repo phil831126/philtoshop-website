@@ -59,7 +59,7 @@ export const textFiles: Record<string, TextFile> = {
           "編號": "01",
           "標題": "Emotional",
           "介紹": "Quiet moments,\nhonestly seen.",
-          "連結": "emotional/quiet-light",
+          "連結": "emotional/被遺忘之人",
           "顯示": "是"
         }
       },
@@ -85,7 +85,7 @@ export const textFiles: Record<string, TextFile> = {
           "編號": "02",
           "標題": "Monochrome",
           "介紹": "A study in light\nand silence.",
-          "連結": "monochrome/grey-hours",
+          "連結": "monochrome/日常的勇氣",
           "顯示": "是"
         }
       },
@@ -98,7 +98,7 @@ export const textFiles: Record<string, TextFile> = {
           "編號": "03",
           "標題": "Shore",
           "介紹": "Where the sea\nmeets memory.",
-          "連結": "shore/low-tide",
+          "連結": "shore/Low Tide",
           "顯示": "是"
         }
       }
@@ -109,27 +109,14 @@ export const textFiles: Record<string, TextFile> = {
       "名稱": "Emotional",
       "介紹": "Three stories, quietly told.",
       "總覽介紹": "Quiet moments, honestly seen.",
-      "總覽封面": "quiet-light/01",
+      "總覽封面": "被遺忘之人/01",
       "順序": "1"
     },
     "sections": []
   },
-  "works/emotional/after-the-rain": {
+  "works/emotional/Daydream": {
     "fields": {
-      "標題": "Room",
-      "模特": "",
-      "IG": "",
-      "日期": "",
-      "介紹": "",
-      "順序": "2",
-      "封面": "",
-      "顯示": "是"
-    },
-    "sections": []
-  },
-  "works/emotional/between-us": {
-    "fields": {
-      "標題": "Daydream",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -140,9 +127,22 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/emotional/quiet-light": {
+  "works/emotional/Room": {
     "fields": {
-      "標題": "被遺忘之人",
+      "標題": "",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
+      "順序": "2",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
+  "works/emotional/被遺忘之人": {
+    "fields": {
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -163,22 +163,22 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/monochrome/grey-hours": {
+  "works/monochrome/Under The Light": {
     "fields": {
-      "標題": "日常的勇氣",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "標題": "",
+      "模特": "Kathleen",
+      "IG": "https://www.instagram.com/kathleen_0921/",
+      "日期": "2026/02",
       "介紹": "",
-      "順序": "1",
+      "順序": "2",
       "封面": "",
       "顯示": "是"
     },
     "sections": []
   },
-  "works/monochrome/paper-light": {
+  "works/monochrome/山海": {
     "fields": {
-      "標題": "山海",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -189,14 +189,14 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/monochrome/silent-branches": {
+  "works/monochrome/日常的勇氣": {
     "fields": {
-      "標題": "Under The Light",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
       "介紹": "",
-      "順序": "2",
+      "順序": "1",
       "封面": "",
       "顯示": "是"
     },
@@ -212,9 +212,9 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/ordinary/kitchen-window": {
+  "works/ordinary/Life": {
     "fields": {
-      "標題": "Life",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -225,27 +225,27 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/ordinary/morning-errands": {
+  "works/ordinary/Small Rooms": {
     "fields": {
-      "標題": "黄金の瞬間",
-      "模特": "",
-      "IG": "",
-      "日期": "",
-      "介紹": "",
-      "順序": "1",
-      "封面": "",
-      "顯示": "是"
-    },
-    "sections": []
-  },
-  "works/ordinary/small-rooms": {
-    "fields": {
-      "標題": "Small Rooms",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
       "介紹": "",
       "順序": "3",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
+  "works/ordinary/黄金の瞬間": {
+    "fields": {
+      "標題": "",
+      "模特": "",
+      "IG": "",
+      "日期": "",
+      "介紹": "",
+      "順序": "1",
       "封面": "",
       "顯示": "是"
     },
@@ -261,9 +261,9 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/shore/last-light-on-the-coast": {
+  "works/shore/Last Light on the Coast": {
     "fields": {
-      "標題": "Last Light on the Coast",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -274,9 +274,9 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/shore/low-tide": {
+  "works/shore/Low Tide": {
     "fields": {
-      "標題": "Low Tide",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -287,9 +287,9 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/shore/salt-wind": {
+  "works/shore/Salt Wind": {
     "fields": {
-      "標題": "Salt Wind",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -310,9 +310,9 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/style/linen-and-shadow": {
+  "works/style/Dark Game": {
     "fields": {
-      "標題": "Dark Game",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -323,27 +323,27 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/style/studio-hours": {
+  "works/style/Wardrobe Notes": {
     "fields": {
-      "標題": "自白",
-      "模特": "QQ",
-      "IG": "https://www.instagram.com/yuscqq/",
-      "日期": "2026/03",
-      "介紹": "",
-      "順序": "2",
-      "封面": "",
-      "顯示": "是"
-    },
-    "sections": []
-  },
-  "works/style/wardrobe-notes": {
-    "fields": {
-      "標題": "Wardrobe Notes",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
       "介紹": "",
       "順序": "3",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
+  "works/style/自白": {
+    "fields": {
+      "標題": "",
+      "模特": "QQ",
+      "IG": "https://www.instagram.com/yuscqq/",
+      "日期": "2026/03",
+      "介紹": "",
+      "順序": "2",
       "封面": "",
       "顯示": "是"
     },
@@ -359,9 +359,9 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/viscera/pulse": {
+  "works/viscera/Pulse": {
     "fields": {
-      "標題": "Pulse",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -372,9 +372,9 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/viscera/raw-edges": {
+  "works/viscera/Raw Edges": {
     "fields": {
-      "標題": "Raw Edges",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",
@@ -385,9 +385,9 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/viscera/under-the-skin": {
+  "works/viscera/Under the Skin": {
     "fields": {
-      "標題": "Under the Skin",
+      "標題": "",
       "模特": "",
       "IG": "",
       "日期": "",

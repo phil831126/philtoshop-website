@@ -51,13 +51,15 @@ export interface PhotoNote {
  * public/images/works/<分類>/<作品資料夾>/ 裡的照片＋同資料夾的 info.txt。
  */
 export interface Project {
-  /** 作品資料夾名稱，例如 quiet-light；同時是網址錨點 #quiet-light */
+  /** 網址錨點：由資料夾名稱產生（空白換成 -），例如 Dark Game → #Dark-Game */
   id: string
   /** 所屬分類（上一層資料夾名稱） */
   categoryId: CategoryId
   /** 照片資料夾（public/images/ 之後的路徑），例如 works/emotional/quiet-light */
   folder: string
-  /** 作品名稱（info.txt 的「標題」；沒寫＝資料夾名稱） */
+  /** 作品資料夾名稱，例如 被遺忘之人、Dark Game */
+  folderName: string
+  /** 作品名稱（預設＝資料夾名稱；info.txt 的「標題」有填才改用它） */
   title: string
   /** 模特名字（info.txt 的「模特」；可寫好幾行） */
   model: string

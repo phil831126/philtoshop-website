@@ -6,15 +6,19 @@
  * 【注意事項】只會建立「不存在」的 info.txt，絕不覆蓋你已經寫好的檔案。
  */
 
-/** 資料夾名稱 → 預設標題，例如 morning-window → Morning Window */
+/**
+ * 資料夾名稱 → 預設標題（與 src/data/projects/index.ts 相同規則）
+ *   被遺忘之人、Dark Game → 照原樣；morning-window（全小寫加連字號）→ Morning Window
+ */
 export const titleFromFolder = (name) =>
-  name
-    .split(/[-_\s]+/)
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ')
+  /^[a-z0-9]+(?:[-_][a-z0-9]+)*$/.test(name)
+    ? name
+        .split(/[-_]+/)
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ')
+    : name.trim()
 
-export function seriesTemplate({ title, model = '', ig = '', date = '', description = '', order = '', cover = '' }) {
+export function seriesTemplate({ title = '', model = '', ig = '', date = '', description = '', order = '', cover = '' }) {
   return `# ════════════════════════════════════════════
 #  這組作品的文字（存檔後網站自動更新）
 #  寫法：欄位：內容（冒號全形、半形都可以）
@@ -32,6 +36,8 @@ export function seriesTemplate({ title, model = '', ig = '', date = '', descript
 #  沒填的項目不會顯示。
 # ════════════════════════════════════════════
 
+# 標題：留空＝直接用「資料夾名稱」（建議：想改名就改資料夾名稱）
+#       只有想讓網站顯示和資料夾不同的名稱時才填
 標題：${title}
 
 # 模特名字（好幾位可以寫成好幾行）

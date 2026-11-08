@@ -20,7 +20,7 @@ const defaults: { id: CategoryId; name: string }[] = [
   { id: 'viscera', name: 'Viscera' },
 ]
 
-/** 「quiet-light/01」→ { projectId: 'quiet-light', photoId: '01' }；只寫作品＝該作品的封面 */
+/** 「被遺忘之人/01」→ { projectId: '被遺忘之人', photoId: '01' }；只寫作品＝該作品的封面（作品可寫資料夾名稱或標題） */
 function parseCover(value: string): PhotoRef | undefined {
   const [projectId, photo] = value.split('/').map((s) => s.trim())
   if (!projectId) return undefined

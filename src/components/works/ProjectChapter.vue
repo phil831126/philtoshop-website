@@ -7,7 +7,7 @@
   - 文字：改作品資料夾的 info.txt（標題、模特、IG、日期、介紹）
   - 左右欄比例：本檔 .chapter 的 grid-template-columns
   - 章節上下間距：.chapter 的 padding
-【注意事項】章節 id 等於作品 id，首頁精選用它跳到指定章節（#quiet-light）。照片數由 photos 自動計算。
+【注意事項】章節 id 等於作品 id（由資料夾名稱產生，空白換成 -），首頁精選用它跳到指定章節（#Dark-Game）。照片數由 photos 自動計算。
 -->
 <script setup lang="ts">
 import RichText from '@/components/common/RichText.vue'

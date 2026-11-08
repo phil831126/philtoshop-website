@@ -47,8 +47,17 @@ export const router = createRouter({
     if (savedPosition) return savedPosition
     if (to.hash) {
       const header = document.querySelector<HTMLElement>('.site-header')
+      // 錨點可能是中文（例如 #被遺忘之人），用 id 直接找元素，不當成 CSS 選擇器
+      let id = to.hash.slice(1)
+      try {
+        id = decodeURIComponent(id)
+      } catch {
+        /* 保留原字串 */
+      }
+      const el = document.getElementById(id)
+      if (!el) return { top: 0 }
       return {
-        el: to.hash,
+        el,
         top: (header?.offsetHeight ?? 64) + 12,
         behavior: reduce || to.path !== from.path ? 'auto' : 'smooth',
       }

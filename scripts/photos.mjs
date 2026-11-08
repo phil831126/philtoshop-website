@@ -33,8 +33,7 @@ if (!strict) {
     const file = path.join(imagesDir, ...folder.split('/'), 'info.txt')
     const hasAny = fs.readdirSync(path.dirname(file)).some((n) => n.toLowerCase() === 'info.txt')
     if (hasAny) continue
-    const id = folder.split('/')[2]
-    fs.writeFileSync(file, seriesTemplate({ title: titleFromFolder(id) }).replace(/\n/g, '\r\n'))
+    fs.writeFileSync(file, seriesTemplate({}).replace(/\n/g, '\r\n'))
     created.push(`public/images/${folder}/info.txt`)
   }
   if (created.length) ({ scan, text } = writeManifest(root))
@@ -59,6 +58,8 @@ for (const folder of Object.keys(scan.folders)) {
   if (top === 'works' && cat && !CATEGORIES.includes(cat)) {
     warnings.push(`public/images/works/${cat}/：不是六個分類之一（${CATEGORIES.join('、')}），網站不會顯示`)
   }
+  const name = folder.split('/')[2]
+  if (top === 'works' && name && /[#%]/.test(name)) errors.push(`public/images/${folder}/：資料夾名稱不能有 # 或 %（網址會壞掉），請改名`)
   if (top === 'works' && extra !== undefined) warnings.push(`public/images/${folder}/：資料夾放太深了，作品照片請直接放在 works/<分類>/<作品>/ 裡`)
 }
 for (const folder of Object.keys(text.files)) {
@@ -91,12 +92,31 @@ for (const folder of seriesFolders) {
   const cover = text.files[folder]?.fields['封面']?.trim()
   if (cover && !photoIds(folder).includes(stem(cover))) warnings.push(`public/images/${folder}/info.txt「封面」：找不到照片「${cover}」，會改用第一張`)
 }
+// 作品可用資料夾名稱或標題指定（不分大小寫，空白＝連字號），與網站的 getProject 相同
+const norm = (s) => s.normalize('NFC').trim().replace(/[\s_-]+/g, '-').toLowerCase()
+const seriesTitle = (f) => text.files[f]?.fields['標題']?.trim() || titleFromFolder(f.split('/')[2])
+const findSeries = (cat, name) => {
+  const list = seriesFolders.filter((f) => f.split('/')[1] === cat)
+  return (
+    list.find((f) => f.split('/')[2] === name) ??
+    list.find((f) => norm(f.split('/')[2]) === norm(name)) ??
+    list.find((f) => norm(seriesTitle(f)) === norm(name))
+  )
+}
+// 首頁精選、小卡的「連結」
+const homeLinks = [['小卡連結', home.fields['小卡連結']], ...home.sections.map((s) => [`【${s.title}】連結`, s.fields['連結']])]
+for (const [where, value] of homeLinks) {
+  const [cat, proj] = (value ?? '').trim().replace(/^\/?works\//, '').split(/[/#]/).map((s) => s.trim())
+  if (cat && proj && CATEGORIES.includes(cat) && !findSeries(cat, proj)) {
+    warnings.push(`public/images/home/info.txt ${where}：找不到作品「${cat}/${proj}」（寫資料夾名稱或標題）`)
+  }
+}
 for (const cat of CATEGORIES) {
   const cover = text.files[`works/${cat}`]?.fields['總覽封面']?.trim()
   if (!cover) continue
   const [proj, photo] = cover.split('/').map((s) => s.trim())
-  const folder = `works/${cat}/${proj}`
-  if (!scan.folders[folder]) warnings.push(`public/images/works/${cat}/info.txt「總覽封面」：找不到作品資料夾「${proj}」`)
+  const folder = findSeries(cat, proj)
+  if (!folder) warnings.push(`public/images/works/${cat}/info.txt「總覽封面」：找不到作品資料夾「${proj}」`)
   else if (photo && !photoIds(folder).includes(stem(photo))) warnings.push(`public/images/works/${cat}/info.txt「總覽封面」：${proj} 裡沒有照片「${photo}」`)
 }
 
@@ -111,13 +131,13 @@ for (const cat of CATEGORIES) {
   const parts = list.map((f) => {
     const t = text.files[f]?.fields ?? {}
     const hidden = /^(否|不|不要|不顯示|隱藏|no|n|false|0|off)$/i.test(t['顯示']?.trim() ?? '')
-    return `${t['標題']?.trim() || titleFromFolder(f.split('/')[2])} ${String(scan.folders[f].length).padStart(2, '0')} 張${hidden ? '（不顯示）' : ''}`
+    return `${seriesTitle(f)} ${String(scan.folders[f].length).padStart(2, '0')} 張${hidden ? '（不顯示）' : ''}`
   })
   console.log(`  ${cat.padEnd(11)} ${parts.join('、')}`)
 }
 
 if (created.length) {
-  console.log(`\n📝 新作品資料夾已自動建立文字檔（打開填「標題」「模特」「IG」「日期」即可）：`)
+  console.log(`\n📝 新作品資料夾已自動建立文字檔（標題＝資料夾名稱；打開填「模特」「IG」「日期」即可）：`)
   for (const c of created) console.log(`  - ${c}`)
 }
 if (warnings.length) {

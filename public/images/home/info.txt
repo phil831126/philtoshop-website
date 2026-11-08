@@ -2,9 +2,9 @@
 #  首頁文字（存檔後網站自動更新）
 #  寫法：欄位：內容　「# 」開頭的行是說明
 #  照片：填這個資料夾裡的檔名，例如 hero.jpg；
-#        也可以用作品照片，例如 works/emotional/quiet-light/03.jpg
+#        也可以用作品照片，例如 works/emotional/被遺忘之人/03.jpg
 #  對焦：照片被裁切時要保留哪裡。上、中、下，或百分比（0%＝最上、50%＝中間、100%＝最下）
-#  連結：分類 id，例如 emotional；要跳到某組作品就寫 emotional/quiet-light
+#  連結：分類 id，例如 emotional；要跳到某組作品就寫「分類/作品資料夾名稱」，例如 emotional/被遺忘之人
 # ════════════════════════════════════════════
 
 主照片：hero.jpg
@@ -40,7 +40,7 @@ version of you.
 標題：Emotional
 介紹：Quiet moments,
 honestly seen.
-連結：emotional/quiet-light
+連結：emotional/被遺忘之人
 顯示：是
 
 【精選 2】
@@ -61,7 +61,7 @@ honestly seen.
 標題：Monochrome
 介紹：A study in light
 and silence.
-連結：monochrome/grey-hours
+連結：monochrome/日常的勇氣
 顯示：是
 
 【精選 4】
@@ -72,5 +72,5 @@ and silence.
 標題：Shore
 介紹：Where the sea
 meets memory.
-連結：shore/low-tide
+連結：shore/Low Tide
 顯示：是

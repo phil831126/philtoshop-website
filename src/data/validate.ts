@@ -21,7 +21,7 @@ export function validateContent(): void {
   const seen = new Map<string, string>()
   for (const p of allProjects) {
     const other = seen.get(p.id)
-    if (other) warn(`作品資料夾名稱「${p.id}」在 ${other} 和 ${p.categoryId} 都有，建議改成不同名稱（網址錨點會衝突）`)
+    if (other) warn(`作品資料夾「${p.folderName}」在 ${other} 和 ${p.categoryId} 都有，建議改成不同名稱（網址錨點會衝突）`)
     seen.set(p.id, p.categoryId)
     if (p.requestedCover && p.coverPhotoId !== p.requestedCover) {
       warn(`public/images/${p.folder}/info.txt 的封面「${p.requestedCover}」找不到，已改用第一張`)

@@ -43,17 +43,15 @@
 
 ### ① 建立資料夾、放照片
 
-在 VS Code 左側檔案總管，對 `public/images/works/emotional` 按右鍵 → **新增資料夾**，取名例如 `morning-window`，把照片拖進去：
+在 VS Code 左側檔案總管，對 `public/images/works/emotional` 按右鍵 → **新增資料夾**，**直接用作品名稱命名**，例如 `晨光`或 `Morning Window`，把照片拖進去：
 
 ```
-public/images/works/emotional/morning-window/01.jpg
-public/images/works/emotional/morning-window/02.jpg
+public/images/works/emotional/晨光/01.jpg
+public/images/works/emotional/晨光/02.jpg
 …
 ```
 
-**存檔的那一刻，Emotional 頁最下面就會多出一組「Morning Window」**（標題自動用資料夾名稱）。
-
-資料夾名稱請用**小寫英文、數字、連字號**。它只會出現在網址的錨點（`/works/emotional#morning-window`），網站上顯示的名稱由 info.txt 的「標題」決定，兩者無關。
+**存檔的那一刻，Emotional 頁最下面就會多出一組「晨光」**。資料夾名稱＝網站上的作品名稱，中文、英文、空白、大寫都可以（不能有 `#` 或 `%`）。
 
 ### ② 加上文字
 
@@ -61,10 +59,10 @@ public/images/works/emotional/morning-window/02.jpg
 ```bash
 npm.cmd run photos
 ```
-工具會在新資料夾裡**自動建立 `info.txt`**，打開填「標題」「模特」「IG」「日期」：
+工具會在新資料夾裡**自動建立 `info.txt`**，打開填「模特」「IG」「日期」（「標題」留空即可）：
 
 ```
-標題：Morning Window
+標題：
 
 模特：Model Name
 
@@ -83,7 +81,7 @@ IG：@model_account
 git add .
 ```
 ```bash
-git commit -m "Add Morning Window"
+git commit -m "Add new series"
 ```
 ```bash
 git push
@@ -97,8 +95,7 @@ git push
 | --- | --- |
 | 調整前後順序 | 改各作品 info.txt 的「順序」（數字小的在前） |
 | 暫時隱藏一組作品 | 該作品 info.txt 的「顯示」改成 `否` |
-| 改作品名稱 | 改「標題」（隨時可以改） |
-| 改資料夾名稱 | 可以改，但如果首頁精選或分類總覽封面有用到這個資料夾，要一起改 `home/info.txt` 的「連結」、分類 info.txt 的「總覽封面」 |
+| 改作品名稱 | **直接重新命名資料夾**（先把該資料夾的 info.txt 分頁存檔並關掉）。如果首頁精選或分類總覽封面有用到這組作品，要一起改 `home/info.txt` 的「連結」、分類 info.txt 的「總覽封面」（`npm.cmd run photos` 會提醒你） |
 | 刪除一組作品 | 刪除整個資料夾 |
 
 ---
@@ -109,20 +106,20 @@ git push
 
 ```
 【精選 1】
-照片：works/emotional/morning-window/01.jpg
+照片：works/emotional/晨光/01.jpg
 照片描述：Portrait by a bright window
 對焦：上
 編號：01
 標題：Emotional
 介紹：Soft light,
 before the city wakes.
-連結：emotional/morning-window
+連結：emotional/晨光
 顯示：是
 ```
 
 - **照片**：可以填 home 資料夾裡的檔名（`featured-emotional.jpg`），也可以直接用作品照片的路徑（從 `works/` 開始寫）。
 - **對焦**：首頁會裁切照片，`上`、`中`、`下` 或百分比決定保留哪裡，避免切到臉。
-- **連結**：`emotional` 到分類頁頂端；`emotional/morning-window` 直接跳到那組作品。
+- **連結**：`emotional` 到分類頁頂端；`emotional/晨光`（分類/作品資料夾名稱）直接跳到那組作品。
 - 想多放幾張：往下加【精選 5】【精選 6】…，每 4 張自動成一組新的交錯排版。
 
 替換首頁主照片最簡單：用同檔名覆蓋 `public/images/home/hero.jpg`。
