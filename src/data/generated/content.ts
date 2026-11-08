@@ -128,6 +128,19 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
+  "works/emotional/condition：stable": {
+    "fields": {
+      "標題": "",
+      "模特": "QQ",
+      "IG": "https://www.instagram.com/yuscqq/",
+      "日期": "2026/04",
+      "介紹": "",
+      "順序": "4",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
   "works/emotional/Daydream": {
     "fields": {
       "標題": "",
@@ -175,6 +188,45 @@ export const textFiles: Record<string, TextFile> = {
       "總覽封面": "日常的勇氣/01",
       "作品順序": "日常的勇氣\nUnder The Light\n山海",
       "順序": "3"
+    },
+    "sections": []
+  },
+  "works/monochrome/Inside": {
+    "fields": {
+      "標題": "",
+      "模特": "詩雅",
+      "IG": "https://www.instagram.com/im_shihya/",
+      "日期": "2026/05",
+      "介紹": "",
+      "順序": "6",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
+  "works/monochrome/Rebirth": {
+    "fields": {
+      "標題": "",
+      "模特": "Hailey",
+      "IG": "https://www.instagram.com/haileyxchou/",
+      "日期": "2026/05",
+      "介紹": "",
+      "順序": "5",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
+  "works/monochrome/Room": {
+    "fields": {
+      "標題": "",
+      "模特": "艾蜜莉",
+      "IG": "https://www.instagram.com/em_chuuu0424/",
+      "日期": "2026/07",
+      "介紹": "",
+      "順序": "4",
+      "封面": "",
+      "顯示": "是"
     },
     "sections": []
   },
@@ -278,6 +330,19 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
+  "works/shore/一生想望": {
+    "fields": {
+      "標題": "",
+      "模特": "阿干",
+      "IG": "https://www.instagram.com/pg_gan/",
+      "日期": "2026/06",
+      "介紹": "",
+      "順序": "2",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
   "works/shore/夏末之詩": {
     "fields": {
       "標題": "",
@@ -323,7 +388,7 @@ export const textFiles: Record<string, TextFile> = {
       "介紹": "Form, fabric and the quiet of a pose.",
       "總覽介紹": "Wardrobe, texture and composed light.",
       "總覽封面": "Dark Game/01",
-      "作品順序": "Dark Game\n自白\nWardrobe Notes",
+      "作品順序": "Dark Game\n自白\n凝視之後",
       "順序": "2"
     },
     "sections": []
@@ -341,14 +406,14 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/style/Wardrobe Notes": {
+  "works/style/凝視之後": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "黛比",
+      "IG": "https://www.instagram.com/wt_f_y_1013/",
+      "日期": "2026/04",
       "介紹": "",
-      "順序": "3",
+      "順序": "4",
       "封面": "",
       "顯示": "是"
     },
