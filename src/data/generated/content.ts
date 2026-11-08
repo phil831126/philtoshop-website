@@ -326,9 +326,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/style/studio-hours": {
     "fields": {
       "標題": "自白",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "QQ",
+      "IG": "https://www.instagram.com/yuscqq/",
+      "日期": "2026/03",
       "介紹": "",
       "順序": "2",
       "封面": "",
