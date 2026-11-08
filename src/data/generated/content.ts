@@ -98,7 +98,7 @@ export const textFiles: Record<string, TextFile> = {
           "編號": "04",
           "標題": "Shore",
           "介紹": "Where the sea\nmeets memory.",
-          "連結": "shore/Low Tide",
+          "連結": "shore/祈願之海",
           "顯示": "是"
         }
       },
@@ -131,9 +131,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/emotional/Daydream": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "Yuga",
+      "IG": "https://www.instagram.com/yw__figal.o/",
+      "日期": "2026/02",
       "介紹": "",
       "順序": "3",
       "封面": "",
@@ -144,9 +144,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/emotional/Room": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "Chelsea",
+      "IG": "https://www.instagram.com/8y.chelsea/",
+      "日期": "2026/03",
       "介紹": "",
       "順序": "2",
       "封面": "",
@@ -157,9 +157,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/emotional/被遺忘之人": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "Hsin",
+      "IG": "https://www.instagram.com/tabiwithsin/",
+      "日期": "2026/02",
       "介紹": "",
       "順序": "1",
       "封面": "",
@@ -194,9 +194,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/monochrome/山海": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "吉恩",
+      "IG": "https://www.instagram.com/aji_lil.sunshine/",
+      "日期": "2026/04",
       "介紹": "",
       "順序": "3",
       "封面": "",
@@ -207,9 +207,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/monochrome/日常的勇氣": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "葉菜類",
+      "IG": "https://www.instagram.com/veggingout___/",
+      "日期": "2026/03",
       "介紹": "",
       "順序": "1",
       "封面": "",
@@ -231,9 +231,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/ordinary/Life": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "Lydia",
+      "IG": "https://www.instagram.com/thelydgirl/",
+      "日期": "2026/03",
       "介紹": "",
       "順序": "2",
       "封面": "",
@@ -257,9 +257,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/ordinary/黄金の瞬間": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "Yuci",
+      "IG": "https://www.instagram.com/yuci_shashin_/",
+      "日期": "2025/12",
       "介紹": "",
       "順序": "1",
       "封面": "",
@@ -272,18 +272,18 @@ export const textFiles: Record<string, TextFile> = {
       "名稱": "Shore",
       "介紹": "Where the sea meets memory.",
       "總覽介紹": "Where the sea meets memory.",
-      "總覽封面": "Low Tide/11",
-      "作品順序": "Low Tide\nSalt Wind\nLast Light on the Coast",
+      "總覽封面": "祈願之海/11",
+      "作品順序": "祈願之海\n與你有關的一切\n夏末之詩",
       "順序": "5"
     },
     "sections": []
   },
-  "works/shore/Last Light on the Coast": {
+  "works/shore/夏末之詩": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "小袋、小鄭",
+      "IG": "https://www.instagram.com/1.chen33/、https://www.instagram.com/eee_ttttttttt/",
+      "日期": "2025/08",
       "介紹": "",
       "順序": "3",
       "封面": "",
@@ -291,12 +291,12 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/shore/Low Tide": {
+  "works/shore/祈願之海": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "Chelsea",
+      "IG": "https://www.instagram.com/8y.chelsea/",
+      "日期": "2025/12",
       "介紹": "",
       "順序": "1",
       "封面": "",
@@ -304,12 +304,12 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/shore/Salt Wind": {
+  "works/shore/與你有關的一切": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "小袋、橘子",
+      "IG": "https://www.instagram.com/1.chen33/、https://www.instagram.com/chenyu_cha_o/",
+      "日期": "2025/12",
       "介紹": "",
       "順序": "2",
       "封面": "",
@@ -331,9 +331,9 @@ export const textFiles: Record<string, TextFile> = {
   "works/style/Dark Game": {
     "fields": {
       "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "模特": "崔西",
+      "IG": "https://www.instagram.com/babyzihyu/",
+      "日期": "2026/03",
       "介紹": "",
       "順序": "1",
       "封面": "",
