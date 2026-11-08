@@ -11,7 +11,7 @@
 -->
 <script setup lang="ts">
 import RichText from '@/components/common/RichText.vue'
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { Project } from '@/types/portfolio'
 import { formatPhotoCount } from '@/data/projects'
 import PhotoCarousel from './PhotoCarousel.vue'
@@ -23,6 +23,38 @@ const titleId = computed(() => `${props.project.id}-title`)
 /** 中文（含日文假名）作品名稱：字級較小，並依字數自動縮小，盡量一行放得下 */
 const isCjk = computed(() => /[぀-ヿ㐀-鿿豈-﫿]/.test(props.project.title))
 const titleChars = computed(() => [...props.project.title.trim()].length)
+
+/**
+ * info.txt 的「標題」寫成好幾行時：每行各占一行、不在字中間斷開；
+ * 最寬的那一行放不下時，整個標題自動縮小到剛好放得下（最小 18px）。
+ */
+const multiLine = computed(() => props.project.titleLines.length > 1)
+const titleEl = ref<HTMLElement | null>(null)
+function fitTitle() {
+  const el = titleEl.value
+  if (!el || !multiLine.value) return
+  el.style.fontSize = ''
+  const base = parseFloat(getComputedStyle(el).fontSize)
+  const widest = Math.max(...[...el.querySelectorAll<HTMLElement>('.chapter__title-line')].map((s) => s.offsetWidth))
+  if (widest > el.clientWidth) el.style.fontSize = `${Math.max(18, Math.floor((base * el.clientWidth * 0.97) / widest))}px`
+}
+let observer: ResizeObserver | undefined
+onMounted(() => {
+  if (!multiLine.value || !titleEl.value) return
+  fitTitle()
+  document.fonts?.ready.then(fitTitle)
+  // 只在欄寬改變時重新計算（標題縮小造成的高度變化不用理會）
+  let lastWidth = 0
+  observer = new ResizeObserver(([entry]) => {
+    const w = Math.round(entry?.contentRect.width ?? 0)
+    if (w !== lastWidth) {
+      lastWidth = w
+      fitTitle()
+    }
+  })
+  observer.observe(titleEl.value.parentElement ?? titleEl.value)
+})
+onBeforeUnmount(() => observer?.disconnect())
 const hasMeta = computed(() => Boolean(props.project.model || props.project.instagram.length || props.project.date))
 </script>
 
@@ -32,11 +64,15 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
       <p class="chapter__num">{{ numberLabel }}</p>
       <h2
         :id="titleId"
+        ref="titleEl"
         class="chapter__title"
-        :class="{ 'chapter__title--cjk': isCjk }"
-        :style="isCjk ? { '--chars': titleChars } : undefined"
+        :class="{ 'chapter__title--cjk': isCjk && !multiLine, 'chapter__title--lines': multiLine }"
+        :style="isCjk && !multiLine ? { '--chars': titleChars } : undefined"
       >
-        {{ project.title }}
+        <template v-if="multiLine">
+          <span v-for="(line, i) in project.titleLines" :key="i" class="chapter__title-line">{{ line }}</span>
+        </template>
+        <template v-else>{{ project.title }}</template>
       </h2>
       <span class="chapter__rule" aria-hidden="true" />
       <!-- 依手稿排版：模特名字 → IG（連結）→ 日期 → 照片數；沒填的項目不顯示 -->
@@ -91,6 +127,17 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
   color: var(--color-text);
   overflow-wrap: break-word;
   hyphens: auto;
+}
+
+/* 自訂換行的標題（info.txt「標題」寫成好幾行）：每行不再斷開，放不下時由程式整體縮小 */
+.chapter__title--lines {
+  hyphens: manual;
+}
+.chapter__title-line {
+  display: block;
+  width: max-content;
+  max-width: none;
+  white-space: nowrap;
 }
 
 /* 中文作品名稱：思源宋體、字距稍開；字數多時縮小到一行放得下（最小 18px，再長才換行） */

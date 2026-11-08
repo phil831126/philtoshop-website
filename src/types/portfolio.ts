@@ -59,8 +59,10 @@ export interface Project {
   folder: string
   /** 作品資料夾名稱，例如 被遺忘之人、Dark Game */
   folderName: string
-  /** 作品名稱（預設＝資料夾名稱；info.txt 的「標題」有填才改用它） */
+  /** 作品名稱（預設＝資料夾名稱；info.txt 的「標題」有填才改用它）；一行文字，給選單、圖片描述使用 */
   title: string
+  /** 作品頁顯示用的標題各行：info.txt 的「標題」寫成好幾行時，網站上就照那樣換行 */
+  titleLines: string[]
   /** 模特名字（info.txt 的「模特」；可寫好幾行） */
   model: string
   /** 模特 Instagram（info.txt 的「IG」；自動變成連結） */

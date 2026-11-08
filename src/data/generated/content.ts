@@ -130,7 +130,7 @@ export const textFiles: Record<string, TextFile> = {
   },
   "works/emotional/condition：stable": {
     "fields": {
-      "標題": "",
+      "標題": "condition：\nstable",
       "模特": "QQ",
       "IG": "https://www.instagram.com/yuscqq/",
       "日期": "2026/04",

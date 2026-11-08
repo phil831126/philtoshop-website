@@ -60,7 +60,12 @@ function buildProject(folder: string, index: number): Project | undefined {
   const [, categoryId, folderName] = folder.split('/')
   if (!categoryId || !folderName || !isCategoryId(categoryId)) return undefined
   const t = textFile(folder).fields
-  const title = pick(t, '標題', titleFromFolder(folderName))
+  // 「標題」可以寫成好幾行＝網站上照那樣換行；其他地方（圖片描述、比對名稱）用接成一行的版本
+  const titleLines = pick(t, '標題', titleFromFolder(folderName))
+    .split('\n')
+    .map((s) => s.trim())
+    .filter(Boolean)
+  const title = titleLines.reduce((acc, line) => (!acc ? line : /[　-鿿＀-￯]$/.test(acc) ? acc + line : `${acc} ${line}`), '')
   const photoNotes = photoNotesFrom(t)
   const files = imageFolders[folder] ?? []
   const used = new Set<string>()
@@ -88,6 +93,7 @@ function buildProject(folder: string, index: number): Project | undefined {
     folder,
     folderName,
     title,
+    titleLines,
     model: pick(t, '模特'),
     instagram: instagramLinks(t['IG']),
     date: pick(t, '日期'),
