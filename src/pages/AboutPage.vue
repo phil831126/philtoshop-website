@@ -10,9 +10,14 @@ import RichText from '@/components/common/RichText.vue'
 import { about } from '@/data/about'
 import { contact } from '@/data/site'
 import AppImage from '@/components/common/AppImage.vue'
-import IconArrow from '@/components/common/IconArrow.vue'
 
-const hasContact = Boolean(contact.instagramUrl || contact.email)
+const hasContact = Boolean(contact.instagramUrl || contact.email || contact.formUrl)
+/** 開發模式提示：還沒填的聯絡項目 */
+const missing = [
+  !contact.instagramUrl && 'Instagram',
+  !contact.email && 'Email',
+  !contact.formUrl && '委託表單',
+].filter((v): v is string => Boolean(v))
 const isDev = import.meta.env.DEV
 </script>
 
@@ -36,25 +41,31 @@ const isDev = import.meta.env.DEV
 
         <section class="about__section" aria-labelledby="about-contact">
           <h2 id="about-contact" class="about__label">Contact</h2>
+          <!-- 「項目： 連結」一行一個；沒填的項目不顯示（public/images/info.txt） -->
           <ul v-if="hasContact" class="about__contact">
-            <li v-if="contact.instagramUrl">
-              <a :href="contact.instagramUrl" target="_blank" rel="noopener noreferrer" class="about__link">
-                <span class="about__link-kind">Instagram</span>
-                <span>{{ contact.instagramLabel || contact.instagramUrl }}</span>
-                <IconArrow direction="up-right" :size="14" />
-              </a>
+            <li v-if="contact.instagramUrl" class="about__contact-row">
+              <span class="about__contact-kind">Instagram：</span>
+              <a :href="contact.instagramUrl" target="_blank" rel="noopener noreferrer" class="about__contact-link"
+                >{{ contact.instagramLabel || contact.instagramUrl
+                }}<span class="visually-hidden"> (opens in a new tab)</span></a
+              >
             </li>
-            <li v-if="contact.email">
-              <a :href="`mailto:${contact.email}`" class="about__link">
-                <span class="about__link-kind">Email</span>
-                <span>{{ contact.email }}</span>
-                <IconArrow direction="up-right" :size="14" />
-              </a>
+            <li v-if="contact.email" class="about__contact-row">
+              <span class="about__contact-kind">Email：</span>
+              <a :href="`mailto:${contact.email}`" class="about__contact-link">{{ contact.email }}</a>
+            </li>
+            <li v-if="contact.formUrl" class="about__contact-row">
+              <span class="about__contact-kind">委託表單：</span>
+              <a :href="contact.formUrl" target="_blank" rel="noopener noreferrer" class="about__contact-link"
+                >{{ contact.formLabel }}<span class="visually-hidden"> (opens in a new tab)</span></a
+              >
             </li>
           </ul>
           <p v-else class="about__text about__text--muted">
             Contact details coming soon.
-            <span v-if="isDev" class="about__dev-note">（開發模式提示：請在 public/images/info.txt 填入 Instagram 與 Email）</span>
+          </p>
+          <p v-if="isDev && missing.length" class="about__dev-note">
+            （開發模式提示：public/images/info.txt 的「{{ missing.join('」「') }}」還沒填，網站上不會顯示這幾項）
           </p>
         </section>
       </div>
@@ -99,10 +110,12 @@ const isDev = import.meta.env.DEV
 .about__subtitle {
   margin-top: calc(1.4 * var(--u));
   font-family: var(--font-serif);
-  font-size: max(16px, calc(1.9 * var(--u)));
+  font-size: max(15px, calc(1.6 * var(--u)));
   line-height: 1.4;
   letter-spacing: 0.02em;
   color: var(--color-text-soft);
+  /* 放得下就一行；窄螢幕要換行時兩行長度平均，不會只剩一個字掉到下一行 */
+  text-wrap: balance;
 }
 
 .about__rule {
@@ -154,36 +167,46 @@ const isDev = import.meta.env.DEV
   color: #c9a27a;
 }
 
+/* 聯絡方式：「項目： 連結」一行一個 */
 .about__contact {
-  margin-top: 10px;
-  border-top: 1px solid var(--color-line);
-}
-
-.about__link {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  min-height: 56px;
-  border-bottom: 1px solid var(--color-line);
-  font-family: var(--font-serif);
-  font-size: 19px;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
 }
 
-.about__link:hover {
-  color: var(--color-text-soft);
+.about__contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.4em;
+  font-size: var(--fs-body);
+  line-height: 1.5;
 }
 
-.about__link-kind {
-  width: 7.5em;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.about__contact-kind {
   color: var(--color-muted);
 }
 
-.about__link :deep(svg) {
-  margin-left: auto;
+.about__contact-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  overflow-wrap: anywhere;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.about__contact-link:hover,
+.about__contact-link:focus-visible {
+  color: var(--color-text-soft);
+  text-decoration-color: currentColor;
 }
 
 /* ───────── 平板 ───────── */
@@ -216,15 +239,6 @@ const isDev = import.meta.env.DEV
 
   .about__section {
     margin-top: 36px;
-  }
-
-  .about__link-kind {
-    width: 6.5em;
-  }
-
-  .about__link {
-    font-size: 16px;
-    overflow-wrap: anywhere;
   }
 }
 </style>

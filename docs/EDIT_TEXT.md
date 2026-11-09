@@ -8,7 +8,7 @@
 
 ```
 public/images/
-├─ info.txt                       ← 全站：左上角網站名稱、副標、Instagram、Email、頁尾版權
+├─ info.txt                       ← 全站：左上角網站名稱、副標、Instagram、Email、委託表單、頁尾版權
 ├─ home/info.txt                  ← 首頁：標語、毛玻璃小卡、精選作品
 ├─ about/info.txt                 ← About 頁：標題、副標、自我介紹、照片
 └─ works/
@@ -159,7 +159,9 @@ IG：@model_account
 | 版權 | 頁尾的版權名稱 |
 | Instagram | 填 `@帳號` 或個人頁網址都可以；留空＝不顯示 |
 | Instagram顯示文字 | 選填；不填＝自動顯示 @帳號 |
-| Email | 留空＝不顯示 |
+| Email | 填信箱，點了會開啟寫信畫面；留空＝不顯示 |
+| 委託表單 | 表單的完整網址（`https://` 開頭，例如 Google 表單的分享連結）；留空＝不顯示 |
+| 委託表單顯示文字 | 連結上顯示的字；不填＝「前往填寫」 |
 
 ### 每組作品 `works/<分類>/<作品>/info.txt`
 

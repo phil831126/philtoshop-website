@@ -21,9 +21,11 @@ export const textFiles: Record<string, TextFile> = {
       "副標": "PHOTOGRAPHY PORTFOLIO",
       "分頁標題": "PHILTOSHOP",
       "版權": "PHILTOSHOP",
-      "Instagram": "",
+      "Instagram": "@philtoshop",
       "Instagram顯示文字": "",
-      "Email": ""
+      "Email": "phil831126@gmail.com",
+      "委託表單": "",
+      "委託表單顯示文字": "前往填寫"
     },
     "sections": []
   },

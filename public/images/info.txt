@@ -21,11 +21,20 @@
 # 頁尾版權名稱
 版權：PHILTOSHOP
 
-# Instagram：填帳號（例如 @your_account）或個人頁網址都可以；留空＝不顯示
-Instagram：
+# ── 聯絡方式（About 頁最下方的 CONTACT、頁尾）──
+# 每一項都會自動變成可以點的連結；留空＝網站上不顯示那一項
+
+# Instagram：填帳號（例如 @your_account）或個人頁網址都可以
+Instagram：@philtoshop
 
 # 選填：Instagram 連結顯示的文字；不填＝自動顯示 @帳號
 Instagram顯示文字：
 
-# Email：留空＝不顯示
-Email：
+# Email：填信箱，點了會開啟寫信畫面
+Email：phil831126@gmail.com
+
+# 委託表單：貼上表單的完整網址（https:// 開頭，例如 Google 表單的分享連結）
+委託表單：
+
+# 委託表單連結顯示的文字；不填＝「前往填寫」
+委託表單顯示文字：前往填寫

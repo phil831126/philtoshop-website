@@ -1,11 +1,11 @@
 /**
  * 【控制畫面】全站：導覽列（品牌名稱、選單）、頁尾、瀏覽器分頁標題、聯絡連結
  * 【負責功能】品牌基本資訊與全站共用設定。
- * 【資料來源】✎ 文字請改 public/images/info.txt（網站名稱、副標、分頁標題、版權、Instagram、Email）。
+ * 【資料來源】✎ 文字請改 public/images/info.txt（網站名稱、副標、分頁標題、版權、Instagram、Email、委託表單）。
  *            這個檔案只負責讀取，平常不需要打開。
  * 【常見修改】導覽選單文字：nav 的 label（to 是網址，請勿隨意修改）
  * 【注意事項】Works 的六個分類選單會自動讀取各分類的 info.txt，不用在這裡重複填寫。
- *            Instagram／Email 留空＝網站上不顯示，不會產生假的連結。
+ *            Instagram／Email／委託表單 留空＝網站上不顯示，不會產生假的連結。
  */
 import type { ContactLinks, NavItem } from '@/types/portfolio'
 import { instagramLinks, pick, textFile } from './text'
@@ -33,5 +33,8 @@ const ig = instagramLinks(pick(t, 'Instagram'))[0]
 export const contact: ContactLinks = {
   instagramUrl: ig?.url ?? '',
   instagramLabel: ig ? pick(t, 'Instagram顯示文字', ig.label) : '',
-  email: pick(t, 'Email'),
+  email: pick(t, 'Email').replace(/^mailto:/i, ''),
+  // 只接受 https:// 開頭的網址，避免打錯產生壞掉或不安全的連結
+  formUrl: /^https?:\/\//i.test(pick(t, '委託表單')) ? pick(t, '委託表單') : '',
+  formLabel: pick(t, '委託表單顯示文字', '前往填寫'),
 }

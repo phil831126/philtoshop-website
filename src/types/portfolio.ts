@@ -186,6 +186,10 @@ export interface ContactLinks {
   instagramLabel: string
   /** Email 地址 */
   email: string
+  /** 委託表單網址（例如 Google 表單）；留空＝不顯示 */
+  formUrl: string
+  /** 委託表單連結顯示的文字，例如 前往填寫 */
+  formLabel: string
 }
 
 /** About 頁內容 */
