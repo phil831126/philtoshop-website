@@ -32,8 +32,8 @@ export const textFiles: Record<string, TextFile> = {
       "照片": "01.jpg",
       "照片描述": "Portrait of the photographer",
       "標題": "捕捉每個瞬間，\n那個毫無保留的你",
-      "副標": "The unreserved version of you.",
-      "自我介紹": "[Placeholder] A short introduction about the photographer goes here."
+      "副標": "Capturing every moment, the unreserved version of you.",
+      "自我介紹": "嗨你好，我是台北攝影Phil，這邊是我的作品集。\n\n喜歡海的寬廣、天空的遼闊，映照出人類的渺小。\n對有質感的穿搭非常感興趣，希望捕捉到每個細節。\n\n個人偏好用照片呈現出隱藏在空氣、眼神中，那份沒能說出口的情緒。\n期許自己能拍到每個情緒背後的故事和靈魂。\n\n我喜歡美的東西，更喜歡美的故事，希望你也喜歡。\n如果有興趣合作，歡迎私訊IG、email或填寫委託表單！"
     },
     "sections": []
   },

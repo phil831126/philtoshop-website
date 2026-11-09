@@ -4,11 +4,11 @@
  * 【資料來源】✎ 請改 public/images/about/info.txt（照片、照片描述、標題、副標、自我介紹）。
  *            聯絡連結讀取 public/images/info.txt 的 Instagram／Email。這個檔案只負責讀取，平常不需要打開。
  * 【常見修改】無。
- * 【注意事項】照片依原比例完整顯示。標題換行的位置＝網站上的換行位置；自我介紹「空一行＝新段落」。請只寫真實資訊。
+ * 【注意事項】照片依原比例完整顯示。標題、自我介紹換行的位置＝網站上的換行位置；自我介紹「空一行＝新段落」。請只寫真實資訊。
  */
 import type { AboutContent } from '@/types/portfolio'
 import { imageFile } from './images'
-import { imagePath, paragraphs, pick, textFile } from './text'
+import { imagePath, pick, textFile } from './text'
 
 const FOLDER = 'about'
 const t = textFile(FOLDER).fields
@@ -19,5 +19,15 @@ export const about: AboutContent = {
   }),
   heading: pick(t, '標題'),
   subheading: pick(t, '副標'),
-  bio: paragraphs(pick(t, '自我介紹')),
+  // 空一行＝新段落；段落裡的換行照原樣保留（網站上也會換行）
+  bio: pick(t, '自我介紹')
+    .split(/\n\s*\n/)
+    .map((p) =>
+      p
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .join('\n'),
+    )
+    .filter(Boolean),
 }

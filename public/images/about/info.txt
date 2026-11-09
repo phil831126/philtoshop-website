@@ -22,8 +22,17 @@
 那個毫無保留的你
 
 # 副標：標題下方的英文小字，一行即可；不需要就留空
-副標：The unreserved version of you.
+副標：Capturing every moment, the unreserved version of you.
 
-# 自我介紹（請只寫真實資訊）：可以寫好幾段，空一行＝新段落
+# 自我介紹（請只寫真實資訊）：換行的位置＝網站上的換行位置，空一行＝新段落
 自我介紹：
-[Placeholder] A short introduction about the photographer goes here.
+嗨你好，我是台北攝影Phil，這邊是我的作品集。
+
+喜歡海的寬廣、天空的遼闊，映照出人類的渺小。
+對有質感的穿搭非常感興趣，希望捕捉到每個細節。
+
+個人偏好用照片呈現出隱藏在空氣、眼神中，那份沒能說出口的情緒。
+期許自己能拍到每個情緒背後的故事和靈魂。
+
+我喜歡美的東西，更喜歡美的故事，希望你也喜歡。
+如果有興趣合作，歡迎私訊IG、email或填寫委託表單！

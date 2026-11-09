@@ -1,6 +1,6 @@
 <!--
 【控制畫面】/about — 延伸設計：設計稿未提供此頁，沿用全站風格簡約處理
-【負責功能】攝影師照片（最高一個視窗高）、中文標題、英文副標、自我介紹、Instagram／Email 聯絡連結。
+【負責功能】攝影師照片、中文標題、英文副標、自我介紹、Instagram／Email 聯絡連結。
 【資料來源】src/data/about.ts（照片與文字）、src/data/site.ts（contact 聯絡方式）。
 【常見修改】文字與照片：public/images/about/info.txt；聯絡方式：public/images/info.txt。
 【注意事項】聯絡方式留空時，不會顯示假的連結，而是顯示「尚未設定」的提示（僅開發模式）。
@@ -76,9 +76,6 @@ const isDev = import.meta.env.DEV
   /* 比例依照片本身（寫在 template 的 style），完整顯示不裁切 */
   position: sticky;
   top: calc(var(--header-h) + 24px);
-  /* 一進頁面就看到整張照片：最高＝視窗高度扣掉頁首與上下留白（照片會等比例縮小，不裁切） */
-  max-height: calc(100svh - var(--header-h) - calc(4 * var(--u)) - 32px);
-  min-height: 320px;
 }
 
 .about__body {
@@ -119,6 +116,11 @@ const isDev = import.meta.env.DEV
 
 .about__intro .about__text:first-child {
   margin-top: 0;
+}
+
+/* 自我介紹：照 info.txt 的位置換行 */
+.about__intro .about__text {
+  white-space: pre-line;
 }
 
 .about__section {
@@ -202,8 +204,6 @@ const isDev = import.meta.env.DEV
 
   .about__media {
     position: static;
-    max-height: none;
-    min-height: 0;
   }
 
   .about__intro {
