@@ -3,6 +3,7 @@
 //            自動照片清單與文字：啟動時、public/images/ 內照片或 info.txt 有變動時，
 //            自動更新 src/data/generated/images.ts 與 content.ts；
 //            新的作品資料夾放進照片後，自動建立 info.txt 範本；正式建置時 info.txt 不會放上網站。
+//            太大的照片（PNG、長邊超過 2000px、超過 500 KB）放進來就自動縮小成 JPG（見 scripts/optimize-images.mjs）。
 // 【注意事項】一般更新照片與文字不需要修改此檔。
 import { fileURLToPath, URL } from 'node:url'
 import path from 'node:path'
@@ -10,6 +11,7 @@ import fs from 'node:fs'
 import { defineConfig, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { createMissingSeriesInfo, writeManifest } from './scripts/image-manifest.mjs'
+import { describe, optimizeImages } from './scripts/optimize-images.mjs'
 
 const root = fileURLToPath(new URL('.', import.meta.url))
 
@@ -17,10 +19,27 @@ const root = fileURLToPath(new URL('.', import.meta.url))
 function imageManifest(): Plugin {
   const imagesDir = path.join(root, 'public', 'images')
   let timer: ReturnType<typeof setTimeout> | undefined
-  const regenerate = () => {
+  let running = false
+  let pending = false
+  const regenerate = (): void => {
     clearTimeout(timer)
     // 複製多張照片時會連續觸發，稍等一下再一次更新
-    timer = setTimeout(() => {
+    timer = setTimeout(async () => {
+      // 正在處理上一批時，等它結束後再跑一次
+      if (running) {
+        pending = true
+        return
+      }
+      running = true
+      try {
+        // 太大的照片先自動縮小（PNG 轉 JPG、長邊 2000px）；縮小後檔案變動會再觸發一次，屆時已經不用處理
+        const optimized = await optimizeImages(root)
+        if (optimized.changed.length) {
+          console.log(`\n  🗜 已自動縮小 ${optimized.changed.length} 張照片：\n${optimized.changed.map((c) => `     - ${describe(c)}`).join('\n')}`)
+        }
+      } catch (err) {
+        console.log(`  ⚠ 自動縮小照片失敗：${err instanceof Error ? err.message : err}`)
+      }
       let { changed, scan, text } = writeManifest(root)
       // 新作品資料夾放進照片 → 自動建立 info.txt 範本（不覆蓋已有的檔案）
       const created = createMissingSeriesInfo(root, scan)
@@ -30,6 +49,11 @@ function imageManifest(): Plugin {
       }
       if (changed) console.log('\n  📷 照片與文字已更新（public/images）\n')
       for (const p of text.problems) console.log(`  ⚠ ${p.file}${p.line ? ` 第 ${p.line} 行` : ''}：${p.message}`)
+      running = false
+      if (pending) {
+        pending = false
+        regenerate()
+      }
     }, 300)
   }
   return {

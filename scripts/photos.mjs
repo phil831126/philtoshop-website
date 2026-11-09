@@ -1,7 +1,8 @@
 /**
  * 【控制畫面】無（在終端機執行的輔助工具，不會被打包進網站）
  * 【負責功能】
- *   npm.cmd run photos        更新照片清單與文字，列出每組作品有幾張照片、需要注意的檔案與 info.txt 寫法；
+ *   npm.cmd run photos        先自動縮小太大的照片（PNG 轉 JPG、長邊 2000px，見 optimize-images.mjs），
+ *                             再更新照片清單與文字，列出每組作品有幾張照片、需要注意的檔案與 info.txt 寫法；
  *                             新的作品資料夾若還沒有 info.txt，會自動建立一份範本（不會覆蓋已存在的檔案）；
  *                             npm run dev 開著時，放進照片就會自動建立，不必另外執行。
  *   npm.cmd run photos:check  只檢查、不建立檔案；有錯誤（照片找不到、檔名大小寫不符）會以錯誤結束。
@@ -15,12 +16,16 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createMissingSeriesInfo, writeManifest } from './image-manifest.mjs'
 import { titleFromFolder } from './info-templates.mjs'
+import { describe, kb as size, optimizeImages } from './optimize-images.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const strict = process.argv[2] === 'check'
 const kb = (bytes) => `${Math.round(bytes / 1024)} KB`
 const imagesDir = path.join(root, 'public', 'images')
 const CATEGORIES = ['emotional', 'style', 'monochrome', 'ordinary', 'shore', 'viscera']
+
+// ── 太大的照片先自動縮小（PNG 轉 JPG、長邊 2000px、500 KB 以內）；check 模式只檢查不修改 ──
+const optimized = strict ? { changed: [], failed: [] } : await optimizeImages(root)
 
 let { scan, text } = writeManifest(root)
 const errors = []
@@ -39,8 +44,8 @@ for (const d of scan.details) {
   if (/[A-Z]/.test(d.name)) warnings.push(`${d.url}：檔名有大寫字母，建議改成小寫`)
   if (/\s/.test(d.name)) warnings.push(`${d.url}：檔名有空白，建議改用連字號 -`)
   if (/[^\x00-\x7f]/.test(d.name)) warnings.push(`${d.url}：檔名有中文或特殊字元，建議改用英文與數字`)
-  if (d.bytes > 800 * 1024) warnings.push(`${d.url}：檔案 ${kb(d.bytes)}，建議縮小到 500 KB 左右`)
-  if (Math.max(d.width, d.height) > 2600) warnings.push(`${d.url}：尺寸 ${d.width}×${d.height}，建議長邊縮到 1600～2000 px`)
+  if (d.bytes > 800 * 1024) warnings.push(`${d.url}：檔案 ${kb(d.bytes)}，執行 npm.cmd run photos 會自動縮小`)
+  if (Math.max(d.width, d.height) > 2600) warnings.push(`${d.url}：尺寸 ${d.width}×${d.height}，執行 npm.cmd run photos 會自動縮到長邊 2000 px`)
   if (d.hasGps) warnings.push(`${d.url}：含 GPS 拍攝地點，公開前建議移除（右鍵 → 內容 → 詳細資料 → 移除內容和個人資訊）`)
 }
 for (const u of scan.unreadable) errors.push(`${u}：無法讀取（檔案可能損壞，或不是真正的 JPG／PNG／WebP）`)
@@ -89,7 +94,13 @@ for (const folder of seriesFolders) {
 }
 // 作品可用資料夾名稱或標題指定（不分大小寫，空白＝連字號），與網站的 getProject 相同
 const norm = (s) => s.normalize('NFC').trim().replace(/[\s_-]+/g, '-').toLowerCase()
-const seriesTitle = (f) => text.files[f]?.fields['標題']?.trim() || titleFromFolder(f.split('/')[2])
+// 「標題」寫成好幾行時接成一行（前一行以中文或全形符號結尾就不加空白），與網站相同
+const seriesTitle = (f) =>
+  (text.files[f]?.fields['標題']?.trim() || titleFromFolder(f.split('/')[2]))
+    .split('\n')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .reduce((acc, line) => (!acc ? line : /[　-鿿＀-￯]$/.test(acc) ? acc + line : `${acc} ${line}`), '')
 const findSeries = (cat, name) => {
   const list = seriesFolders.filter((f) => f.split('/')[1] === cat)
   return (
@@ -147,6 +158,13 @@ for (const cat of CATEGORIES) {
   console.log(`  ${cat.padEnd(11)} ${parts.join('、')}`)
 }
 
+if (optimized.changed.length) {
+  const before = optimized.changed.reduce((s, c) => s + c.before, 0)
+  const after = optimized.changed.reduce((s, c) => s + c.after, 0)
+  console.log(`\n🗜 已自動縮小 ${optimized.changed.length} 張照片：${size(before)} → ${size(after)}`)
+  for (const c of optimized.changed) console.log(`  - ${describe(c)}`)
+}
+for (const f of optimized.failed) warnings.push(`/images/${f.file}：無法自動縮小（${f.message}）`)
 if (created.length) {
   console.log(`\n📝 新作品資料夾已自動建立文字檔（標題＝資料夾名稱；打開填「模特」「IG」「日期」即可）：`)
   for (const c of created) console.log(`  - ${c}`)
