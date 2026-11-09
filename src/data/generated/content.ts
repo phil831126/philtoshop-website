@@ -24,7 +24,7 @@ export const textFiles: Record<string, TextFile> = {
       "Instagram": "@philtoshop",
       "Instagram顯示文字": "",
       "Email": "phil831126@gmail.com",
-      "委託表單": "",
+      "委託表單": "https://forms.gle/WpdXU6rro9XspFKd7",
       "委託表單顯示文字": "前往填寫"
     },
     "sections": []
