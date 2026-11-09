@@ -31,8 +31,8 @@ export const textFiles: Record<string, TextFile> = {
     "fields": {
       "照片": "01.jpg",
       "照片描述": "Portrait of the photographer",
-      "標題": "The unreserved version of you.",
-      "理念": "[Placeholder] One or two sentences about what PHILTOSHOP looks for in a photograph — the light, the pace, the people.\n\n[Placeholder] How a session feels: quiet, unhurried, honest.",
+      "標題": "捕捉每個瞬間，\n那個毫無保留的你",
+      "副標": "The unreserved version of you.",
       "自我介紹": "[Placeholder] A short introduction about the photographer goes here."
     },
     "sections": []

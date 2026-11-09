@@ -192,10 +192,10 @@ export interface ContactLinks {
 export interface AboutContent {
   /** 攝影師照片 */
   image: Photo
-  /** 大標題 */
+  /** 中文大標題（info.txt 換行的位置就是網站上的換行位置） */
   heading: string
-  /** 品牌與攝影理念（每個字串一段） */
-  philosophy: string[]
-  /** 簡短自我介紹（每個字串一段） */
+  /** 英文副標（標題下方的一行小字） */
+  subheading: string
+  /** 自我介紹（每個字串一段） */
   bio: string[]
 }

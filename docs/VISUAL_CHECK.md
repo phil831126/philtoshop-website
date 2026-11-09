@@ -56,7 +56,7 @@
 | 六分類 × 各組作品照片（以 9:16 為主） | `public/images/works/<分類>/<作品>/` |
 | 作品名稱與介紹（目前 Emotional 三組沿用設計稿文字，其餘皆為示意） | 各作品資料夾的 `info.txt` |
 | 各分類介紹、總覽介紹（Emotional、Monochrome、Shore 取自設計稿，其餘為示意） | 各分類資料夾的 `info.txt` |
-| About：攝影師照片、理念、自我介紹 | `public/images/about/` 的照片與 `info.txt` |
+| About：攝影師照片、標題、副標、自我介紹 | `public/images/about/` 的照片與 `info.txt` |
 | Instagram、Email | `public/images/info.txt` |
 | 原始設計字型（若有授權） | `src/styles/tokens.css`、`src/main.ts` |
 | 網站描述（分享預覽文字）與自訂網域 | `index.html` 的 description；Vercel 設定 |

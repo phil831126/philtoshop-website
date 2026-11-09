@@ -22,7 +22,7 @@
 | 作品封面（Works 總覽用） | 同上 | 封面（照片檔名，不用寫 .jpg） |
 | 大圖下方的照片說明 | 同上 | 照片說明 03 |
 | 照片順序 | 照片資料夾 | 改檔名（`01.jpg` 排第一）；檔名前加 `_` 可暫時不顯示 |
-| About 照片與文字 | `public/images/about/info.txt` | 照片、標題、理念、自我介紹 |
+| About 照片與文字 | `public/images/about/info.txt` | 照片、標題、副標、自我介紹 |
 | 文字中加超連結 | 任何「介紹」類欄位 | 寫成 `[顯示文字](網址)` |
 | 檢查照片與 info.txt 寫法 | 終端機 | `npm.cmd run photos` |
 | 導覽文字（Home／Works／About） | `src/data/site.ts` | `nav[].label`（較少需要改） |

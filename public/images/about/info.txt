@@ -3,20 +3,27 @@
 #  寫法：欄位：內容　「# 」開頭的行是說明
 #  段落：內容可以寫好幾行，空一行＝新段落
 #  超連結：[顯示文字](網址)，例如 [Instagram](https://www.instagram.com/your_account/)
+#
+#  網站上的排列（右側文字）：
+#    ABOUT
+#    標題（中文大字）
+#    副標（英文小字）
+#    ──
+#    自我介紹
+#    CONTACT（讀取 public/images/info.txt 的 Instagram／Email）
 # ════════════════════════════════════════════
 
 # 照片：這個資料夾裡的檔名
 照片：01.jpg
 照片描述：Portrait of the photographer
 
-標題：The unreserved version of you.
+# 標題：中文大字；換行的位置就是網站上的換行位置
+標題：捕捉每個瞬間，
+那個毫無保留的你
 
-# 品牌與攝影理念
-理念：
-[Placeholder] One or two sentences about what PHILTOSHOP looks for in a photograph — the light, the pace, the people.
+# 副標：標題下方的英文小字，一行即可；不需要就留空
+副標：The unreserved version of you.
 
-[Placeholder] How a session feels: quiet, unhurried, honest.
-
-# 自我介紹（請只寫真實資訊）
+# 自我介紹（請只寫真實資訊）：可以寫好幾段，空一行＝新段落
 自我介紹：
 [Placeholder] A short introduction about the photographer goes here.
