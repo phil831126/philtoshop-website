@@ -93,5 +93,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    // 程式、樣式、字型放在 /static/（舊版曾放在 /assets/ 並被瀏覽器長期快取，換路徑可避免拿到舊的錯誤檔案）
+    assetsDir: 'static',
   },
 })

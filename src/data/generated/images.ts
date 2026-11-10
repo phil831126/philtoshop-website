@@ -114,7 +114,7 @@ export const imageSizes: Record<string, readonly [number, number]> = {
   '/images/works/monochrome/日常的勇氣/08.jpg': [1045, 1567],
   '/images/works/monochrome/日常的勇氣/09.jpg': [1045, 1567],
   '/images/works/monochrome/日常的勇氣/10.jpg': [1045, 1567],
-  '/images/works/ordinary/cover.jpg': [1567, 1045],
+  '/images/works/ordinary/cover.jpg': [1333, 2000],
   '/images/works/ordinary/Life/01.jpg': [1045, 1567],
   '/images/works/ordinary/Life/02.jpg': [1045, 1567],
   '/images/works/ordinary/Life/03.jpg': [1045, 1567],
