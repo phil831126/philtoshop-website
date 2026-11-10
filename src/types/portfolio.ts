@@ -101,6 +101,8 @@ export interface Category {
    * 未填時自動使用此分類第一組作品的封面。
    */
   cover?: PhotoRef
+  /** 另外上傳的 Works 總覽代表圖（直接放在分類資料夾裡的照片）；有的話優先使用 */
+  coverImage?: Photo
   /** 分類 info.txt 的「作品順序」：依序列出的作品資料夾名稱（或標題）；沒列到的排在後面 */
   seriesOrder: string[]
 }

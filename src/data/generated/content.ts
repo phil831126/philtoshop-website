@@ -332,6 +332,19 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
+  "works/shore/Summer Blue": {
+    "fields": {
+      "標題": "",
+      "模特": "Connie",
+      "IG": "https://www.instagram.com/connie_yuseong/",
+      "日期": "2026/08",
+      "介紹": "",
+      "順序": "5",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
   "works/shore/一生想望": {
     "fields": {
       "標題": "",
@@ -378,7 +391,7 @@ export const textFiles: Record<string, TextFile> = {
       "IG": "https://www.instagram.com/1.chen33/、https://www.instagram.com/chenyu_cha_o/",
       "日期": "2025/12",
       "介紹": "",
-      "順序": "2",
+      "順序": "4",
       "封面": "",
       "顯示": "是"
     },

@@ -35,7 +35,7 @@ IG：https://www.instagram.com/1.chen33/、https://www.instagram.com/chenyu_cha_
 介紹：
 
 # 排在第幾組：建議改到分類資料夾的 info.txt「作品順序」一次排好（那裡有列到的話，以那裡為準）
-順序：2
+順序：4
 
 # Works 總覽的封面：填照片檔名（不用寫 .jpg）；不填＝第一張
 封面：

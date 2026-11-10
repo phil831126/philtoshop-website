@@ -131,6 +131,14 @@ for (const cat of CATEGORIES) {
 }
 for (const cat of CATEGORIES) {
   const cover = text.files[`works/${cat}`]?.fields['總覽封面']?.trim()
+  // 另外上傳的代表圖（直接放在分類資料夾裡的照片）優先使用
+  const uploaded = photoIds(`works/${cat}`)
+  if (uploaded.length) {
+    if (cover && !cover.includes('/') && !uploaded.some((p) => p.toLowerCase() === stem(cover).toLowerCase())) {
+      warnings.push(`public/images/works/${cat}/info.txt「總覽封面」：分類資料夾裡沒有照片「${cover}」，會改用 ${uploaded[0]}`)
+    }
+    continue
+  }
   if (!cover) continue
   const [proj, photo] = cover.split('/').map((s) => s.trim())
   const folder = findSeries(cat, proj)

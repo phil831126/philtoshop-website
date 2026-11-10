@@ -7,7 +7,9 @@
  * 【注意事項】六個分類的 id（emotional、style…）同時是網址 /works/<id> 與資料夾名稱，拼字固定，請勿修改。
  *            info.txt 沒寫的欄位會使用下方的預設值。
  */
-import type { Category, CategoryId, PhotoRef } from '@/types/portfolio'
+import type { Category, CategoryId, Photo, PhotoRef } from '@/types/portfolio'
+import { imageFolders } from './generated/images'
+import { imageFile } from './images'
 import { num, pick, textFile } from './text'
 
 /** 六個分類與預設文字（info.txt 有寫就以 info.txt 為準） */
@@ -35,15 +37,34 @@ function listFrom(value: string): string[] {
     .filter(Boolean)
 }
 
+const stem = (name: string) => name.replace(/\.[^.]+$/, '').normalize('NFC').toLowerCase()
+
+/**
+ * 另外上傳的代表圖：直接放在分類資料夾（和 info.txt 同一層）的照片。
+ * 放了好幾張時，「總覽封面」寫檔名就用那張；沒寫或寫的是作品照片時，用檔名排序的第一張。
+ */
+function uploadedCover(id: CategoryId, name: string, wanted: string): Photo | undefined {
+  const files = imageFolders[`works/${id}`] ?? []
+  if (!files.length) return undefined
+  const want = wanted.includes('/') ? '' : stem(wanted)
+  const src = files.find((f) => want && stem(f.slice(f.lastIndexOf('/') + 1)) === want) ?? files[0]!
+  return imageFile(src, { alt: `${name} — cover photo` })
+}
+
 export const categories: Category[] = defaults.map((d, i) => {
   const t = textFile(`works/${d.id}`).fields
+  const name = pick(t, '名稱', d.name)
+  const wanted = pick(t, '總覽封面')
+  const coverImage = uploadedCover(d.id, name, wanted)
   return {
     id: d.id,
-    name: pick(t, '名稱', d.name),
+    name,
     intro: pick(t, '介紹'),
     summary: pick(t, '總覽介紹'),
     order: num(t['順序'], i + 1),
-    cover: parseCover(pick(t, '總覽封面')),
+    coverImage,
+    // 有另外上傳的代表圖時，就不用作品裡的照片
+    cover: coverImage ? undefined : parseCover(wanted),
     seriesOrder: listFrom(pick(t, '作品順序')),
   }
 })
