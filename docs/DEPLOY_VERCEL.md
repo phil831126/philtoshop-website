@@ -22,8 +22,8 @@
 ## 專案中與部署相關的設定
 
 - `vercel.json`
-  - `rewrites`：所有網址都交給 `index.html`，讓 Vue Router 處理。因此直接打開或重新整理 `/works/emotional`、`/about` 等深層網址不會出現 404。Vercel 會**先**提供實際存在的檔案（圖片、`/assets/` 的 JS／CSS），找不到檔案才改用 `index.html`，所以圖片與靜態資源正常載入。
-  - `headers`：`/assets/` 內含雜湊檔名的 JS、CSS、字型長期快取。`/images/` 不設長期快取，所以替換同名照片後能較快更新。
+  - `rewrites`：除了 `/static/`（JS、CSS、字型）、`/images/`（照片）、`favicon.svg` 以外的網址都交給 `index.html`，讓 Vue Router 處理。因此直接打開或重新整理 `/works/emotional`、`/about` 等深層網址不會出現 404；而找不到的程式或照片會正常回「404 找不到」，不會拿網頁頂替（避免部署切換時瀏覽器把網頁當成程式記住，造成空白頁）。
+  - `headers`：`/images/` 快取 1 小時（之後在背景確認新版），替換同名照片後最晚下一次瀏覽就會看到。`/static/` 的程式檔不設長期快取，每次都向伺服器確認（沒變時只回「沒變」，幾乎不影響速度），部署新版時不會卡在舊檔案。
 - 不存在的網址會顯示網站自己的 404 頁（Single Page App 的限制：此時 HTTP 狀態碼仍是 200）。
 
 ## 之後的更新
