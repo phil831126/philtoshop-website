@@ -22,6 +22,7 @@ export const imageSizes: Record<string, readonly [number, number]> = {
   '/images/works/emotional/condition：stable/8.jpg': [1045, 1567],
   '/images/works/emotional/condition：stable/9.jpg': [1045, 1567],
   '/images/works/emotional/condition：stable/10.jpg': [1045, 1567],
+  '/images/works/emotional/cover.jpg': [1045, 1567],
   '/images/works/emotional/Daydream/21.jpg': [1045, 1567],
   '/images/works/emotional/Daydream/22.jpg': [1045, 1567],
   '/images/works/emotional/Daydream/23.jpg': [1045, 1567],
@@ -52,6 +53,7 @@ export const imageSizes: Record<string, readonly [number, number]> = {
   '/images/works/emotional/被遺忘之人/08.jpg': [1045, 1567],
   '/images/works/emotional/被遺忘之人/09.jpg': [1045, 1567],
   '/images/works/emotional/被遺忘之人/10.jpg': [1045, 1567],
+  '/images/works/monochrome/cover.jpg': [1045, 1567],
   '/images/works/monochrome/Inside/1.jpg': [1045, 1567],
   '/images/works/monochrome/Inside/2.jpg': [1045, 1567],
   '/images/works/monochrome/Inside/3.jpg': [1045, 1567],
@@ -112,6 +114,7 @@ export const imageSizes: Record<string, readonly [number, number]> = {
   '/images/works/monochrome/日常的勇氣/08.jpg': [1045, 1567],
   '/images/works/monochrome/日常的勇氣/09.jpg': [1045, 1567],
   '/images/works/monochrome/日常的勇氣/10.jpg': [1045, 1567],
+  '/images/works/ordinary/cover.jpg': [1567, 1045],
   '/images/works/ordinary/Life/01.jpg': [1045, 1567],
   '/images/works/ordinary/Life/02.jpg': [1045, 1567],
   '/images/works/ordinary/Life/03.jpg': [1045, 1567],
@@ -142,6 +145,7 @@ export const imageSizes: Record<string, readonly [number, number]> = {
   '/images/works/ordinary/黄金の瞬間/18.jpg': [1045, 1567],
   '/images/works/ordinary/黄金の瞬間/19.jpg': [1045, 1567],
   '/images/works/ordinary/黄金の瞬間/20.jpg': [1045, 1567],
+  '/images/works/shore/cover.jpg': [1045, 1567],
   '/images/works/shore/Summer Blue/1.jpg': [1045, 1567],
   '/images/works/shore/Summer Blue/2.jpg': [1045, 1567],
   '/images/works/shore/Summer Blue/3.jpg': [1045, 1567],
@@ -192,6 +196,7 @@ export const imageSizes: Record<string, readonly [number, number]> = {
   '/images/works/shore/與你有關的一切/28.jpg': [1045, 1567],
   '/images/works/shore/與你有關的一切/29.jpg': [1045, 1567],
   '/images/works/shore/與你有關的一切/30.jpg': [1045, 1567],
+  '/images/works/style/cover.jpg': [1045, 1567],
   '/images/works/style/Dark Game/01.jpg': [1045, 1567],
   '/images/works/style/Dark Game/02.jpg': [1045, 1567],
   '/images/works/style/Dark Game/03.jpg': [1045, 1567],
@@ -303,6 +308,9 @@ export const imageFolders: Record<string, readonly string[]> = {
     '/images/works/emotional/被遺忘之人/09.jpg',
     '/images/works/emotional/被遺忘之人/10.jpg',
   ],
+  'works/emotional': [
+    '/images/works/emotional/cover.jpg',
+  ],
   'works/monochrome/Inside': [
     '/images/works/monochrome/Inside/1.jpg',
     '/images/works/monochrome/Inside/2.jpg',
@@ -375,6 +383,9 @@ export const imageFolders: Record<string, readonly string[]> = {
     '/images/works/monochrome/日常的勇氣/09.jpg',
     '/images/works/monochrome/日常的勇氣/10.jpg',
   ],
+  'works/monochrome': [
+    '/images/works/monochrome/cover.jpg',
+  ],
   'works/ordinary/Life': [
     '/images/works/ordinary/Life/01.jpg',
     '/images/works/ordinary/Life/02.jpg',
@@ -410,6 +421,9 @@ export const imageFolders: Record<string, readonly string[]> = {
     '/images/works/ordinary/黄金の瞬間/18.jpg',
     '/images/works/ordinary/黄金の瞬間/19.jpg',
     '/images/works/ordinary/黄金の瞬間/20.jpg',
+  ],
+  'works/ordinary': [
+    '/images/works/ordinary/cover.jpg',
   ],
   'works/shore/Summer Blue': [
     '/images/works/shore/Summer Blue/1.jpg',
@@ -471,6 +485,9 @@ export const imageFolders: Record<string, readonly string[]> = {
     '/images/works/shore/與你有關的一切/29.jpg',
     '/images/works/shore/與你有關的一切/30.jpg',
   ],
+  'works/shore': [
+    '/images/works/shore/cover.jpg',
+  ],
   'works/style/Dark Game': [
     '/images/works/style/Dark Game/01.jpg',
     '/images/works/style/Dark Game/02.jpg',
@@ -506,6 +523,9 @@ export const imageFolders: Record<string, readonly string[]> = {
     '/images/works/style/自白/18.jpg',
     '/images/works/style/自白/19.jpg',
     '/images/works/style/自白/20.jpg',
+  ],
+  'works/style': [
+    '/images/works/style/cover.jpg',
   ],
   'works/viscera/Pulse': [
     '/images/works/viscera/Pulse/01.jpg',
