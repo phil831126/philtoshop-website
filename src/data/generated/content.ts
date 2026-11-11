@@ -70,7 +70,7 @@ export const textFiles: Record<string, TextFile> = {
           "對焦": "30%",
           "編號": "02",
           "標題": "Style",
-          "介紹": "A glance, a silhouette—\na world on its own terms.",
+          "介紹": "The way you carry yourself\nspeaks before you do.",
           "連結": "style/Dark Game",
           "顯示": "是"
         }
@@ -122,7 +122,7 @@ export const textFiles: Record<string, TextFile> = {
           "對焦": "中",
           "編號": "06",
           "標題": "Viscera",
-          "介紹": "Texture, tension and\nwhat is left unsaid.",
+          "介紹": "A fragment of you, a depth without end.",
           "連結": "viscera/Under the Skin",
           "顯示": "是"
         }
@@ -132,8 +132,8 @@ export const textFiles: Record<string, TextFile> = {
   "works/emotional": {
     "fields": {
       "名稱": "Emotional",
-      "介紹": "Three stories, quietly told.",
-      "總覽介紹": "Quiet moments, honestly seen.",
+      "介紹": "What we never say finds a place in the light.",
+      "總覽介紹": "What we never say finds a place in the light.",
       "總覽封面": "被遺忘之人/01",
       "作品順序": "被遺忘之人\nRoom\nDaydream",
       "順序": "1"
@@ -195,8 +195,8 @@ export const textFiles: Record<string, TextFile> = {
   "works/monochrome": {
     "fields": {
       "名稱": "Monochrome",
-      "介紹": "A study in light and silence.",
-      "總覽介紹": "A study in light and silence.",
+      "介紹": "Light traces the skin; shadow keeps the rest.",
+      "總覽介紹": "Light traces the skin; shadow keeps the rest.",
       "總覽封面": "日常的勇氣/01",
       "作品順序": "日常的勇氣\nUnder The Light\n山海",
       "順序": "3"
@@ -284,8 +284,8 @@ export const textFiles: Record<string, TextFile> = {
   "works/ordinary": {
     "fields": {
       "名稱": "Ordinary",
-      "介紹": "Everyday light, kept close.",
-      "總覽介紹": "Small rituals and familiar rooms.",
+      "介紹": "In the little things, we feel what it means to be alive.",
+      "總覽介紹": "In the little things, we feel what it means to be alive.",
       "總覽封面": "黄金の瞬間/11",
       "作品順序": "黄金の瞬間\nLife\nSmall Rooms",
       "順序": "4"
@@ -334,8 +334,8 @@ export const textFiles: Record<string, TextFile> = {
   "works/shore": {
     "fields": {
       "名稱": "Shore",
-      "介紹": "Where the sea meets memory.",
-      "總覽介紹": "Where the sea meets memory.",
+      "介紹": "The tide takes the footprints, but leaves us the summer.",
+      "總覽介紹": "The tide takes the footprints, but leaves us the summer.",
       "總覽封面": "祈願之海/11",
       "作品順序": "祈願之海\n與你有關的一切\n夏末之詩",
       "順序": "5"
@@ -410,8 +410,8 @@ export const textFiles: Record<string, TextFile> = {
   "works/style": {
     "fields": {
       "名稱": "Style",
-      "介紹": "Form, fabric and the quiet of a pose.",
-      "總覽介紹": "Wardrobe, texture and composed light.",
+      "介紹": "The way you carry yourself speaks before you do.",
+      "總覽介紹": "The way you carry yourself speaks before you do.",
       "總覽封面": "Dark Game/01",
       "作品順序": "Dark Game\n自白\n凝視之後",
       "順序": "2"
@@ -476,32 +476,6 @@ export const textFiles: Record<string, TextFile> = {
       "日期": "",
       "介紹": "",
       "順序": "2",
-      "封面": "",
-      "顯示": "是"
-    },
-    "sections": []
-  },
-  "works/viscera/Raw Edges": {
-    "fields": {
-      "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
-      "介紹": "",
-      "順序": "3",
-      "封面": "",
-      "顯示": "是"
-    },
-    "sections": []
-  },
-  "works/viscera/Under the Skin": {
-    "fields": {
-      "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
-      "介紹": "",
-      "順序": "1",
       "封面": "",
       "顯示": "是"
     },

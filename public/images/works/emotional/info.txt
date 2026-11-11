@@ -8,10 +8,10 @@
 名稱：Emotional
 
 # 分類頁大標下方的一句話
-介紹：Three stories, quietly told.
+介紹：What we never say finds a place in the light.
 
 # Works 總覽頁卡片下方的短介紹
-總覽介紹：Quiet moments, honestly seen.
+總覽介紹：What we never say finds a place in the light.
 
 # Works 總覽的代表圖
 #   ① 另外上傳（建議）：把照片直接放進這個分類資料夾（和這個 info.txt 放在一起），

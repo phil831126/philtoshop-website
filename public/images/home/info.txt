@@ -47,8 +47,8 @@ finds a place in the light.
 對焦：30%
 編號：02
 標題：Style
-介紹：A glance, a silhouette—
-a world on its own terms.
+介紹：The way you carry yourself
+speaks before you do.
 連結：style/Dark Game
 顯示：是
 
@@ -91,7 +91,6 @@ but leaves us the summer.
 對焦：中
 編號：06
 標題：Viscera
-介紹：Texture, tension and
-what is left unsaid.
+介紹：A fragment of you, a depth without end.
 連結：viscera/Under the Skin
 顯示：是

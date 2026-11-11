@@ -8,10 +8,10 @@
 名稱：Style
 
 # 分類頁大標下方的一句話
-介紹：Form, fabric and the quiet of a pose.
+介紹：The way you carry yourself speaks before you do.
 
 # Works 總覽頁卡片下方的短介紹
-總覽介紹：Wardrobe, texture and composed light.
+總覽介紹：The way you carry yourself speaks before you do.
 
 # Works 總覽的代表圖
 #   ① 另外上傳（建議）：把照片直接放進這個分類資料夾（和這個 info.txt 放在一起），
