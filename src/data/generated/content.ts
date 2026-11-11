@@ -299,27 +299,27 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
-  "works/ordinary/Life": {
+  "works/ordinary/Breathe": {
     "fields": {
-      "標題": "",
+      "標題": "Breathe",
       "模特": "Lydia",
       "IG": "https://www.instagram.com/thelydgirl/",
-      "日期": "2026/03",
+      "日期": "2026/06",
       "介紹": "",
-      "順序": "2",
+      "順序": "3",
       "封面": "",
       "顯示": "是"
     },
     "sections": []
   },
-  "works/ordinary/Small Rooms": {
+  "works/ordinary/Life": {
     "fields": {
-      "標題": "",
-      "模特": "",
-      "IG": "",
-      "日期": "",
+      "標題": "Life",
+      "模特": "Lydia",
+      "IG": "https://www.instagram.com/thelydgirl/",
+      "日期": "2026/03",
       "介紹": "",
-      "順序": "3",
+      "順序": "2",
       "封面": "",
       "顯示": "是"
     },
