@@ -8,8 +8,10 @@
 <script setup lang="ts">
 import RichText from '@/components/common/RichText.vue'
 import type { Category } from '@/types/portfolio'
+import { formatPhotoCount } from '@/data/projects'
 
-defineProps<{ category: Category }>()
+/** photoCount：分類只有一組作品時，把照片數（例如 05 PHOTOS）顯示在介紹下方 */
+defineProps<{ category: Category; photoCount?: number }>()
 </script>
 
 <template>
@@ -23,6 +25,7 @@ defineProps<{ category: Category }>()
     </nav>
     <h1 class="category-header__title">{{ category.name }}</h1>
     <p class="category-header__intro"><RichText :text="category.intro" /></p>
+    <p v-if="photoCount !== undefined" class="pill category-header__count">{{ formatPhotoCount(photoCount) }}</p>
     <span class="category-header__rule" aria-hidden="true" />
   </header>
 </template>
@@ -74,6 +77,10 @@ defineProps<{ category: Category }>()
   color: var(--color-text-soft);
 }
 
+.category-header__count {
+  margin-top: calc(1.6 * var(--u));
+}
+
 .category-header__rule {
   display: block;
   width: calc(5.6 * var(--u));
@@ -94,6 +101,10 @@ defineProps<{ category: Category }>()
 
   .category-header__intro {
     margin-top: 10px;
+  }
+
+  .category-header__count {
+    margin-top: 16px;
   }
 
   .category-header__rule {

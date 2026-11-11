@@ -16,7 +16,8 @@ import type { Project } from '@/types/portfolio'
 import { formatPhotoCount } from '@/data/projects'
 import PhotoCarousel from './PhotoCarousel.vue'
 
-const props = defineProps<{ project: Project; number: number }>()
+/** single：這個分類只有一組作品，不顯示編號、作品名稱、短線與照片數（照片數改放分類頁首） */
+const props = defineProps<{ project: Project; number: number; single?: boolean }>()
 
 const numberLabel = computed(() => `${String(props.number).padStart(2, '0')} /`)
 const titleId = computed(() => `${props.project.id}-title`)
@@ -56,17 +57,21 @@ onMounted(() => {
 })
 onBeforeUnmount(() => observer?.disconnect())
 const hasMeta = computed(() => Boolean(props.project.model || props.project.instagram.length || props.project.date))
+/** 只有一組作品、又沒有模特／IG／日期／介紹：不需要左欄，相簿滿版（多排一張） */
+const compact = computed(() => Boolean(props.single) && !hasMeta.value && !props.project.description)
 </script>
 
 <template>
-  <article :id="project.id" class="chapter" :aria-labelledby="titleId">
-    <header class="chapter__info">
-      <p class="chapter__num">{{ numberLabel }}</p>
+  <article :id="project.id" class="chapter" :class="{ 'chapter--compact': compact, 'chapter--single': single }" :aria-labelledby="titleId">
+    <!-- 滿版時不顯示標題，但保留給螢幕閱讀器的區塊名稱 -->
+    <h2 v-if="compact" :id="titleId" class="visually-hidden">{{ project.title }}</h2>
+    <header v-else class="chapter__info">
+      <p v-if="!single" class="chapter__num">{{ numberLabel }}</p>
       <h2
         :id="titleId"
         ref="titleEl"
         class="chapter__title"
-        :class="{ 'chapter__title--cjk': isCjk && !multiLine, 'chapter__title--lines': multiLine }"
+        :class="{ 'chapter__title--cjk': isCjk && !multiLine, 'chapter__title--lines': multiLine, 'visually-hidden': single }"
         :style="isCjk && !multiLine ? { '--chars': titleChars } : undefined"
       >
         <template v-if="multiLine">
@@ -74,7 +79,7 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
         </template>
         <template v-else>{{ project.title }}</template>
       </h2>
-      <span class="chapter__rule" aria-hidden="true" />
+      <span v-if="!single" class="chapter__rule" aria-hidden="true" />
       <!-- 依手稿排版：模特名字 → IG（連結）→ 日期 → 照片數；沒填的項目不顯示 -->
       <div v-if="hasMeta" class="chapter__meta">
         <p v-if="project.model" class="chapter__model"><RichText :text="project.model" /></p>
@@ -88,10 +93,10 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
         <p v-if="project.date" class="chapter__date">{{ project.date }}</p>
       </div>
       <p v-if="project.description" class="chapter__desc"><RichText :text="project.description" /></p>
-      <p class="pill chapter__count">{{ formatPhotoCount(project.photos.length) }}</p>
+      <p v-if="!single" class="pill chapter__count">{{ formatPhotoCount(project.photos.length) }}</p>
     </header>
 
-    <PhotoCarousel v-if="project.photos.length" :photos="project.photos" :title="project.title" />
+    <PhotoCarousel v-if="project.photos.length" :photos="project.photos" :title="project.title" :wide="compact" />
     <p v-else class="chapter__empty">Photos coming soon.</p>
   </article>
 </template>
@@ -104,6 +109,11 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
   align-items: start;
   padding-block: calc(3.2 * var(--u)) calc(2.2 * var(--u));
   border-bottom: 1px solid var(--color-line);
+}
+
+/* 只有一組作品、左欄只剩模特／IG／日期：往上靠齊（沒有編號與標題） */
+.chapter--single .chapter__info {
+  padding-top: calc(1.6 * var(--u));
 }
 
 .chapter__info {
@@ -225,6 +235,12 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
   color: var(--color-muted);
 }
 
+/* 滿版（只有一組作品、沒有左欄文字）：相簿占滿整列，左緣對齊頁首文字 */
+.chapter.chapter--compact {
+  grid-template-columns: minmax(0, 1fr);
+  padding-left: calc(1.1 * var(--u));
+}
+
 /* ───────── 平板（768–1023px）：左欄加寬，避免文字欄過窄；相簿約 2 張 ───────── */
 @media (max-width: 1023.98px) {
   .chapter {
@@ -239,6 +255,10 @@ const hasMeta = computed(() => Boolean(props.project.model || props.project.inst
 
 /* ───────── 手機（< 768px）：上方介紹、下方相簿 ───────── */
 @media (max-width: 767.98px) {
+  .chapter.chapter--compact {
+    padding-left: 0;
+  }
+
   .chapter {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 22px;

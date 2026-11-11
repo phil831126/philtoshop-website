@@ -18,7 +18,8 @@ import AppImage from '@/components/common/AppImage.vue'
 import IconArrow from '@/components/common/IconArrow.vue'
 import PhotoLightbox from './PhotoLightbox.vue'
 
-const props = defineProps<{ photos: Photo[]; title: string }>()
+/** wide：相簿滿版時（沒有左欄），桌面版一次多顯示一張（4 張） */
+const props = defineProps<{ photos: Photo[]; title: string; wide?: boolean }>()
 
 const viewport = ref<HTMLElement | null>(null)
 const { current, canPrev, canNext, hasOverflow, next, prev } = usePhotoCarousel(viewport)
@@ -53,7 +54,7 @@ const photoHeightRatio = computed(() => {
 </script>
 
 <template>
-  <div class="carousel" :class="{ 'is-static': !hasOverflow }" :style="{ '--photo-hw': photoHeightRatio.toFixed(4) }">
+  <div class="carousel" :class="{ 'is-static': !hasOverflow, 'carousel--wide': wide }" :style="{ '--photo-hw': photoHeightRatio.toFixed(4) }">
     <div
       ref="viewport"
       class="carousel__viewport"
@@ -115,6 +116,13 @@ const photoHeightRatio = computed(() => {
 .carousel {
   min-width: 0;
   container-type: inline-size;
+}
+
+/* 滿版相簿：桌面一次 4 張（平板、手機不變） */
+@media (min-width: 1024px) {
+  .carousel--wide {
+    --carousel-visible: 4;
+  }
 }
 
 .carousel__viewport {
