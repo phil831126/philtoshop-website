@@ -6,6 +6,7 @@
  *   public/images/info.txt                        全站：網站名稱、副標、Instagram、Email
  *   public/images/home/info.txt                   首頁：標語、EXPLORE WORKS 按鈕、精選
  *   public/images/about/info.txt                  About 頁
+ *   public/images/works/info.txt                  Works 總覽頁：大標、副標
  *   public/images/works/<分類>/info.txt           分類：名稱、介紹、總覽封面、作品順序
  *   public/images/works/<分類>/<系列>/info.txt    每組作品：標題、介紹、封面、順序、照片說明
  * 【常見修改】不需要修改。可用的欄位名稱列在下方 KEYS。
@@ -26,6 +27,7 @@ export const KEYS = {
   home: ['主照片', '主照片描述', '主照片對焦', '標語', '按鈕文字', '精選標題'],
   featured: ['照片', '照片描述', '對焦', '編號', '標題', '介紹', '連結', '顯示'],
   about: ['照片', '照片描述', '標題', '副標', '自我介紹'],
+  works: ['大標', '副標'],
   category: ['名稱', '介紹', '總覽介紹', '總覽封面', '作品順序', '順序'],
   series: ['標題', '模特', 'IG', '日期', '介紹', '封面', '順序', '顯示'],
 }
@@ -48,6 +50,7 @@ const KIND_NAMES = {
   site: '全站文字',
   home: '首頁文字',
   about: 'About 頁文字',
+  works: 'Works 總覽頁文字',
   category: '分類文字',
   series: '作品系列文字',
 }
@@ -57,6 +60,7 @@ export function kindOf(rel) {
   if (rel === '') return 'site'
   if (rel === 'home' || rel === 'about') return rel
   const parts = rel.split('/')
+  if (parts[0] === 'works' && parts.length === 1) return 'works'
   if (parts[0] === 'works' && parts.length === 2) return 'category'
   if (parts[0] === 'works' && parts.length === 3) return 'series'
   return null

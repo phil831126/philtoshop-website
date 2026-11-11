@@ -1,12 +1,12 @@
 <!--
 【控制畫面】/works（作品分類總覽）— 延伸設計：設計稿未提供此頁，沿用分頁風格簡約處理
 【負責功能】顯示六個分類的代表圖、名稱、短介紹與作品組數；點擊進入分類分頁。
-【資料來源】各分類資料夾的 info.txt（名稱、總覽介紹、總覽封面），經 src/data/categories.ts 讀取；作品組數自動計算。
+【資料來源】頁面大標、副標：public/images/works/info.txt；各分類資料夾的 info.txt（名稱、總覽介紹、總覽封面），經 src/data/categories.ts 讀取；作品組數自動計算。
 【常見修改】代表圖：把照片直接放進分類資料夾（例如 public/images/works/emotional/cover.jpg），或分類 info.txt 的「總覽封面」；介紹：「總覽介紹」；卡片比例：本檔 .works-card__media 的 aspect-ratio（目前 2:3，照片完整顯示不裁切）。
 【注意事項】代表圖未設定時，自動使用該分類第一組已公開作品的封面；都沒有時顯示替代區塊。
 -->
 <script setup lang="ts">
-import { sortedCategories } from '@/data/categories'
+import { sortedCategories, worksPage } from '@/data/categories'
 import { getCoverPhoto, getPhoto, getPublishedProjects } from '@/data/projects'
 import type { Category, Photo } from '@/types/portfolio'
 import AppImage from '@/components/common/AppImage.vue'
@@ -35,8 +35,8 @@ const items = sortedCategories.map((cat, i) => ({
 <template>
   <div class="works-page container">
     <header class="works-page__header">
-      <h1 class="works-page__title">Works</h1>
-      <p class="works-page__intro">Six chapters of personal photography.</p>
+      <h1 class="works-page__title">{{ worksPage.title }}</h1>
+      <p class="works-page__intro">{{ worksPage.intro }}</p>
       <span class="works-page__rule" aria-hidden="true" />
     </header>
 

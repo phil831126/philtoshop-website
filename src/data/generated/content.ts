@@ -129,6 +129,13 @@ export const textFiles: Record<string, TextFile> = {
       }
     ]
   },
+  "works": {
+    "fields": {
+      "大標": "What Remains",
+      "副標": "A moment passes, something of us stays."
+    },
+    "sections": []
+  },
   "works/emotional": {
     "fields": {
       "名稱": "Emotional",

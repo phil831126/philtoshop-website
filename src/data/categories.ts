@@ -1,7 +1,8 @@
 /**
  * 【控制畫面】Works 總覽頁、六個分類分頁的頁首、導覽列的分類選單
  * 【負責功能】六個作品分類的名稱、介紹、排序與代表圖。
- * 【資料來源】✎ 文字請改 public/images/works/<分類>/info.txt（名稱、介紹、總覽介紹、總覽封面、作品順序、順序）。
+ * 【資料來源】✎ Works 總覽頁的大標、副標請改 public/images/works/info.txt。
+ *            分類文字請改 public/images/works/<分類>/info.txt（名稱、介紹、總覽介紹、總覽封面、作品順序、順序）。
  *            這個檔案只負責讀取，平常不需要打開。
  * 【常見修改】無。
  * 【注意事項】六個分類的 id（emotional、style…）同時是網址 /works/<id> 與資料夾名稱，拼字固定，請勿修改。
@@ -68,6 +69,13 @@ export const categories: Category[] = defaults.map((d, i) => {
     seriesOrder: listFrom(pick(t, '作品順序')),
   }
 })
+
+/** Works 總覽頁（/works）最上方的大標與副標；public/images/works/info.txt 的「大標」「副標」 */
+const worksText = textFile('works').fields
+export const worksPage = {
+  title: pick(worksText, '大標', 'Works'),
+  intro: pick(worksText, '副標', 'Six chapters of personal photography.'),
+}
 
 /** 依 order 排序後的分類（導覽與總覽頁使用） */
 export const sortedCategories: Category[] = [...categories].sort((a, b) => a.order - b.order)

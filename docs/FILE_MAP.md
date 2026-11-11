@@ -14,6 +14,7 @@
 | 首頁標語、EXPLORE WORKS 按鈕 | `public/images/home/info.txt` | 標語、按鈕文字 |
 | 首頁精選區標題 | `public/images/home/info.txt` | 精選標題（留空＝不顯示） |
 | 首頁精選作品 | `public/images/home/info.txt` | 【精選 N】的照片、標題、介紹、連結、顯示 |
+| Works 總覽頁的大標與副標 | `public/images/works/info.txt` | 大標、副標 |
 | 分類名稱、大標下的一句話 | `public/images/works/<分類>/info.txt` | 名稱、介紹 |
 | Works 總覽卡片介紹與代表圖 | `public/images/works/<分類>/info.txt`（代表圖也可以直接把照片放進這個資料夾） | 總覽介紹、總覽封面、作品順序（分類頁裡各組作品的上下順序） |
 | 新增一組作品 | `public/images/works/<分類>/` | 新增資料夾放照片（見 CONTENT_EDITING.md） |
