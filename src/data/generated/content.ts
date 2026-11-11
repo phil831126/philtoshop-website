@@ -122,8 +122,8 @@ export const textFiles: Record<string, TextFile> = {
           "對焦": "中",
           "編號": "06",
           "標題": "Viscera",
-          "介紹": "A fragment of you, a depth without end.",
-          "連結": "viscera/Under the Skin",
+          "介紹": "A fragment of you,\na depth without end.",
+          "連結": "viscera/Pulse",
           "顯示": "是"
         }
       }
@@ -460,10 +460,10 @@ export const textFiles: Record<string, TextFile> = {
   "works/viscera": {
     "fields": {
       "名稱": "Viscera",
-      "介紹": "Close, unguarded, unfiltered.",
-      "總覽介紹": "Texture, tension and what is left unsaid.",
+      "介紹": "A fragment of you, a depth without end.",
+      "總覽介紹": "A fragment of you, a depth without end.",
       "總覽封面": "Under the Skin/01",
-      "作品順序": "Under the Skin\nPulse\nRaw Edges",
+      "作品順序": "Pulse",
       "順序": "6"
     },
     "sections": []

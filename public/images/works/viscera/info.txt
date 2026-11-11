@@ -8,10 +8,10 @@
 名稱：Viscera
 
 # 分類頁大標下方的一句話
-介紹：Close, unguarded, unfiltered.
+介紹：A fragment of you, a depth without end.
 
 # Works 總覽頁卡片下方的短介紹
-總覽介紹：Texture, tension and what is left unsaid.
+總覽介紹：A fragment of you, a depth without end.
 
 # Works 總覽的代表圖
 #   ① 另外上傳（建議）：把照片直接放進這個分類資料夾（和這個 info.txt 放在一起），
@@ -25,9 +25,7 @@
 #   一行寫一個「作品資料夾名稱」，想調整順序就上下搬動整行
 #   新增的作品沒寫進來的話，會自動排在最後面
 作品順序：
-Under the Skin
 Pulse
-Raw Edges
 
 # 分類在選單與總覽的順序（數字小的在前）
 順序：6
