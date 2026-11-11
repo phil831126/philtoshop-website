@@ -19,11 +19,6 @@ version of you.
 
 按鈕文字：EXPLORE WORKS
 
-# 疊在主照片左下角的毛玻璃小卡
-小卡小字：01 / EMOTIONAL
-小卡大字：Ordinary moments.
-小卡連結：emotional
-
 # 精選區上方的大標題；留空＝不顯示。用 *星號* 包起來的字會變斜體，例如 Selected *works.*
 精選標題：
 

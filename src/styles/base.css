@@ -141,6 +141,34 @@ h3 {
   text-transform: uppercase;
 }
 
+/* 毛玻璃按鈕（首頁 EXPLORE WORKS、頁尾 Instagram／Email）：半透明＋背景模糊，外圍沒有框線 */
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9em;
+  min-height: 44px;
+  padding: 0.7em 1.6em;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--glass-btn-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background var(--dur) var(--ease);
+}
+
+.glass-btn:hover,
+.glass-btn:focus-visible {
+  background: var(--glass-btn-bg-hover);
+}
+
 /* 只給螢幕閱讀器的文字 */
 .visually-hidden {
   position: absolute !important;

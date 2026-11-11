@@ -11,7 +11,7 @@
 | 瀏覽器分頁標題、頁尾版權 | `public/images/info.txt` | 分頁標題、版權 |
 | Instagram、Email | `public/images/info.txt` | Instagram、Email（留空＝不顯示） |
 | 首頁主照片 | `public/images/home/`（同檔名覆蓋 hero.jpg）或 `home/info.txt` | 主照片、主照片對焦 |
-| 首頁標語、EXPLORE WORKS、毛玻璃小卡 | `public/images/home/info.txt` | 標語、按鈕文字、小卡小字／大字／連結 |
+| 首頁標語、EXPLORE WORKS 按鈕 | `public/images/home/info.txt` | 標語、按鈕文字 |
 | 首頁精選區標題 | `public/images/home/info.txt` | 精選標題（留空＝不顯示） |
 | 首頁精選作品 | `public/images/home/info.txt` | 【精選 N】的照片、標題、介紹、連結、顯示 |
 | 分類名稱、大標下的一句話 | `public/images/works/<分類>/info.txt` | 名稱、介紹 |

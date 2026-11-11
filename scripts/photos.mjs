@@ -109,8 +109,8 @@ const findSeries = (cat, name) => {
     list.find((f) => norm(seriesTitle(f)) === norm(name))
   )
 }
-// 首頁精選、小卡的「連結」
-const homeLinks = [['小卡連結', home.fields['小卡連結']], ...home.sections.map((s) => [`【${s.title}】連結`, s.fields['連結']])]
+// 首頁精選的「連結」
+const homeLinks = [...home.sections.map((s) => [`【${s.title}】連結`, s.fields['連結']])]
 for (const [where, value] of homeLinks) {
   const [cat, proj] = (value ?? '').trim().replace(/^\/?works\//, '').split(/[/#]/).map((s) => s.trim())
   if (cat && proj && CATEGORIES.includes(cat) && !findSeries(cat, proj)) {

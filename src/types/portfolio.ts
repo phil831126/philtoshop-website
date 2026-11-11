@@ -163,15 +163,6 @@ export interface HomeHero {
   /** 「EXPLORE WORKS」連結文字與目的地 */
   ctaLabel: string
   ctaTo: string
-  /** 疊在主照片左下的毛玻璃資訊卡 */
-  card: {
-    /** 小字，例如 '01 / EMOTIONAL' */
-    label: string
-    /** 大字，例如 'Ordinary moments.' */
-    title: string
-    /** 點擊資訊卡前往的網址 */
-    to: string
-  }
 }
 
 /** 導覽項目 */

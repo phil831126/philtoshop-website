@@ -1,7 +1,7 @@
 /**
- * 【控制畫面】/（首頁）：首屏主照片、品牌標語、毛玻璃資訊卡、精選區
+ * 【控制畫面】/（首頁）：首屏主照片、品牌標語、EXPLORE WORKS 按鈕、精選區
  * 【負責功能】讀取首頁文字與照片設定。
- * 【資料來源】✎ 請改 public/images/home/info.txt（主照片、標語、小卡、精選標題、【精選 1】【精選 2】…）。
+ * 【資料來源】✎ 請改 public/images/home/info.txt（主照片、標語、按鈕文字、精選標題、【精選 1】【精選 2】…）。
  *            這個檔案只負責讀取，平常不需要打開。
  * 【常見修改】無。
  * 【注意事項】
@@ -29,8 +29,6 @@ function parseLink(value: string): { categoryId: CategoryId; projectId?: string 
   return { categoryId, projectId: getProject(project, categoryId)?.id ?? project }
 }
 
-const cardLink = parseLink(pick(t, '小卡連結', 'emotional'))
-
 export const hero: HomeHero = {
   image: imageFile(imagePath(FOLDER, t['主照片'], 'hero.jpg'), {
     alt: pick(t, '主照片描述', 'Photograph by Philtoshop'),
@@ -39,11 +37,6 @@ export const hero: HomeHero = {
   tagline: pick(t, '標語', 'Capturing every\nmoment, the\nunreserved\nversion of you.'),
   ctaLabel: pick(t, '按鈕文字', 'EXPLORE WORKS'),
   ctaTo: '/works',
-  card: {
-    label: pick(t, '小卡小字'),
-    title: pick(t, '小卡大字'),
-    to: `/works/${cardLink.categoryId}${cardLink.projectId ? `#${cardLink.projectId}` : ''}`,
-  },
 }
 
 /** 精選區標題：*星號* 包起來的字為斜體；留空＝不顯示 */

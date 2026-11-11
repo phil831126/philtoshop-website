@@ -31,6 +31,9 @@
   /* ── 毛玻璃（導覽列、資訊卡、小標籤） ── */
   --glass-header-bg: linear-gradient(180deg, rgba(62, 59, 56, 0.78), rgba(44, 42, 40, 0.74));
   --glass-card-bg: rgba(78, 74, 70, 0.38);
+  /* 毛玻璃按鈕（無框線）：比卡片稍亮一點，才看得出是按鈕 */
+  --glass-btn-bg: rgba(236, 230, 220, 0.12);
+  --glass-btn-bg-hover: rgba(236, 230, 220, 0.2);
   --glass-border: rgba(236, 230, 220, 0.32);
   --glass-blur: blur(14px) saturate(115%);
 

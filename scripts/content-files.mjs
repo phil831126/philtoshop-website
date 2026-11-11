@@ -4,7 +4,7 @@
  *            寫法是一行一個「欄位：內容」，不用引號、逗號，也不用寫程式。
  * 【資料來源】
  *   public/images/info.txt                        全站：網站名稱、副標、Instagram、Email
- *   public/images/home/info.txt                   首頁：標語、毛玻璃小卡、精選
+ *   public/images/home/info.txt                   首頁：標語、EXPLORE WORKS 按鈕、精選
  *   public/images/about/info.txt                  About 頁
  *   public/images/works/<分類>/info.txt           分類：名稱、介紹、總覽封面、作品順序
  *   public/images/works/<分類>/<系列>/info.txt    每組作品：標題、介紹、封面、順序、照片說明
@@ -23,7 +23,7 @@ export const TEXT_FILE = 'info.txt'
 /** 每一種 info.txt 可以使用的欄位 */
 export const KEYS = {
   site: ['網站名稱', '副標', '分頁標題', '版權', 'Instagram', 'Instagram顯示文字', 'Email', '委託表單', '委託表單顯示文字'],
-  home: ['主照片', '主照片描述', '主照片對焦', '標語', '按鈕文字', '小卡小字', '小卡大字', '小卡連結', '精選標題'],
+  home: ['主照片', '主照片描述', '主照片對焦', '標語', '按鈕文字', '精選標題'],
   featured: ['照片', '照片描述', '對焦', '編號', '標題', '介紹', '連結', '顯示'],
   about: ['照片', '照片描述', '標題', '副標', '自我介紹'],
   category: ['名稱', '介紹', '總覽介紹', '總覽封面', '作品順序', '順序'],

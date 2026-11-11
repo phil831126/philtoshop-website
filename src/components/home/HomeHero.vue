@@ -1,12 +1,12 @@
 <!--
 【控制畫面】首頁首屏：左側大幅照片、照片左下毛玻璃資訊卡、右側品牌標語、短線與 EXPLORE WORKS
-【負責功能】依附圖排版；手機改成上圖下文。
+【負責功能】左側主照片、右側品牌標語、短線與 EXPLORE WORKS 毛玻璃按鈕；手機改成上圖下文。
 【資料來源】src/data/home.ts 的 hero。
 【常見修改】
-  - 照片、對焦位置、標語、資訊卡文字：改 public/images/home/info.txt
+  - 照片、對焦位置、標語、按鈕文字：改 public/images/home/info.txt
   - 照片與文字欄比例：本檔 .hero 的 grid-template-columns
   - 照片比例：.hero__media 的 aspect-ratio；照片最高不超過一個視窗高度：.hero__media 的 max-height
-【注意事項】資訊卡固定在照片左下角，請透過 hero.image.objectPosition 調整照片，避免卡片遮住人物臉部。
+【注意事項】按鈕樣式（毛玻璃、無框線）共用 base.css 的 .glass-btn。
 -->
 <script setup lang="ts">
 import { computed } from 'vue'
@@ -26,11 +26,6 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
         priority="high"
         sizes="(max-width: 767px) 100vw, 60vw"
       />
-      <RouterLink :to="hero.card.to" class="hero-card">
-        <span class="hero-card__label">{{ hero.card.label }}</span>
-        <span class="hero-card__title">{{ hero.card.title }}</span>
-        <span class="hero-card__arrow"><IconArrow direction="up-right" :size="18" /></span>
-      </RouterLink>
     </div>
 
     <div class="hero__text">
@@ -38,7 +33,7 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
         <span v-for="(line, i) in taglineLines" :key="i" class="hero__line">{{ line }}</span>
       </h1>
       <span class="rule-short hero__rule" aria-hidden="true" />
-      <RouterLink :to="hero.ctaTo" class="hero__cta eyebrow">
+      <RouterLink :to="hero.ctaTo" class="hero__cta glass-btn">
         {{ hero.ctaLabel }}
         <IconArrow direction="up-right" :size="16" />
       </RouterLink>
@@ -63,51 +58,6 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
   /* 一進網頁就完整看到整張主照片：最高＝視窗高度扣掉頁首與上下留白（螢幕較矮時照片會變扁一點） */
   max-height: calc(100svh - var(--header-h) - 2 * calc(3.4 * var(--u)));
   min-height: 300px;
-}
-
-/* 局部毛玻璃資訊卡 */
-.hero-card {
-  position: absolute;
-  left: 3.6%;
-  bottom: 5.1%;
-  width: 56%;
-  min-width: 220px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55em;
-  padding: calc(1.75 * var(--u)) calc(2 * var(--u)) calc(1.6 * var(--u));
-  background: var(--glass-card-bg);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-card);
-  transition: background var(--dur) var(--ease);
-}
-
-.hero-card:hover {
-  background: rgba(78, 74, 70, 0.5);
-}
-
-.hero-card__label {
-  font-size: var(--fs-micro);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-text-soft);
-}
-
-.hero-card__title {
-  font-family: var(--font-serif);
-  font-size: var(--fs-feature-title);
-  line-height: 1.15;
-  color: var(--color-text);
-  padding-right: 1.4em;
-}
-
-.hero-card__arrow {
-  position: absolute;
-  top: calc(1.2 * var(--u));
-  right: calc(1.6 * var(--u));
-  color: var(--color-text);
 }
 
 /* 右側標語 */
@@ -136,16 +86,7 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
 }
 
 .hero__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9em;
-  min-height: 44px;
   margin-top: calc(2.2 * var(--u));
-  color: var(--color-text);
-}
-
-.hero__cta:hover {
-  color: var(--color-text-soft);
 }
 
 /* ───────── 平板（768–1023px）：保留左右配置，縮小留白 ───────── */
@@ -155,17 +96,6 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
     column-gap: 5%;
   }
 
-  .hero-card {
-    width: auto;
-    min-width: 0;
-    max-width: calc(100% - 7.2%);
-    padding: 12px 44px 12px 16px;
-  }
-
-  .hero-card__title {
-    font-size: 17px;
-    padding-right: 0;
-  }
 }
 
 /* ───────── 手機（< 768px）：上圖下文 ───────── */
@@ -182,29 +112,6 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
     min-height: 0;
   }
 
-  .hero-card {
-    left: 12px;
-    bottom: 12px;
-    width: auto;
-    min-width: 0;
-    max-width: calc(100% - 24px);
-    padding: 12px 44px 12px 14px;
-    gap: 6px;
-  }
-
-  .hero-card__label {
-    font-size: 9px;
-  }
-
-  .hero-card__title {
-    font-size: 17px;
-    padding-right: 0;
-  }
-
-  .hero-card__arrow {
-    top: 12px;
-    right: 14px;
-  }
 
   .hero__text {
     padding-bottom: 0;
@@ -225,7 +132,7 @@ const taglineLines = computed(() => hero.tagline.split('\n'))
   }
 
   .hero__cta {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 }
 </style>

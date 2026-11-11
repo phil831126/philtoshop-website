@@ -46,9 +46,6 @@ export const textFiles: Record<string, TextFile> = {
       "主照片對焦": "40%",
       "標語": "Capturing every\nmoment, the\nunreserved\nversion of you.",
       "按鈕文字": "EXPLORE WORKS",
-      "小卡小字": "01 / EMOTIONAL",
-      "小卡大字": "Ordinary moments.",
-      "小卡連結": "emotional",
       "精選標題": ""
     },
     "sections": [
