@@ -23,9 +23,11 @@ version of you.
 精選標題：
 
 # ── 精選作品 ──
-# 每個【精選 N】是一張，依順序排列；每 5 張一組，位置依序為：
-#   1 左側大圖　2 右側較低的圖（文字在圖上方）　3 文字在左、直式圖片　4 右側直式高圖　5 下方偏左的圖
-# 想多放幾張就照格式往下加【精選 6】…；不想顯示某張就把「顯示」改成「否」
+# 每個【精選 N】是一張，依順序排列；每 6 張一組，位置依序為：
+#   1 左側橫式圖　2 右側直式圖（文字在圖上方）　3 文字在左、直式圖　4 右側橫式圖　5 下方偏左的直式圖　6 右下方的直式圖（和 5 同一帶、文字在圖上方）
+#   順序＝Works 選單的順序（Emotional、Style、Monochrome、Ordinary、Shore、Viscera）；位置的形狀是配合照片設計：
+#   2、3、5、6 適合直式照片，1、4 適合橫式照片（不符的照片會被裁切，用「對焦」調整保留哪裡）
+# 想多放幾張就照格式往下加【精選 7】…；不想顯示某張就把「顯示」改成「否」
 # 編號：顯示在標題前面的「01 /」，可自己改；留空＝不顯示
 
 【精選 1】
@@ -34,20 +36,20 @@ version of you.
 對焦：35%
 編號：01
 標題：Emotional
-介紹：Quiet moments,
-honestly seen.
+介紹：What we never say
+finds a place in the light.
 連結：emotional/被遺忘之人
 顯示：是
 
 【精選 2】
-照片：featured-ordinary.jpg
+照片：featured-style.jpg
 照片描述：Photograph by Philtoshop
-對焦：中
+對焦：30%
 編號：02
-標題：Ordinary
-介紹：Small rituals and
-familiar rooms.
-連結：ordinary
+標題：Style
+介紹：A glance, a silhouette—
+a world on its own terms.
+連結：style/Dark Game
 顯示：是
 
 【精選 3】
@@ -56,29 +58,40 @@ familiar rooms.
 對焦：中
 編號：03
 標題：Monochrome
-介紹：A study in light
-and silence.
+介紹：Light traces the skin;
+shadow keeps the rest.
 連結：monochrome/日常的勇氣
 顯示：是
 
 【精選 4】
-照片：featured-shore.jpg
+照片：featured-ordinary.jpg
 照片描述：Photograph by Philtoshop
-對焦：30%
+對焦：中
 編號：04
-標題：Shore
-介紹：Where the sea
-meets memory.
-連結：shore/祈願之海
+標題：Ordinary
+介紹：In the little things,
+we feel what it means to be alive.
+連結：ordinary
 顯示：是
 
 【精選 5】
-照片：featured-style.jpg
+照片：featured-shore.jpg
 照片描述：Photograph by Philtoshop
 對焦：30%
 編號：05
-標題：Style
-介紹：Wardrobe, texture
-and composed light.
-連結：style/Dark Game
+標題：Shore
+介紹：The tide takes the footprints,
+but leaves us the summer.
+連結：shore/祈願之海
+顯示：是
+
+【精選 6】
+照片：works/viscera/Under the Skin/01.jpg
+照片描述：Photograph by Philtoshop
+對焦：中
+編號：06
+標題：Viscera
+介紹：Texture, tension and
+what is left unsaid.
+連結：viscera/Under the Skin
 顯示：是

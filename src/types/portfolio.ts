@@ -115,15 +115,16 @@ export interface PhotoRef {
 
 /**
  * 首頁精選的版面位置代號。
- * 首頁精選每 5 個為一組，左右不對稱、上下交錯排列：
+ * 首頁精選每 6 個為一組，左右不對稱、上下交錯排列：
  *  - 'wide-left'     ：左側大圖，文字在圖片右側（01 / Emotional）
- *  - 'offset-right'  ：右側較低的圖，文字在圖片上方（02 / Ordinary）
+ *  - 'offset-right'  ：右側直式圖，文字在圖片上方（02 / Style）
  *  - 'inset-left'    ：文字在左、內縮的直式圖片（03 / Monochrome）
- *  - 'tall-right'    ：右側直式高圖，文字在圖片左下方（04 / Shore）
- *  - 'low-left'      ：下方偏左的圖，文字在右側靠下（05 / Style）
- * 同一組 5 個各用一次；第 6 個起會自動開始新的一組。
+ *  - 'low-right'     ：右側橫式圖，文字在圖片左下方（04 / Ordinary）
+ *  - 'low-left'      ：下方偏左的直式圖，文字在右側靠下（05 / Shore）
+ *  - 'end-right'     ：右下方的直式圖，緊鄰 05 右側，文字在圖片上方（06 / Viscera）
+ * 同一組 6 個各用一次；第 7 個起會自動開始新的一組。
  */
-export type FeaturedLayout = 'wide-left' | 'offset-right' | 'inset-left' | 'tall-right' | 'low-left'
+export type FeaturedLayout = 'wide-left' | 'offset-right' | 'inset-left' | 'low-right' | 'low-left' | 'end-right'
 
 /** 首頁精選作品（與一般作品分開設定，新增作品不會打亂首頁） */
 export interface FeaturedWork {

@@ -57,7 +57,7 @@ export const textFiles: Record<string, TextFile> = {
           "對焦": "35%",
           "編號": "01",
           "標題": "Emotional",
-          "介紹": "Quiet moments,\nhonestly seen.",
+          "介紹": "What we never say\nfinds a place in the light.",
           "連結": "emotional/被遺忘之人",
           "顯示": "是"
         }
@@ -65,13 +65,13 @@ export const textFiles: Record<string, TextFile> = {
       {
         "title": "精選 2",
         "fields": {
-          "照片": "featured-ordinary.jpg",
+          "照片": "featured-style.jpg",
           "照片描述": "Photograph by Philtoshop",
-          "對焦": "中",
+          "對焦": "30%",
           "編號": "02",
-          "標題": "Ordinary",
-          "介紹": "Small rituals and\nfamiliar rooms.",
-          "連結": "ordinary",
+          "標題": "Style",
+          "介紹": "A glance, a silhouette—\na world on its own terms.",
+          "連結": "style/Dark Game",
           "顯示": "是"
         }
       },
@@ -83,7 +83,7 @@ export const textFiles: Record<string, TextFile> = {
           "對焦": "中",
           "編號": "03",
           "標題": "Monochrome",
-          "介紹": "A study in light\nand silence.",
+          "介紹": "Light traces the skin;\nshadow keeps the rest.",
           "連結": "monochrome/日常的勇氣",
           "顯示": "是"
         }
@@ -91,26 +91,39 @@ export const textFiles: Record<string, TextFile> = {
       {
         "title": "精選 4",
         "fields": {
-          "照片": "featured-shore.jpg",
+          "照片": "featured-ordinary.jpg",
           "照片描述": "Photograph by Philtoshop",
-          "對焦": "30%",
+          "對焦": "中",
           "編號": "04",
-          "標題": "Shore",
-          "介紹": "Where the sea\nmeets memory.",
-          "連結": "shore/祈願之海",
+          "標題": "Ordinary",
+          "介紹": "In the little things,\nwe feel what it means to be alive.",
+          "連結": "ordinary",
           "顯示": "是"
         }
       },
       {
         "title": "精選 5",
         "fields": {
-          "照片": "featured-style.jpg",
+          "照片": "featured-shore.jpg",
           "照片描述": "Photograph by Philtoshop",
           "對焦": "30%",
           "編號": "05",
-          "標題": "Style",
-          "介紹": "Wardrobe, texture\nand composed light.",
-          "連結": "style/Dark Game",
+          "標題": "Shore",
+          "介紹": "The tide takes the footprints,\nbut leaves us the summer.",
+          "連結": "shore/祈願之海",
+          "顯示": "是"
+        }
+      },
+      {
+        "title": "精選 6",
+        "fields": {
+          "照片": "works/viscera/Under the Skin/01.jpg",
+          "照片描述": "Photograph by Philtoshop",
+          "對焦": "中",
+          "編號": "06",
+          "標題": "Viscera",
+          "介紹": "Texture, tension and\nwhat is left unsaid.",
+          "連結": "viscera/Under the Skin",
           "顯示": "是"
         }
       }

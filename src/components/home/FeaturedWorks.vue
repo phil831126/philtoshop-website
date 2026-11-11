@@ -1,12 +1,12 @@
 <!--
 【控制畫面】首頁「Selected works.」精選區（分隔線、標題、不對稱交錯照片）
-【負責功能】把精選項目每 5 個分成一組，交給 FeaturedWorkItem 依版面代號排版。
+【負責功能】把精選項目每 6 個分成一組，交給 FeaturedWorkItem 依版面代號排版。
 【資料來源】src/data/home.ts 的 featured、featuredHeading。
 【常見修改】
   - 標題文字（留空＝不顯示）：public/images/home/info.txt 的「精選標題」
   - 精選內容與順序：改 public/images/home/info.txt（位置依順序自動決定）
   - 區塊上下間距：本檔 .featured 的 margin／padding
-【注意事項】每組的列結構（grid-template-rows）配合五種版面代號設計，請勿任意刪改。
+【注意事項】每組的列結構（grid-template-rows）配合六種版面代號設計，請勿任意刪改。
 -->
 <script setup lang="ts">
 import { computed } from 'vue'
@@ -16,7 +16,7 @@ import FeaturedWorkItem from './FeaturedWorkItem.vue'
 /** 標題兩段都留空時不顯示 */
 const hasHeading = computed(() => Boolean(featuredHeading.regular || featuredHeading.italic))
 
-/** 每 5 個一組（一組用完五種版面） */
+/** 每 6 個一組（一組用完六種版面） */
 const groups = computed(() => {
   const size = LAYOUTS.length
   const out: (typeof publishedFeatured)[] = []
@@ -67,7 +67,7 @@ const groups = computed(() => {
 .featured__group {
   display: grid;
   grid-template-columns: repeat(48, minmax(0, 1fr));
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
   margin-top: calc(3.4 * var(--u));
 }
 

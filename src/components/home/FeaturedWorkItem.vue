@@ -136,11 +136,11 @@ const lineAfter = computed(() => props.item.layout !== 'wide-left')
     padding-left: calc(0.4 * var(--u));
   }
 
-  /* 02 右側較低的圖，文字在圖片上方 */
+  /* 02 右側直式圖，文字在圖片上方 */
   .fw--offset-right {
     display: flex;
     flex-direction: column;
-    grid-column: 31 / 49;
+    grid-column: 35 / 49;
     grid-row: 1;
     align-self: start;
     margin-top: calc(1.2 * var(--u));
@@ -150,7 +150,7 @@ const lineAfter = computed(() => props.item.layout !== 'wide-left')
     margin-bottom: calc(2 * var(--u));
   }
   .fw--offset-right .fw__media {
-    aspect-ratio: 366 / 270;
+    aspect-ratio: 4 / 5;
   }
 
   /* 03 左側文字＋內縮直式圖片（比原圖矮一點，保留版面變化） */
@@ -165,38 +165,62 @@ const lineAfter = computed(() => props.item.layout !== 'wide-left')
     grid-row: 2;
     align-self: start;
     /* 負值＝往上拉，靠近第一張的下緣 */
-    margin-top: calc(-6.5 * var(--u));
+    margin-top: calc(-14 * var(--u));
     aspect-ratio: 4 / 5;
   }
 
-  /* 04 右側直式高圖＋圖片左下方文字 */
-  .fw--tall-right .fw__media {
+  /* 04 右側橫式圖＋圖片左下方文字（文字與圖片下緣對齊） */
+  .fw--low-right .fw__media {
     grid-column: 29 / 48;
-    /* 跨到第 4 列：第 5 張可以跟著 04 的文字往上，不必等這張高圖結束 */
-    grid-row: 2 / 5;
-    align-self: start;
-    margin-top: calc(3.7 * var(--u));
-    aspect-ratio: 4 / 5;
+    grid-row: 2 / 4;
+    align-self: end;
+    aspect-ratio: 3 / 2;
   }
-  .fw--tall-right .fw__text {
-    grid-column: 18 / 28;
+  .fw--low-right .fw__text {
+    grid-column: 14 / 28;
     grid-row: 3;
-    align-self: start;
-    margin-top: calc(4.6 * var(--u));
+    align-self: end;
+    /* 上方留白：避免貼到左邊 03 的圖片下緣 */
+    margin-top: calc(2.4 * var(--u));
+    padding-bottom: calc(0.4 * var(--u));
   }
 
-  /* 05 下方偏左的橫幅圖＋右側文字（文字靠圖片下緣） */
-  .fw--low-left .fw__media {
-    grid-column: 6 / 26;
+  /* 05 下方偏左的直式圖＋右側文字（文字與圖片下緣對齊）。
+     比 06 早一點開始（圖片上緣較高），和 06 的高度錯開 */
+  .fw--low-left {
+    display: flex;
+    align-items: flex-end;
+    gap: calc(2 * var(--u));
+    grid-column: 6 / 34;
     grid-row: 4;
-    margin-top: calc(6 * var(--u));
-    aspect-ratio: 6 / 5;
+    align-self: start;
+    margin-top: calc(4.2 * var(--u));
+  }
+  .fw--low-left .fw__media {
+    flex: 0 0 50%;
+    aspect-ratio: 4 / 5;
   }
   .fw--low-left .fw__text {
-    grid-column: 27 / 37;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-bottom: calc(1.2 * var(--u));
+  }
+
+  /* 06 右側直式圖（緊鄰 05 右側、位在 04 正下方）＋文字在圖片上方；和 05 的圖片下緣對齊 */
+  .fw--end-right {
+    display: flex;
+    flex-direction: column;
+    grid-column: 35 / 48;
     grid-row: 4;
     align-self: end;
-    padding-bottom: calc(1.2 * var(--u));
+    margin-top: calc(4 * var(--u));
+  }
+  .fw--end-right .fw__text {
+    order: -1;
+    margin-bottom: calc(2 * var(--u));
+  }
+  .fw--end-right .fw__media {
+    aspect-ratio: 4 / 5;
   }
 }
 
@@ -218,12 +242,12 @@ const lineAfter = computed(() => props.item.layout !== 'wide-left')
     margin-top: 64px;
   }
   .fw--offset-right .fw__media {
-    width: 88%;
+    width: 70%;
     margin-left: auto;
-    aspect-ratio: 366 / 270;
+    aspect-ratio: 4 / 5;
   }
   .fw--offset-right .fw__text {
-    width: 88%;
+    width: 70%;
     margin-left: auto;
   }
   .fw--inset-left {
@@ -237,18 +261,26 @@ const lineAfter = computed(() => props.item.layout !== 'wide-left')
   .fw--inset-left .fw__text {
     margin-left: 8%;
   }
-  .fw--tall-right {
+  .fw--low-right {
     margin-top: 40px;
   }
-  .fw--tall-right .fw__media {
-    aspect-ratio: 4 / 5;
+  .fw--low-right .fw__media {
+    aspect-ratio: 3 / 2;
   }
   .fw--low-left .fw__media,
   .fw--low-left .fw__text {
-    width: 92%;
+    width: 74%;
   }
   .fw--low-left .fw__media {
-    aspect-ratio: 6 / 5;
+    aspect-ratio: 4 / 5;
+  }
+  .fw--end-right .fw__media,
+  .fw--end-right .fw__text {
+    width: 72%;
+    margin-left: auto;
+  }
+  .fw--end-right .fw__media {
+    aspect-ratio: 4 / 5;
   }
 }
 
@@ -268,11 +300,11 @@ const lineAfter = computed(() => props.item.layout !== 'wide-left')
   }
   .fw--offset-right .fw__media,
   .fw--offset-right .fw__text {
-    width: 84%;
+    width: 72%;
     margin-left: auto;
   }
   .fw--offset-right .fw__media {
-    aspect-ratio: 366 / 270;
+    aspect-ratio: 4 / 5;
   }
   .fw--inset-left .fw__media,
   .fw--inset-left .fw__text {
@@ -282,21 +314,29 @@ const lineAfter = computed(() => props.item.layout !== 'wide-left')
   .fw--inset-left .fw__media {
     aspect-ratio: 4 / 5;
   }
-  .fw--tall-right .fw__media,
-  .fw--tall-right .fw__text {
-    width: 86%;
+  .fw--low-right .fw__media,
+  .fw--low-right .fw__text {
+    width: 92%;
     margin-left: auto;
   }
-  .fw--tall-right .fw__media {
-    aspect-ratio: 4 / 5;
+  .fw--low-right .fw__media {
+    aspect-ratio: 3 / 2;
   }
   .fw--low-left .fw__media,
   .fw--low-left .fw__text {
-    width: 92%;
+    width: 76%;
     margin-left: 2%;
   }
   .fw--low-left .fw__media {
-    aspect-ratio: 6 / 5;
+    aspect-ratio: 4 / 5;
+  }
+  .fw--end-right .fw__media,
+  .fw--end-right .fw__text {
+    width: 74%;
+    margin-left: auto;
+  }
+  .fw--end-right .fw__media {
+    aspect-ratio: 4 / 5;
   }
 }
 
