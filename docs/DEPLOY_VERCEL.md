@@ -43,3 +43,6 @@
 ## 自訂網域（選用）
 
 Vercel 專案 → **Settings → Domains** 新增網域，依畫面指示到網域商設定 DNS。此步驟需由你操作。
+
+> **換網域後要做的一件事**：貼連結時出現的預覽圖（`public/og-image.jpg`）設定在 `index.html` 的 `og:image`、`twitter:image`，必須是**完整網址**，目前寫的是 `https://philtoshop-website.vercel.app/og-image.jpg`。網域換成自己的之後，把這兩處改成新網域，預覽圖才會跟著網域出現。
+> 另外，`philtoshop.com` 目前指向的是舊版網站（Netlify），不是這個專案。

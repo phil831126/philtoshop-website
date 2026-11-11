@@ -7,6 +7,27 @@
     <meta name="theme-color" content="#141312" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>Philtoshop Photography Portfolio</title>
+
+    <!--
+      連結預覽（貼到 Instagram、LINE、Facebook 私訊時出現的圖片與標題）
+      - 圖片：public/og-image.jpg（1200×630）；想換圖，用同檔名覆蓋即可
+      - 網址：og:image 必須是完整網址。目前是 Vercel 的網址；網站改用自己的網域後，把下面兩處
+        https://philtoshop-website.vercel.app 換成新網域（見 docs/DEPLOY_VERCEL.md）
+      - 社群軟體會把預覽暫存一段時間，更新後可能要等一下，或換個網址參數（例如 ?v=2）重新分享
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PHILTOSHOP" />
+    <meta property="og:title" content="Philtoshop Photography Portfolio" />
+    <meta property="og:description" content="Capturing every moment, the unreserved version of you." />
+    <meta property="og:image" content="https://philtoshop-website.vercel.app/og-image.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Golden light on a breaking wave" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Philtoshop Photography Portfolio" />
+    <meta name="twitter:description" content="Capturing every moment, the unreserved version of you." />
+    <meta name="twitter:image" content="https://philtoshop-website.vercel.app/og-image.jpg" />
   </head>
   <body>
     <div id="app"></div>
