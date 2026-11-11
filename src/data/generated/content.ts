@@ -117,7 +117,7 @@ export const textFiles: Record<string, TextFile> = {
       {
         "title": "精選 6",
         "fields": {
-          "照片": "works/viscera/Under the Skin/01.jpg",
+          "照片": "featured-viscera.jpg",
           "照片描述": "Photograph by Philtoshop",
           "對焦": "中",
           "編號": "06",
