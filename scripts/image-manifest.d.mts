@@ -8,10 +8,12 @@ export interface ImageDetail {
   rotated: boolean
   hasGps: boolean
   bytes: number
+  hash: string
 }
 
 export interface ImageScan {
   sizes: Record<string, [number, number]>
+  versions: Record<string, string>
   folders: Record<string, string[]>
   details: ImageDetail[]
   unreadable: string[]

@@ -10,6 +10,7 @@
  *   - 檔名以「_」或「.」開頭的照片會被略過（可用來暫時不顯示某張照片）。
  *   - 只讀取照片，不會修改或刪除任何照片；唯一會建立的檔案是「不存在的」info.txt 範本。
  */
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { renderContent, scanTextFiles } from './content-files.mjs'
@@ -102,6 +103,8 @@ export function imageInfo(file) {
     rotated,
     hasGps: info.hasGps,
     bytes: buf.length,
+    // 內容指紋：換了同檔名的照片，網址的 ?v= 也會跟著變，瀏覽器就不會繼續用舊圖
+    hash: crypto.createHash('md5').update(buf).digest('hex').slice(0, 8),
   }
 }
 
@@ -120,6 +123,7 @@ const isVisibleImage = (name) => !name.startsWith('.') && !name.startsWith('_') 
 export function scanImages(root) {
   const imagesDir = path.join(root, 'public', 'images')
   const sizes = {}
+  const versions = {}
   const folders = {}
   const details = []
   const unreadable = []
@@ -143,17 +147,19 @@ export function scanImages(root) {
         continue
       }
       sizes[url] = [info.width, info.height]
+      versions[url] = info.hash
       details.push({ url, name: e.name, folder: rel, ...info })
       list.push(url)
     }
     if (list.length && rel) folders[rel] = list
   }
   walk(imagesDir)
-  return { sizes, folders, details, unreadable }
+  return { sizes, versions, folders, details, unreadable }
 }
 
-function render({ sizes, folders }) {
+function render({ sizes, versions, folders }) {
   const q = (s) => `'${s.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`
+  const versionLines = Object.entries(versions).map(([k, v]) => `  ${q(k)}: '${v}',`)
   const sizeLines = Object.entries(sizes).map(([k, [w, h]]) => `  ${q(k)}: [${w}, ${h}],`)
   const folderLines = Object.entries(folders).map(([k, list]) => `  ${q(k)}: [\n${list.map((u) => `    ${q(u)},`).join('\n')}\n  ],`)
   return `/**
@@ -164,6 +170,11 @@ function render({ sizes, folders }) {
 
 export const imageSizes: Record<string, readonly [number, number]> = {
 ${sizeLines.join('\n')}
+}
+
+/** 每張照片的內容指紋，網址會加上 ?v=指紋（換同名照片時瀏覽器才會抓新圖） */
+export const imageVersions: Record<string, string> = {
+${versionLines.join('\n')}
 }
 
 export const imageFolders: Record<string, readonly string[]> = {

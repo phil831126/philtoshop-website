@@ -7,7 +7,7 @@
  * 【注意事項】路徑找不到時會用 4:3 暫代並在開發模式主控台提示，npm run build 也會列出錯誤。
  */
 import type { Photo } from '@/types/portfolio'
-import { imageSizes } from './generated/images'
+import { imageSizes, imageVersions } from './generated/images'
 
 interface ImageOptions {
   /** 照片描述（替代文字） */
@@ -17,13 +17,22 @@ interface ImageOptions {
   caption?: string
 }
 
+/**
+ * 照片的網址：加上內容指紋 ?v=xxxx。
+ * 換掉同檔名的照片後，指紋會變，訪客的瀏覽器就會抓新照片，不會一直顯示舊的暫存。
+ */
+export function photoUrl(src: string): string {
+  const v = imageVersions[src]
+  return encodeURI(src) + (v ? `?v=${v}` : '')
+}
+
 /** 以照片路徑建立照片資料，寬高自動帶入 */
 export function imageFile(src: string, options: ImageOptions): Photo {
   const size = imageSizes[src]
   if (!size && import.meta.env.DEV) console.warn(`[內容檢查] 找不到照片 ${src}（請確認檔名與大小寫）`)
   return {
     id: src,
-    src: encodeURI(src),
+    src: photoUrl(src),
     width: size?.[0] ?? 1600,
     height: size?.[1] ?? 1200,
     ...options,

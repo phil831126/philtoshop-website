@@ -14,6 +14,7 @@
  */
 import type { CategoryId, Photo, PhotoNote, PhotoRef, Project } from '@/types/portfolio'
 import { imageFolders, imageSizes } from '../generated/images'
+import { photoUrl } from '../images'
 import { getCategory, isCategoryId } from '../categories'
 import { instagramLinks, num, pick, textFile, yes } from '../text'
 
@@ -78,7 +79,7 @@ function buildProject(folder: string, index: number): Project | undefined {
     const [width, height] = imageSizes[src] ?? [1080, 1620]
     return {
       id: pid,
-      src: encodeURI(src),
+      src: photoUrl(src),
       width,
       height,
       alt: note?.alt ?? `${title} — photo ${i + 1} of ${files.length}`,
