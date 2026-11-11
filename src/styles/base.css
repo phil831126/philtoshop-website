@@ -39,6 +39,11 @@ body.is-scroll-locked {
 img {
   display: block;
   max-width: 100%;
+  /* 降低另存照片的機會：手機長按不跳出「儲存圖片」、不能選取或拖曳（右鍵選單見 composables/protectPhotos.ts） */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 h1,

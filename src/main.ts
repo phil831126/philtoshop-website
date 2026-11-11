@@ -19,9 +19,13 @@ import './styles/base.css'
 
 import App from './App.vue'
 import { router } from './router'
+import { protectPhotos } from './composables/protectPhotos'
 
 if (import.meta.env.DEV) {
   import('./data/validate').then(({ validateContent }) => validateContent())
 }
+
+// 照片上不能按右鍵另存、不能拖曳（見 composables/protectPhotos.ts）
+protectPhotos()
 
 createApp(App).use(router).mount('#app')
