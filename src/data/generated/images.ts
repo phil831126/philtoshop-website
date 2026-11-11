@@ -466,7 +466,7 @@ export const imageVersions: Record<string, string> = {
   '/images/works/viscera/Pulse/02.jpg': 'b4fcbf43',
   '/images/works/viscera/Pulse/03.jpg': '02f93e39',
   '/images/works/viscera/Pulse/04.jpg': 'b903deee',
-  '/images/works/viscera/Pulse/05.jpg': '157778d3',
+  '/images/works/viscera/Pulse/05.jpg': '627a5c8f',
 }
 
 export const imageFolders: Record<string, readonly string[]> = {
