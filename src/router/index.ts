@@ -75,6 +75,31 @@ function pageTitle(route: RouteLocationNormalized): string {
   return title ? `${title} — ${site.titleSuffix}` : `${site.brandName} ${site.brandSubtitle}`
 }
 
+/**
+ * 網站更新後，舊分頁還開著時：點連結要載入的頁面檔案（/static/…js）已被換成新的而找不到，
+ * 導覽會「沒反應」。這時改成整頁重新載入到要去的網址，就會拿到新版。
+ * 10 秒內只重新載入一次，避免真的出錯時一直重新整理。
+ */
+const CHUNK_ERROR = /dynamically imported module|Importing a module script failed|Failed to load module script|MIME type/i
+
+router.onError((error, to) => {
+  if (CHUNK_ERROR.test(String((error as Error)?.message ?? error))) {
+    let reload = true
+    try {
+      const last = Number(sessionStorage.getItem('chunk-reload-at') ?? 0)
+      if (Date.now() - last < 10_000) reload = false
+      else sessionStorage.setItem('chunk-reload-at', String(Date.now()))
+    } catch {
+      // sessionStorage 不能用時，仍然重新載入一次
+    }
+    if (reload) {
+      window.location.assign(to.fullPath)
+      return
+    }
+  }
+  console.error(error)
+})
+
 router.afterEach((to) => {
   document.title = pageTitle(to)
 })
