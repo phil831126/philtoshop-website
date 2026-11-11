@@ -294,7 +294,7 @@ export const textFiles: Record<string, TextFile> = {
       "介紹": "In the little things, we feel what it means to be alive.",
       "總覽介紹": "In the little things, we feel what it means to be alive.",
       "總覽封面": "黄金の瞬間/11",
-      "作品順序": "黄金の瞬間\nLife\nSmall Rooms",
+      "作品順序": "黄金の瞬間\nLife\nBreathe",
       "順序": "4"
     },
     "sections": []
