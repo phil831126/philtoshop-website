@@ -96,7 +96,13 @@ const compact = computed(() => Boolean(props.single) && !hasMeta.value && !props
       <p v-if="!single" class="pill chapter__count">{{ formatPhotoCount(project.photos.length) }}</p>
     </header>
 
-    <PhotoCarousel v-if="project.photos.length" :photos="project.photos" :title="project.title" :wide="compact" />
+    <PhotoCarousel
+      v-if="project.photos.length"
+      :photos="project.photos"
+      :title="project.title"
+      :wide="compact"
+      :first="number === 1"
+    />
     <p v-else class="chapter__empty">Photos coming soon.</p>
   </article>
 </template>

@@ -11,18 +11,61 @@
 【注意事項】捲動與計數邏輯在 src/composables/usePhotoCarousel.ts，一般不需要修改。
 -->
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { Photo } from '@/types/portfolio'
 import { usePhotoCarousel } from '@/composables/usePhotoCarousel'
 import AppImage from '@/components/common/AppImage.vue'
 import IconArrow from '@/components/common/IconArrow.vue'
 import PhotoLightbox from './PhotoLightbox.vue'
 
-/** wide：相簿滿版時（沒有左欄），桌面版一次多顯示一張（4 張） */
-const props = defineProps<{ photos: Photo[]; title: string; wide?: boolean }>()
+/**
+ * wide：相簿滿版時（沒有左欄），桌面版一次多顯示一張（4 張）
+ * first：頁面上的第一組作品（一進頁面就看到），開頭的照片優先下載
+ */
+const props = defineProps<{ photos: Photo[]; title: string; wide?: boolean; first?: boolean }>()
 
 const viewport = ref<HTMLElement | null>(null)
+const root = ref<HTMLElement | null>(null)
 const { current, canPrev, canNext, hasOverflow, next, prev } = usePhotoCarousel(viewport)
+
+/**
+ * 預先載入：瀏覽器內建的 lazy 只會在照片離畫面約 1250px 內才開始下載，
+ * 所以下方的作品要等使用者捲到才開始載入，看起來就像「這組載入很慢」。
+ * 這裡讓每組作品「開頭幾張」在離畫面 3000px 內（約再往下兩三組）就先在背景下載（低優先，不會擋住眼前的照片），
+ * 使用者捲到時照片多半已經在了。其餘的照片仍維持 lazy，不浪費流量。
+ */
+const WARM_COUNT = 4 // 預先載入每組的前幾張（桌面 3–4 張、手機 1 張＋下一張）
+const WARM_MARGIN = '3000px'
+const warm = ref(Boolean(props.first)) // 第一組一開始就是 eager，不用等
+let observer: IntersectionObserver | undefined
+
+onMounted(() => {
+  if (warm.value) return
+  if (typeof IntersectionObserver === 'undefined') {
+    warm.value = true
+    return
+  }
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        warm.value = true
+        observer?.disconnect()
+      }
+    },
+    { rootMargin: `${WARM_MARGIN} 0px ${WARM_MARGIN} 0px` },
+  )
+  if (root.value) observer.observe(root.value)
+})
+onBeforeUnmount(() => observer?.disconnect())
+
+/** 頁面第一組：前 3 張高優先（眼前看到的）；其他組：預先載入的照片低優先 */
+function loadingFor(i: number): 'lazy' | 'eager' {
+  return warm.value && i < WARM_COUNT ? 'eager' : 'lazy'
+}
+function priorityFor(i: number): 'high' | 'low' | 'auto' {
+  if (!warm.value || i >= WARM_COUNT) return 'auto'
+  return props.first && i < 3 ? 'high' : 'low'
+}
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
@@ -54,7 +97,12 @@ const photoHeightRatio = computed(() => {
 </script>
 
 <template>
-  <div class="carousel" :class="{ 'is-static': !hasOverflow, 'carousel--wide': wide }" :style="{ '--photo-hw': photoHeightRatio.toFixed(4) }">
+  <div
+    ref="root"
+    class="carousel"
+    :class="{ 'is-static': !hasOverflow, 'carousel--wide': wide }"
+    :style="{ '--photo-hw': photoHeightRatio.toFixed(4) }"
+  >
     <div
       ref="viewport"
       class="carousel__viewport"
@@ -70,7 +118,13 @@ const photoHeightRatio = computed(() => {
             :aria-label="`Open photo ${i + 1} of ${photos.length}: ${photo.alt}`"
             @click="openLightbox(i)"
           >
-            <AppImage :photo="photo" fit="contain" sizes="(max-width: 767px) 80vw, (max-width: 1023px) 35vw, 25vw" />
+            <AppImage
+              :photo="photo"
+              fit="contain"
+              :loading="loadingFor(i)"
+              :priority="priorityFor(i)"
+              sizes="(max-width: 767px) 80vw, (max-width: 1023px) 35vw, 25vw"
+            />
           </button>
         </li>
       </ul>
