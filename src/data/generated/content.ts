@@ -438,6 +438,32 @@ export const textFiles: Record<string, TextFile> = {
     },
     "sections": []
   },
+  "works/style/Flair": {
+    "fields": {
+      "標題": "",
+      "模特": "Satii",
+      "IG": "https://www.instagram.com/satii_huang/",
+      "日期": "2026/04",
+      "介紹": "",
+      "順序": "5",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
+  "works/style/Red": {
+    "fields": {
+      "標題": "",
+      "模特": "阿干",
+      "IG": "https://www.instagram.com/pg_gan/",
+      "日期": "2026/08",
+      "介紹": "",
+      "順序": "4",
+      "封面": "",
+      "顯示": "是"
+    },
+    "sections": []
+  },
   "works/style/凝視之後": {
     "fields": {
       "標題": "",
